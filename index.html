@@ -3,169 +3,370 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Riav by Atmos | AI 실내 내비게이션</title>
-    <meta name="description" content="Riav는 GPS가 닿지 않는 실내 공간에서 사용자의 위치를 추정하고 목적지까지 안내하는 AI 실내 내비게이션입니다.">
-    <meta property="og:title" content="Riav by Atmos">
-    <meta property="og:description" content="AI 기반 실내 위치추정과 음성, 진동, 화면 안내로 건물 안 마지막 이동을 돕습니다.">
-    <meta property="og:image" content="/assets/hero-cover.png">
-    <link rel="icon" href="/assets/riav-mark.png">
+    <title>Atmos</title>
+    <meta name="description" content="Atmos는 GPS가 닿지 않는 복합 실내공간에서 사용자의 위치를 AI로 추정하고 목적지까지 음성, 진동, 화면으로 안내하는 실내 내비게이션 인프라입니다.">
+    <meta name="application-name" content="Atmos">
+    <meta name="apple-mobile-web-app-title" content="Atmos">
+    <link rel="canonical" href="https://riav.duckdns.org/">
+    <meta property="og:title" content="Atmos">
+    <meta property="og:description" content="GPS가 닿지 않는 복합 실내공간에서 사용자의 위치를 AI로 추정하고 목적지까지 안내합니다.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://riav.duckdns.org/">
+    <meta property="og:image" content="https://riav.duckdns.org/assets/og-preview-20260625.jpg">
+    <meta property="og:image:secure_url" content="https://riav.duckdns.org/assets/og-preview-20260625.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Riav by Atmos 웹사이트 첫 화면">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Atmos">
+    <meta name="twitter:description" content="GPS가 닿지 않는 복합 실내공간에서 사용자의 위치를 AI로 추정하고 목적지까지 안내합니다.">
+    <meta name="twitter:image" content="https://riav.duckdns.org/assets/og-preview-20260625.jpg">
+    <link rel="icon" href="/favicon.ico?v=20260625">
+    <link rel="icon" type="image/svg+xml" href="/assets/atmos-donut-icon.svg?v=20260625">
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png?v=20260625">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=20260625">
     <link rel="stylesheet" href="/styles.css">
   </head>
   <body>
+    <a class="skip-link" href="#main">본문으로 이동</a>
+
     <header class="site-header" aria-label="상단 메뉴">
-      <a class="brand-link" href="/" aria-label="Riav 홈">
-        <img src="/assets/riav-logo.svg" alt="Riav">
+      <a class="brand-link" href="/" aria-label="Atmos 홈">
+        <img class="brand-logo" src="/assets/atmos-logo.svg" alt="Atmos">
       </a>
-      <nav>
-        <a href="#product">제품</a>
-        <a href="#poc">도입</a>
-        <a href="/privacy.html">개인정보</a>
-        <a class="nav-cta" href="/support.html">문의</a>
+      <nav class="desktop-nav" aria-label="주요 메뉴">
+        <a href="#platform">Platform</a>
+        <a href="#service">서비스</a>
+        <a href="#impact">실증</a>
+        <a href="#programs">도입 모델</a>
+        <a class="nav-cta" href="mailto:atmos.support@gmail.com">도입 문의</a>
       </nav>
+      <details class="mobile-menu">
+        <summary>메뉴</summary>
+        <nav aria-label="모바일 메뉴">
+          <a href="#platform">Platform</a>
+          <a href="#service">서비스</a>
+          <a href="#impact">실증</a>
+          <a href="#programs">도입 모델</a>
+          <a class="nav-cta" href="mailto:atmos.support@gmail.com">도입 문의</a>
+        </nav>
+      </details>
     </header>
 
-    <main>
-      <section class="hero">
-        <img class="hero-bg" src="/assets/hero-cover.png" alt="">
-        <div class="hero-shade"></div>
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-title">
         <div class="hero-content">
-          <img class="hero-logo" src="/assets/riav-logo-by-atmos.svg" alt="Riav by Atmos">
+          <div class="product-lockup" aria-label="Riav by Atmos">
+            <img src="/assets/riav-logo-by-atmos.svg" alt="Riav by Atmos">
+          </div>
           <p class="eyebrow">AI indoor navigation infrastructure</p>
-          <h1>건물 안 마지막 100미터를 안내합니다.</h1>
+          <h1 id="hero-title">누구나 어디든 갈 수 있는 세상</h1>
           <p class="hero-copy">
-            Riav는 GPS가 닿지 않는 병원, 공공기관, 복지시설, 캠퍼스, 전시장 안에서
-            사용자의 위치를 추정하고 목적지까지 음성, 진동, 화면으로 안내합니다.
+            Riav는 GPS가 닿지 않는 병원, 공공기관, 복지시설, 전시장, 건설현장에서
+            사용자의 위치를 AI로 추정하고 목적지까지 음성, 진동, 화면으로 안내하는 솔루션입니다.
           </p>
           <div class="hero-actions">
-            <a class="primary-action" href="mailto:atmos.support@gmail.com">PoC 문의</a>
-            <a class="secondary-action" href="#product">제품 보기</a>
+            <a class="primary-action" href="mailto:atmos.support@gmail.com">도입 문의하기</a>
+            <a class="secondary-action" href="#service">서비스 보기</a>
           </div>
         </div>
-        <div class="hero-signal">
-          <span>현재 TestFlight PoC 운영 중</span>
-          <span>서버: riav.duckdns.org</span>
+        <div class="hero-product" aria-label="Riav 앱 화면">
+          <img class="hero-phone user-phone" src="/assets/app-user-clean.jpg" alt="Riav 목적지 선택 화면">
+          <img class="hero-phone admin-phone" src="/assets/app-admin-clean.jpg" alt="Riav 공간 스캔 시작 화면">
         </div>
       </section>
 
-      <section class="section intro" id="product">
-        <div class="section-kicker">Product</div>
-        <div class="split">
-          <div>
-            <h2>실내 목적지까지 스스로 도착하도록 돕는 안내 경험</h2>
-            <p>
-              지도 앱은 건물 입구까지는 안내하지만, 진료실, 민원실, 상담실, 부스, 환승구처럼
-              실제 실내 목적지까지는 안내하지 못합니다. Riav는 이 공백을 앱, AI 위치추정,
-              공간 데이터, 기관용 리포트로 연결합니다.
-            </p>
-          </div>
-          <div class="metric-grid">
-            <div class="metric-card">
-              <strong>Voice</strong>
-              <span>목적지 음성 입력</span>
-            </div>
-            <div class="metric-card">
-              <strong>Vibration</strong>
-              <span>보행 중 촉각 안내</span>
-            </div>
-            <div class="metric-card">
-              <strong>AI</strong>
-              <span>실내 위치추정</span>
-            </div>
-            <div class="metric-card">
-              <strong>Report</strong>
-              <span>기관용 접근성 데이터</span>
-            </div>
-          </div>
-        </div>
-        <div class="product-showcase">
-          <figure>
-            <img src="/assets/app-user-home.png" alt="Riav 사용자 앱 홈 화면">
-            <figcaption>사용자 앱: 목적지 입력과 안내 시작</figcaption>
-          </figure>
-          <figure>
-            <img src="/assets/service-overview.png" alt="소리블록 서비스 개요 다이어그램">
-            <figcaption>서비스 구조: 앱, 실내 신호, 위치추정, 안내</figcaption>
-          </figure>
-          <figure>
-            <img src="/assets/app-admin-home.png" alt="Riav 관리자 앱 화면">
-            <figcaption>관리자 앱: 공간 스캔, 업로드, AI 처리</figcaption>
-          </figure>
-        </div>
-      </section>
-
-      <section class="section band">
-        <div class="section-kicker">Why</div>
-        <h2>복잡한 실내공간에서 안내는 편의가 아니라 접근성 인프라입니다.</h2>
-        <div class="usecase-grid">
-          <article>
-            <h3>병원</h3>
-            <p>진료실, 검사실, 수납 창구까지의 반복 문의를 줄이고 고령 환자와 보호자의 이동 부담을 낮춥니다.</p>
-          </article>
-          <article>
-            <h3>공공기관</h3>
-            <p>민원실, 상담실, 복지 창구까지 초행 방문자와 이동약자의 접근성을 개선합니다.</p>
-          </article>
-          <article>
-            <h3>복지시설</h3>
-            <p>시각장애인, 고령자, 발달장애인 이용자의 독립 이동과 현장 검증 데이터를 지원합니다.</p>
-          </article>
-          <article>
-            <h3>전시·캠퍼스</h3>
-            <p>부스, 강의실, 행사장, 편의시설을 처음 방문한 사람에게 빠르게 연결합니다.</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="section" id="poc">
-        <div class="section-kicker">PoC</div>
-        <div class="split aligned">
-          <div>
-            <h2>가볍게 검증하고, 하드웨어 연동으로 확장합니다.</h2>
-            <p>
-              Riav는 SW-only Light PoC로 먼저 동선과 사용자 반응을 검증하고,
-              필요 구간에 저비용 엣지보드와 공간 데이터를 결합해 기관 단위 구축으로 확장합니다.
-            </p>
-          </div>
-          <img class="diagram" src="/assets/service-flow.png" alt="목적지 선택부터 도착 기록까지의 서비스 흐름">
-        </div>
-        <div class="poc-steps">
-          <div><span>1</span><strong>공간 선정</strong><p>층, 주요 목적지, 접근성 동선 정의</p></div>
-          <div><span>2</span><strong>지도·신호 구축</strong><p>관리자 앱으로 스캔 후 AI 처리</p></div>
-          <div><span>3</span><strong>사용자 테스트</strong><p>도착 성공률, 이동 시간, 이탈 지점 측정</p></div>
-          <div><span>4</span><strong>도입 리포트</strong><p>기관용 접근성 개선 자료 제공</p></div>
-        </div>
-      </section>
-
-      <section class="section tech-section">
-        <div>
-          <div class="section-kicker">Technology</div>
-          <h2>앱과 서버, AI worker가 분리된 운영 구조</h2>
+      <section class="section visual-section" id="platform" aria-labelledby="platform-title">
+        <div class="visual-copy">
+          <p class="eyebrow">Platform</p>
+          <h2 id="platform-title">앱 하나가 아니라, 실내공간을 운영 가능한 안내 인프라로 바꿉니다</h2>
           <p>
-            사용자 앱은 안정적인 HTTPS 서버에 연결되고, 무거운 AI 처리는 별도 GPU worker에서 수행됩니다.
-            현장 앱은 같은 서버 주소를 사용하므로 PoC 운영 중에도 구조를 단순하게 유지할 수 있습니다.
+            사용자는 Riav에서 목적지를 찾고 안내를 받습니다. 운영자는 공간 데이터를 관리하고,
+            도착 성공률과 이탈 지점을 확인해 다음 개선 구간을 결정합니다.
+          </p>
+          <div class="platform-points" aria-label="플랫폼 구성">
+            <span>Riav 사용자 앱</span>
+            <span>운영자 공간 관리</span>
+            <span>기관용 이동 리포트</span>
+          </div>
+        </div>
+        <div class="platform-flow" aria-label="플랫폼 흐름">
+          <article>
+            <span>01</span>
+            <strong>공간 스캔</strong>
+            <p>운영자가 주요 동선과 목적지를 등록</p>
+          </article>
+          <article>
+            <span>02</span>
+            <strong>AI 경로 구성</strong>
+            <p>위치추정과 경로 그래프를 안내 데이터로 변환</p>
+          </article>
+          <article>
+            <span>03</span>
+            <strong>Riav 안내</strong>
+            <p>사용자는 음성, 진동, 화면으로 목적지까지 이동</p>
+          </article>
+          <article>
+            <span>04</span>
+            <strong>기관 리포트</strong>
+            <p>도착률, 이동 시간, 이탈 지점을 개선 자료로 확인</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="validation-strip" aria-labelledby="validation-title">
+        <div>
+          <p class="eyebrow">Field network</p>
+          <h2 id="validation-title">도입·실증·협의 현장</h2>
+        </div>
+        <ul class="validation-list">
+          <li><span>도입</span>서울 AI스마트시티재단</li>
+          <li><span>PoC</span>한양대학교 학생회관</li>
+          <li><span>지원</span>서울대학교 캠퍼스타운</li>
+          <li><span>협의</span>서울 지하철 9호선</li>
+          <li><span>육성</span>KIST 홍릉강소특구</li>
+          <li><span>검증</span>시각장애인 사용자 PoC</li>
+        </ul>
+      </section>
+
+      <section class="section intro-section" id="service" aria-labelledby="service-title">
+        <div class="section-heading">
+          <p class="eyebrow">Service</p>
+          <h2 id="service-title">지도는 건물 입구까지, Riav는 실제 목적지까지</h2>
+          <p>
+            방문객이 막히는 지점은 주소가 아니라 층, 복도, 분기점, 접수창구, 검사실입니다.
+            Atmos는 이 구간을 실내 위치추정, 경로 안내, 기관용 리포트로 연결합니다.
           </p>
         </div>
-        <img src="/assets/tech-structure.png" alt="앱, Wi-Fi 신호, 위치추정 엔진, 엣지보드, 클라우드 리포트 구조">
+
+        <div class="feature-grid">
+          <article>
+            <span class="feature-kicker">직접 안내</span>
+            <h3>목적지까지 한 번에 이동</h3>
+            <ul>
+              <li>진료실, 상담실, 부스, 민원창구 등 실제 실내 목적지 검색</li>
+              <li>음성, 진동, 화면 안내로 화면을 계속 보지 않아도 이동 가능</li>
+            </ul>
+          </article>
+          <article>
+            <span class="feature-kicker">데이터 투명</span>
+            <h3>기관이 확인하는 이동 리포트</h3>
+            <ul>
+              <li>도착 성공률, 이동 시간, 경로 이탈 지점, 반복 문의 구간 확인</li>
+              <li>접근성 개선, 사회적 가치, 스마트시설 실증 자료로 활용</li>
+            </ul>
+          </article>
+          <article>
+            <span class="feature-kicker">협력 인프라</span>
+            <h3>공간 운영자와 함께 구축</h3>
+            <ul>
+              <li>출입구, 목적지, 분기점, 위험구역, 접근성 동선 등록</li>
+              <li>SW-only Light PoC에서 하드웨어 연동 Standard PoC로 확장</li>
+            </ul>
+          </article>
+          <article>
+            <span class="feature-kicker">AI 공간 데이터</span>
+            <h3>사람과 로봇이 함께 쓰는 기반</h3>
+            <ul>
+              <li>Wi-Fi, RF, 스마트폰 센서 기반 실내 위치 판단</li>
+              <li>공간 경로 그래프와 향후 로봇, AR, 피지컬 AI 연계 가능</li>
+            </ul>
+          </article>
+        </div>
       </section>
 
-      <section class="section cta-section">
+      <section class="section comparison-section" aria-labelledby="gap-title">
+        <div class="section-heading compact">
+          <p class="eyebrow">Last 100m indoor mobility gap</p>
+          <h2 id="gap-title">복지와 안내 예산이 있어도, 현장은 아직 사람이 길을 알려줍니다</h2>
+        </div>
+        <div class="comparison">
+          <article>
+            <span>기존 방식</span>
+            <h3>반복 문의와 동행 안내</h3>
+            <p>방문객은 접수대, 보안요원, 직원에게 계속 길을 묻고 기관은 안내 인력을 반복 투입합니다.</p>
+          </article>
+          <article class="comparison-highlight">
+            <span>Riav</span>
+            <h3>목적지 중심 실내 안내</h3>
+            <p>사용자는 앱에서 목적지를 선택하고, 기관은 이동 데이터를 통해 안내 병목을 확인합니다.</p>
+          </article>
+          <article>
+            <span>도입 효과</span>
+            <h3>접근성과 운영 효율 개선</h3>
+            <p>이동약자와 초행 방문자의 독립 이동을 돕고, 기관은 개선 지표와 리포트를 확보합니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section impact-section" id="impact" aria-labelledby="impact-title">
+        <div class="impact-copy">
+          <p class="eyebrow">Validated movement</p>
+          <h2 id="impact-title">이동이 쉬워졌는지 숫자로 확인합니다</h2>
+          <p>
+            실내 내비게이션은 앱 다운로드 수보다 도착 성공률, 이동 시간, 경로 이탈, 만족도로 평가되어야 합니다.
+            Atmos는 기관 PoC에서 이 지표를 수집해 다음 구축 범위를 결정합니다.
+          </p>
+        </div>
+        <div class="metric-board" aria-label="실증 지표">
+          <article>
+            <span>자력 도착률</span>
+            <strong>26.6% → 93.3%</strong>
+            <p>복합 실내공간 약 300m 이동 과제 기준</p>
+          </article>
+          <article>
+            <span>참여자</span>
+            <strong>23명</strong>
+            <p>시각장애인 사용자 PoC 경험</p>
+          </article>
+          <article>
+            <span>기관 전환</span>
+            <strong>Light → Standard</strong>
+            <p>SW-only 검증 후 하드웨어 연동 구축으로 확장</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section structure-section" aria-labelledby="structure-title">
+        <div class="section-heading">
+          <p class="eyebrow">How it works</p>
+          <h2 id="structure-title">도입은 작게 시작하고, 검증된 공간부터 넓힙니다</h2>
+        </div>
+        <div class="process-grid">
+          <article>
+            <span>01</span>
+            <h3>공간 진단</h3>
+            <p>시설 도면, 주요 목적지, 반복 문의 지점, 이동약자 동선을 확인합니다.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>경로 데이터 구축</h3>
+            <p>출입구, 엘리베이터, 분기점, 목적지, 위험구역을 안내 가능한 그래프로 만듭니다.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>사용자 테스트</h3>
+            <p>초행 방문자와 이동약자 기준으로 도착 성공률, 이동 시간, 만족도를 측정합니다.</p>
+          </article>
+          <article>
+            <span>04</span>
+            <h3>기관 리포트</h3>
+            <p>안내 병목, 접근성 개선 지점, 다음 구축 범위를 정리해 의사결정 자료로 제공합니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section programs-section" id="programs" aria-labelledby="programs-title">
+        <div class="section-heading">
+          <p class="eyebrow">Programs</p>
+          <h2 id="programs-title">기관 목적에 맞춰 다른 도입 모델을 제안합니다</h2>
+        </div>
+        <div class="program-grid">
+          <article>
+            <span>복지·공공시설</span>
+            <h3>이동약자 접근성 PoC</h3>
+            <p>복지관, 공공기관, 병원에서 독립 이동과 공공서비스 접근성을 검증합니다.</p>
+            <ul>
+              <li>접근성 개선 리포트</li>
+              <li>방문객 안내 부담 감소</li>
+              <li>사회적 가치 실증자료</li>
+            </ul>
+          </article>
+          <article>
+            <span>병원·대학·전시장</span>
+            <h3>방문객 실내 안내 구축</h3>
+            <p>목적지가 많고 초행 방문자가 많은 공간에서 반복 문의를 줄입니다.</p>
+            <ul>
+              <li>주요 목적지 경로 안내</li>
+              <li>다국어 확장 가능</li>
+              <li>층간 이동과 분기점 관리</li>
+            </ul>
+          </article>
+          <article>
+            <span>건설·산업시설</span>
+            <h3>작업자 위치·안전 안내</h3>
+            <p>신규 작업자 길찾기, 위험구역 접근 경고, 비상 대피 안내로 확장합니다.</p>
+            <ul>
+              <li>위험구역 접근 로그</li>
+              <li>대피 동선 안내</li>
+              <li>안전관리 리포트</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section technology-section" id="technology" aria-labelledby="technology-title">
+        <div class="tech-copy">
+          <p class="eyebrow">Technology</p>
+          <h2 id="technology-title">사람을 안내하면서, 공간을 데이터로 만듭니다</h2>
+          <p>
+            Riav의 첫 가치는 목적지 안내입니다. 하지만 이동 과정에서 쌓이는 비식별 동선과
+            공간 그래프는 실내공간을 운영하고, 복원하고, 로봇과 공유할 수 있는 데이터 기반이 됩니다.
+          </p>
+        </div>
+        <div class="tech-build" aria-label="핵심 기술 흐름">
+          <div class="tech-map" aria-hidden="true">
+            <span class="map-line line-a"></span>
+            <span class="map-line line-b"></span>
+            <span class="map-line line-c"></span>
+            <span class="map-node node-a"></span>
+            <span class="map-node node-b"></span>
+            <span class="map-node node-c"></span>
+            <span class="map-node node-d"></span>
+            <span class="map-node node-e"></span>
+            <span class="map-room room-a">접수</span>
+            <span class="map-room room-b">상담실</span>
+            <span class="map-room room-c">출구</span>
+          </div>
+          <ol class="tech-sequence">
+            <li>
+              <span>01</span>
+              <strong>실시간 길찾기</strong>
+              <p>Riav 앱으로 인프라 부담을 낮춘 실내 위치추정과 안내를 수행</p>
+            </li>
+            <li>
+              <span>02</span>
+              <strong>비식별 이동 데이터</strong>
+              <p>도착 성공률, 이동 시간, 경로 이탈 지점을 개인 식별 없이 축적</p>
+            </li>
+            <li>
+              <span>03</span>
+              <strong>공간 그래프·복원</strong>
+              <p>동선과 목적지를 연결해 안내 가능한 실내공간 데이터로 정리</p>
+            </li>
+            <li>
+              <span>04</span>
+              <strong>공용 공간 인프라</strong>
+              <p>사람, 로봇, AR, 스마트시설이 함께 쓸 수 있는 실내 데이터로 확장</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="cta-section" aria-labelledby="contact-title">
         <div>
-          <p class="eyebrow">For institutions</p>
-          <h2>실내 이동 접근성 PoC를 시작하세요.</h2>
-          <p>기관명, 공간 규모, 주요 동선, 희망 일정을 보내주시면 도입 범위와 테스트 방식을 제안합니다.</p>
+          <p class="eyebrow">Contact</p>
+          <h2 id="contact-title">복잡한 실내공간을 안내 가능한 인프라로 바꾸고 싶다면 연락 주세요</h2>
+          <p>기관명, 공간 유형, 주요 목적지, 검토 일정을 보내주시면 PoC 가능 범위와 예상 도입 모델을 정리해 답변드립니다.</p>
         </div>
         <a class="primary-action" href="mailto:atmos.support@gmail.com">atmos.support@gmail.com</a>
       </section>
     </main>
 
-    <footer>
-      <img src="/assets/riav-logo.svg" alt="Riav">
+    <footer class="site-footer">
       <div>
+        <a class="footer-brand" href="/" aria-label="Atmos 홈">
+          <img class="footer-logo" src="/assets/atmos-logo.svg" alt="Atmos">
+        </a>
+        <p>AI 실내 내비게이션 인프라</p>
+      </div>
+      <address>
+        <a href="mailto:atmos.support@gmail.com">atmos.support@gmail.com</a>
+      </address>
+      <nav aria-label="푸터 메뉴">
         <a href="/privacy.html">개인정보 처리방침</a>
         <a href="/support.html">지원</a>
-        <a href="mailto:atmos.support@gmail.com">문의</a>
-      </div>
-      <p>© 2026 Atmos. Riav is an AI indoor navigation service by Atmos.</p>
+      </nav>
     </footer>
   </body>
 </html>
