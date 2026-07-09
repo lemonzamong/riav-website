@@ -149,8 +149,8 @@ def draw_ring(img: Image.Image, center: tuple[int, int], outer: int, inner: int,
 
 def draw_logo_lockup(img: Image.Image, x: int, y: int, scale: float = 1.0):
     draw_ring(img, (x + int(32 * scale), y + int(34 * scale)), int(23 * scale), int(10 * scale))
-    draw_text(img, (x + int(72 * scale), y), "Riav", int(56 * scale), INK)
-    draw_text(img, (x + int(75 * scale), y + int(65 * scale)), "by Atmos", int(18 * scale), MUTED)
+    draw_text(img, (x + int(72 * scale), y), "Iruvy Go", int(56 * scale), INK)
+    draw_text(img, (x + int(75 * scale), y + int(65 * scale)), "by Iruvy", int(18 * scale), MUTED)
 
 
 def card(img: Image.Image, box, alpha: int = 222, outline=BRAND_LINE, radius: int = 18):
@@ -311,7 +311,7 @@ def scene_hero(t: float) -> Image.Image:
     draw_wrapped(
         img,
         (140, 690),
-        "Riav는 GPS가 닿지 않는 복합 실내공간에서 사용자의 위치를 AI로 추정하고 목적지까지 음성, 진동, 화면으로 안내합니다.",
+        "Iruvy Go는 GPS가 닿지 않는 복합 실내공간에서 사용자의 위치를 AI로 추정하고 목적지까지 음성, 진동, 화면으로 안내합니다.",
         32,
         760,
         MUTED,
@@ -326,7 +326,7 @@ def scene_hero(t: float) -> Image.Image:
 def scene_problem(t: float) -> Image.Image:
     img = base_bg()
     draw_text(img, (140, 150), "LAST 100M INDOOR MOBILITY GAP", 28, BRAND)
-    draw_text(img, (140, 225), "지도는 건물 입구까지,\nRiav는 실제 목적지까지", 84, INK, spacing=18)
+    draw_text(img, (140, 225), "지도는 건물 입구까지,\nIruvy Go는 실제 목적지까지", 84, INK, spacing=18)
     draw_wrapped(
         img,
         (140, 480),
@@ -354,7 +354,7 @@ def scene_platform(t: float) -> Image.Image:
     steps = [
         ("01", "공간 스캔", "운영자가 주요 동선과 목적지를 등록"),
         ("02", "AI 경로 구성", "위치추정과 경로 그래프를 안내 데이터로 변환"),
-        ("03", "Riav 안내", "사용자는 음성, 진동, 화면으로 목적지까지 이동"),
+        ("03", "Iruvy Go 안내", "사용자는 음성, 진동, 화면으로 목적지까지 이동"),
         ("04", "기관 리포트", "도착률, 이동 시간, 이탈 지점을 개선 자료로 확인"),
     ]
     for i, (num, title, body) in enumerate(steps):
@@ -435,12 +435,12 @@ def scene_validation(t: float) -> Image.Image:
 def scene_contact(t: float) -> Image.Image:
     img = base_bg()
     draw_ring(img, (W // 2, 240), 62, 28)
-    draw_text(img, (W // 2, 335), "Atmos", 88, INK, anchor="mm")
+    draw_text(img, (W // 2, 335), "Iruvy", 88, INK, anchor="mm")
     draw_text(img, (W // 2, 440), "AI 실내 내비게이션 인프라", 54, INK, anchor="mm")
     draw_text(img, (W // 2, 525), "누구나 어디든 갈 수 있는 세상", 42, MUTED, anchor="mm")
     card(img, (540, 650, 1380, 770), alpha=250, radius=22)
-    draw_text(img, (W // 2, 710), "atmos.support@gmail.com", 46, BRAND_DEEP, anchor="mm")
-    draw_text(img, (W // 2, 850), "riav.duckdns.org", 34, MUTED, anchor="mm")
+    draw_text(img, (W // 2, 710), "contact@iruvy.com", 46, BRAND_DEEP, anchor="mm")
+    draw_text(img, (W // 2, 850), "iruvy.com", 34, MUTED, anchor="mm")
     return img
 
 
@@ -468,8 +468,8 @@ def frame_at(t: float) -> Image.Image:
 
 
 def main():
-    out = OUT_DIR / "atmos_riav_promo_33s.mp4"
-    poster = OUT_DIR / "atmos_riav_promo_poster.jpg"
+    out = OUT_DIR / "iruvy_go_promo_33s.mp4"
+    poster = OUT_DIR / "iruvy_go_promo_poster.jpg"
     if out.exists():
         out.unlink()
     if poster.exists():

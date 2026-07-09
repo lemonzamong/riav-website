@@ -158,7 +158,7 @@ def ring(img: Image.Image, center: tuple[int, int], outer: int, inner: int, colo
 def logo_lockup(img: Image.Image, x: int, y: int, app: str) -> None:
     ring(img, (x + 30, y + 34), 23, 10)
     text(img, (x + 72, y - 1), app, 52, INK, "semibold")
-    text(img, (x + 74, y + 62), "by Atmos", 18, MUTED, "semibold")
+    text(img, (x + 74, y + 62), "by Iruvy", 18, MUTED, "semibold")
 
 
 def phone_mockup(img: Image.Image, screen: Image.Image, x: int, y: int, w: int, opacity: int = 255) -> None:
@@ -264,7 +264,7 @@ def user_list_screen(progress: float) -> Image.Image:
         p = ease((progress - 0.38) / 0.28)
         y0 = int(1390 - 50 * (1 - p))
         text(img, (PHONE_W // 2, y0), "현재 위치 주변 목적지", 46, INK, "bold", anchor="mm")
-        cards = [("상담실 201", "Riav 기본 체험 공간"), ("안내 데스크", "Riav 기본 체험 공간")]
+        cards = [("상담실 201", "Iruvy Go 기본 체험 공간"), ("안내 데스크", "Iruvy Go 기본 체험 공간")]
         for i, (title, body) in enumerate(cards):
             x = 65 + i * 515
             y = y0 + 70
@@ -497,10 +497,10 @@ def user_frame(t: float) -> Image.Image:
         stage = "도착 확인과 이동 결과를 한 화면에서 확인"
     title_panel(
         img,
-        "Riav",
+        "Iruvy Go",
         "USER APP DEMO",
         "실내 목적지까지\n혼자 이동하는 경험",
-        "화면을 누르거나 목적지를 선택하면 Riav가 현재 위치에서 실제 목적지까지 단계별로 안내합니다.",
+        "화면을 누르거나 목적지를 선택하면 Iruvy Go가 현재 위치에서 실제 목적지까지 단계별로 안내합니다.",
         stage,
     )
     screen = user_screen_at(t)
@@ -525,7 +525,7 @@ def admin_frame(t: float) -> Image.Image:
         stage = "관리자는 검수 후 사용자 앱에 게시"
     title_panel(
         img,
-        "Riav Admin",
+        "Iruvy Go Admin",
         "ADMIN APP DEMO",
         "공간 스캔부터\n지도 게시까지",
         "관리자는 복잡한 지도 편집 대신 공간을 스캔하고, 서버가 만든 경로와 목적지를 검수한 뒤 게시합니다.",
@@ -551,9 +551,9 @@ def write_video(path: Path, poster: Path, duration: float, frame_fn) -> None:
         path,
         fps=FPS,
         codec="libx264",
-        quality=8,
+        quality=10,
         macro_block_size=1,
-        ffmpeg_params=["-pix_fmt", "yuv420p", "-movflags", "+faststart"],
+        ffmpeg_params=["-pix_fmt", "yuv420p", "-crf", "18", "-preset", "medium"],
     )
     try:
         frames = int(duration * FPS)
@@ -569,19 +569,19 @@ def write_video(path: Path, poster: Path, duration: float, frame_fn) -> None:
 
 def main() -> None:
     write_video(
-        OUT_DIR / "atmos_riav_user_app_demo_24s.mp4",
-        OUT_DIR / "atmos_riav_user_app_demo_poster.jpg",
+        OUT_DIR / "iruvy_go_user_app_demo_24s.mp4",
+        OUT_DIR / "iruvy_go_user_app_demo_poster.jpg",
         USER_DURATION,
         user_frame,
     )
     write_video(
-        OUT_DIR / "atmos_riav_admin_app_demo_25s.mp4",
-        OUT_DIR / "atmos_riav_admin_app_demo_poster.jpg",
+        OUT_DIR / "iruvy_go_admin_app_demo_25s.mp4",
+        OUT_DIR / "iruvy_go_admin_app_demo_poster.jpg",
         ADMIN_DURATION,
         admin_frame,
     )
-    print(OUT_DIR / "atmos_riav_user_app_demo_24s.mp4")
-    print(OUT_DIR / "atmos_riav_admin_app_demo_25s.mp4")
+    print(OUT_DIR / "iruvy_go_user_app_demo_24s.mp4")
+    print(OUT_DIR / "iruvy_go_admin_app_demo_25s.mp4")
 
 
 if __name__ == "__main__":

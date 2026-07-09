@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://riav.duckdns.org/sitemap.xml
+Sitemap: https://iruvy.com/sitemap.xml
