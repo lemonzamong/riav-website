@@ -880,7 +880,7 @@
 }
 
 .program-section .sales-heading p {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .program-cards {
@@ -982,7 +982,7 @@
 .program-note {
   max-width: 54rem;
   margin: 2rem auto 0;
-  color: rgba(255, 255, 255, 0.62);
+  color: rgba(255, 255, 255, 0.88);
   font-size: 0.82rem;
   text-align: center;
 }
