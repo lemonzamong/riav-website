@@ -36,14 +36,6 @@
     node.textContent = String(new Date().getFullYear());
   });
 
-  const heroFilm = document.getElementById("hero-film");
-  if (heroFilm && heroFilm.dataset.autoplaySrc) {
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (!reduceMotion.matches) {
-      heroFilm.src = heroFilm.dataset.autoplaySrc;
-    }
-  }
-
   const audienceTabs = [...document.querySelectorAll("[data-audience-tab]")];
   const audiencePanels = [...document.querySelectorAll("[data-audience-panel]")];
   const audienceTitle = document.querySelector("[data-audience-title]");
