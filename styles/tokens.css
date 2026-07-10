@@ -1,0 +1,52 @@
+@font-face {
+  font-family: "Pretendard";
+  src: url("/assets/fonts-web/Pretendard-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("/assets/fonts-web/Pretendard-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("/assets/fonts-web/Pretendard-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-display: swap;
+}
+
+:root {
+  --brand-700: #503bd7;
+  --brand-600: #6753f8;
+  --brand-500: #7968ff;
+  --brand-100: #e9e5ff;
+  --brand-050: #f5f3ff;
+  --ink-950: #121218;
+  --ink-800: #292936;
+  --ink-650: #505160;
+  --ink-500: #6f7080;
+  --line: #dedee7;
+  --surface: #f7f7fa;
+  --surface-warm: #fbfaf7;
+  --white: #fff;
+  --success: #087f5b;
+  --warning: #9a5b00;
+  --danger: #b42318;
+  --focus: #1769e0;
+  --radius-sm: 0.65rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 2.25rem;
+  --shadow-soft: 0 1.5rem 4rem rgba(18, 18, 24, 0.1);
+  --shadow-phone: 0 2rem 5rem rgba(18, 18, 24, 0.2);
+  --content: 76rem;
+  --reading: 45rem;
+  --gutter: clamp(1.25rem, 4vw, 4.5rem);
+  --section: clamp(5rem, 10vw, 9rem);
+  --ease: cubic-bezier(0.2, 0.75, 0.2, 1);
+}
+
