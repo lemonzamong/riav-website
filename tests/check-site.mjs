@@ -51,7 +51,7 @@ for (const page of pages) {
   }
 }
 
-for (const css of ["tokens.css", "base.css", "components.css", "pages.css"]) {
+for (const css of ["tokens.css", "base.css", "components.css", "pages.css", "home.css"]) {
   const text = readFileSync(join(root, "styles", css), "utf8");
   if (/@import\s+url\(["']?https?:/i.test(text)) errors.push(`styles/${css}: 외부 CSS 요청 발견`);
 }

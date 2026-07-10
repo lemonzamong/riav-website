@@ -36,6 +36,46 @@
     node.textContent = String(new Date().getFullYear());
   });
 
+  const audienceTabs = [...document.querySelectorAll("[data-audience-tab]")];
+  const audiencePanels = [...document.querySelectorAll("[data-audience-panel]")];
+  const audienceTitle = document.querySelector("[data-audience-title]");
+
+  if (audienceTabs.length && audiencePanels.length) {
+    const activateAudience = (tab, moveFocus = false) => {
+      const key = tab.dataset.audienceTab;
+
+      audienceTabs.forEach((item) => {
+        const selected = item === tab;
+        item.setAttribute("aria-selected", String(selected));
+        item.tabIndex = selected ? 0 : -1;
+      });
+
+      audiencePanels.forEach((panel) => {
+        panel.hidden = panel.dataset.audiencePanel !== key;
+      });
+
+      if (audienceTitle) audienceTitle.textContent = tab.textContent.trim();
+      if (moveFocus) tab.focus();
+    };
+
+    audienceTabs.forEach((tab, index) => {
+      tab.addEventListener("click", () => activateAudience(tab));
+      tab.addEventListener("keydown", (event) => {
+        if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+        event.preventDefault();
+
+        let nextIndex = index;
+        if (event.key === "ArrowLeft") nextIndex = (index - 1 + audienceTabs.length) % audienceTabs.length;
+        if (event.key === "ArrowRight") nextIndex = (index + 1) % audienceTabs.length;
+        if (event.key === "Home") nextIndex = 0;
+        if (event.key === "End") nextIndex = audienceTabs.length - 1;
+        activateAudience(audienceTabs[nextIndex], true);
+      });
+    });
+
+    activateAudience(audienceTabs.find((tab) => tab.getAttribute("aria-selected") === "true") || audienceTabs[0]);
+  }
+
   const form = document.querySelector("[data-contact-form]");
   const status = document.querySelector("[data-form-status]");
 
