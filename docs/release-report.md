@@ -138,6 +138,8 @@ website/
 - Caddy API 분기(`/v1`, `/health`, `/docs`)는 변경하지 않음
 - 외부 HTTPS에서 9개 공개 경로와 사이트맵·로봇 설정 모두 200 응답 확인
 - 운영 홈페이지와 공유 이미지 해시가 로컬 검증본과 일치함을 확인
+- 공개 HTML 경로는 배포 전 문서가 남지 않도록 `Cache-Control: no-cache, no-store, must-revalidate` 적용
+- CSS, 이미지 등 정적 자산에는 HTML 전용 캐시 정책을 적용하지 않음
 
 ## 다음 운영 반영 절차
 
