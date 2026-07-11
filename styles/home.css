@@ -26,7 +26,11 @@
   min-height: 2.7rem;
   padding: 0 1.1rem;
   color: var(--white);
-  background: var(--ink-950);
+  background: var(--brand-700);
+}
+
+.sales-header .site-nav .nav-cta:hover {
+  background: var(--brand-600);
 }
 
 .sales-container {
