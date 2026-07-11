@@ -108,6 +108,10 @@
   margin-top: 2rem;
 }
 
+.sales-hero .button--ghost {
+  border-color: var(--brand-700);
+}
+
 .sales-hero__product {
   position: relative;
   min-height: clamp(30rem, 44vw, 36rem);
@@ -1009,6 +1013,7 @@
 @media (max-width: 960px) {
   .sales-header .site-nav {
     position: fixed;
+    top: 5rem;
   }
 
   .sales-hero {
@@ -1077,6 +1082,10 @@
 
   .sales-header .header-inner {
     min-height: 4.4rem;
+  }
+
+  .sales-header .site-nav {
+    top: 4.4rem;
   }
 
   .sales-hero {

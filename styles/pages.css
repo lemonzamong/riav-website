@@ -321,7 +321,6 @@
 }
 
 @media (max-width: 960px) {
-  .hero-grid,
   .problem-grid,
   .product-story,
   .technology-story,
@@ -329,14 +328,6 @@
   .page-hero-grid,
   .contact-grid {
     grid-template-columns: 1fr;
-  }
-
-  .hero {
-    min-height: auto;
-  }
-
-  .hero-map {
-    min-height: 28rem;
   }
 
   .phone-stage {
@@ -353,14 +344,6 @@
 }
 
 @media (max-width: 680px) {
-  .hero-grid {
-    padding-top: 4rem;
-  }
-
-  .hero-map {
-    min-height: 24rem;
-    border-radius: var(--radius-lg);
-  }
 
   .phone-stage {
     min-height: 27rem;

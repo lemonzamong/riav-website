@@ -2,6 +2,21 @@
 
 이 디렉터리는 웹사이트의 전략, 구현 판단, 검증 결과를 한곳에서 추적한다.
 
+## 정본 문서 (마스터 프롬프트 체계, 2026-07-11 신규)
+
+대문자·언더스코어 파일이 현행 정본이며, 아래 소문자·하이픈 파일은 이전(codex) 작업본으로 참조·보존한다. 내용 충돌 시 정본이 우선.
+
+- `../AGENTS.md`: 미래 에이전트 작업 가이드(원칙·규약·명령·배포·위험)
+- `PROJECT_AUDIT.md` / `PROJECT_BRIEF.md`: 감사 · 브리프
+- `RESEARCH_PLAN.md` / `RESEARCH_LOG.md` + `../research/`: 리서치 계획·해석·원문(벤치마크·표준/조달·청중/반증)
+- `STRATEGY.md` / `AUDIENCE.md` / `POSITIONING.md`: 전략·청중·포지셔닝
+- `INFORMATION_ARCHITECTURE.md` / `CONTENT_STRATEGY.md` / `DESIGN_SYSTEM.md` / `ACCESSIBILITY.md`: IA·콘텐츠·디자인·접근성
+- `EVIDENCE.md`: 주장-근거 대응표(과장 방지)
+- `IMPLEMENTATION_PLAN.md` / `ASSUMPTIONS.md` / `DECISIONS.md`(=`decisions.md`) / `CHANGELOG.md` / `TASKS.md`
+- `QA_PLAN.md` / `QA_REPORT.md` / `review-report-2026-07-11.md`(독립 검토) / `FINAL_HANDOFF.md`
+
+## 기존 문서 (codex, 참조·보존)
+
 - `repository-audit.md`: 변경 전 저장소, 자산, 콘텐츠, 위험 감사
 - `project-plan.md`: 단계별 작업과 완료 기준
 - `information-architecture.md`: 방문자 흐름, 메뉴, 경로 구조
