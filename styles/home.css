@@ -1023,8 +1023,8 @@
   }
 
   .sales-hero {
-    width: calc(100% - 1rem);
-    border-radius: 0 0 1.5rem 1.5rem;
+    width: 100%;
+    border-radius: 0;
   }
 
   .sales-hero h1 {
