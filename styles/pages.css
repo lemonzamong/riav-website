@@ -208,7 +208,7 @@
 
 .page-hero {
   padding-block: clamp(5rem, 10vw, 9rem);
-  background: var(--surface-warm);
+  background: transparent;
 }
 
 .page-hero h1 {

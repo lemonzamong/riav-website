@@ -44,7 +44,7 @@ human-centered + technical precision + enterprise infrastructure. "착한 복지
 - **버튼:** 기본(ink-950 채움) / `--brand`(보라 채움, primary) / `--light`(흰색, 다크 배경용) / `--ghost`(외곽선, 라이트 배경 보조) / `--glass`(반투명, 다크 히어로 잔존). hover는 보라로 채워짐.
 - **히어로(홈):** 라이트 그라디언트(`#f8f7ff→#fff→#eef1ff` + 우상단 보라 radial), 좌 콘텐츠(제품 로고 락업 + eyebrow + h1 + 카피 + CTA 2) / 우 앱 목업 2개(오버랩, 다크 베젤 0.5rem·radius 2rem). 목업은 현재 브랜드만.
 - **eyebrow(kicker):** 대문자·800·보라(`--brand-700`, 라이트 배경). 다크 섹션에선 밝은 보라/흰색.
-- **섹션 리듬:** 라이트/소프트/다크(`--ink-950`)/브랜드(`--brand-700`) 교차. 결론형 헤드라인(주제어 단독 금지) 지향.
+- **연속 배경(2026-07-11 통일):** 전 페이지가 **하나의 라벤더 기운 흰색 필드** 위에 흐른다. `body`에 고정(`background-attachment: fixed`) 그라디언트(`#f8f7ff→#fff→#f5f3ff→#eceaff` + 소프트 보라 radial 블룸)를 깔고, **모든 섹션은 배경 투명**. PPT식 색 밴드(검정 `--ink-950`·베이지 `--surface-warm`·보라 `--brand-700` full-bleed) 금지. 콘텐츠는 흰색/연한 카드로 필드 위에 뜨게 하고, 다크 섹션이던 곳(proof·program·final-cta·section--ink/brand)은 다크 텍스트로 전환. 헤드라인은 결론형(주제어 단독 금지).
 
 ## 접근성 연동
 

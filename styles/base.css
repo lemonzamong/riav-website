@@ -12,7 +12,14 @@ html {
 body {
   margin: 0;
   color: var(--ink-950);
-  background: var(--white);
+  background-color: #f7f6ff;
+  background-image:
+    radial-gradient(55rem 55rem at 88% -8%, rgba(103, 83, 248, 0.1), transparent 60%),
+    radial-gradient(50rem 50rem at -8% 32%, rgba(103, 83, 248, 0.06), transparent 58%),
+    radial-gradient(60rem 60rem at 108% 82%, rgba(103, 83, 248, 0.07), transparent 60%),
+    linear-gradient(180deg, #f8f7ff 0%, #ffffff 40%, #f5f3ff 72%, #eceaff 100%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
   font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
   word-break: keep-all;
   overflow-wrap: break-word;
@@ -142,24 +149,24 @@ p:last-child {
 }
 
 .section--soft {
-  background: var(--surface);
+  background: transparent;
 }
 
 .section--brand {
-  color: var(--white);
-  background: var(--brand-700);
+  color: var(--ink-950);
+  background: transparent;
 }
 
 .section--ink {
-  color: var(--white);
-  background: var(--ink-950);
+  color: var(--ink-950);
+  background: transparent;
 }
 
 .section--brand p,
 .section--brand li,
 .section--ink p,
 .section--ink li {
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--ink-650);
 }
 
 .eyebrow {
@@ -174,7 +181,7 @@ p:last-child {
 
 .section--brand .eyebrow,
 .section--ink .eyebrow {
-  color: var(--brand-100);
+  color: var(--brand-700);
 }
 
 .lede {

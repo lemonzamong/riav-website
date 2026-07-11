@@ -40,7 +40,7 @@
 
 .sales-kicker {
   margin: 0 0 1rem;
-  color: rgba(255, 255, 255, 0.64);
+  color: var(--brand-700);
   font-size: 0.76rem;
   line-height: 1.3;
   font-weight: 800;
@@ -57,9 +57,7 @@
   padding: clamp(2.5rem, 5vw, 5rem) clamp(1.25rem, 4vw, 4.5rem) clamp(2.75rem, 4vw, 4.25rem);
   overflow: hidden;
   color: var(--ink-950);
-  background:
-    radial-gradient(circle at 84% 12%, rgba(103, 83, 248, 0.14), transparent 32%),
-    linear-gradient(150deg, #f8f7ff 0%, #ffffff 46%, #eef1ff 100%);
+  background: transparent;
   isolation: isolate;
 }
 
@@ -155,7 +153,7 @@
 }
 
 .audience-section {
-  background: var(--white);
+  background: transparent;
 }
 
 .audience-intro {
@@ -332,8 +330,8 @@
 }
 
 .proof-section {
-  color: var(--white);
-  background: var(--ink-950);
+  color: var(--ink-950);
+  background: transparent;
 }
 
 .proof-heading {
@@ -343,20 +341,20 @@
 
 .proof-heading h2 {
   margin-bottom: 1.5rem;
-  color: var(--white);
+  color: var(--ink-950);
   font-size: clamp(2.7rem, 5.5vw, 5.6rem);
 }
 
 .proof-heading p:last-child {
   max-width: 48rem;
-  color: rgba(255, 255, 255, 0.58);
+  color: var(--ink-650);
 }
 
 .proof-metrics {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  border-top: 1px solid rgba(255, 255, 255, 0.16);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
 }
 
 .proof-metrics article {
@@ -364,19 +362,19 @@
 }
 
 .proof-metrics article + article {
-  border-left: 1px solid rgba(255, 255, 255, 0.16);
+  border-left: 1px solid var(--line);
 }
 
 .proof-metrics span {
   display: block;
   margin-bottom: 2.5rem;
-  color: rgba(255, 255, 255, 0.56);
+  color: var(--ink-500);
   font-size: 0.82rem;
 }
 
 .proof-metrics strong {
   display: block;
-  color: var(--white);
+  color: var(--ink-950);
   font-size: clamp(2.5rem, 4.7vw, 4.9rem);
   line-height: 0.95;
   letter-spacing: -0.06em;
@@ -385,13 +383,13 @@
 
 .proof-metrics small {
   margin-left: 0.2rem;
-  color: #a99bff;
+  color: var(--brand-600);
   font-size: 0.42em;
 }
 
 .proof-metrics p {
   margin-top: 0.65rem;
-  color: #a99bff;
+  color: var(--brand-700);
   font-size: 0.85rem;
 }
 
@@ -406,13 +404,14 @@
 .proof-compare > div:not(.proof-compare__route) {
   min-height: 15rem;
   padding: clamp(1.5rem, 3vw, 2.5rem);
-  background: rgba(255, 255, 255, 0.055);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: var(--white);
+  border: 1px solid var(--line);
   border-radius: 1.5rem;
+  box-shadow: 0 1rem 2.6rem rgba(18, 18, 24, 0.05);
 }
 
 .proof-compare span {
-  color: #a99bff;
+  color: var(--brand-700);
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.12em;
@@ -421,12 +420,12 @@
 .proof-compare strong {
   display: block;
   margin: 2rem 0 0.8rem;
-  color: var(--white);
+  color: var(--ink-950);
   font-size: clamp(1.35rem, 2.2vw, 2rem);
 }
 
 .proof-compare p {
-  color: rgba(255, 255, 255, 0.58);
+  color: var(--ink-650);
   font-size: 0.94rem;
 }
 
@@ -443,7 +442,7 @@
   top: 50%;
   width: 1.2rem;
   height: 1.2rem;
-  background: var(--ink-950);
+  background: var(--white);
   border: 0.3rem solid var(--brand-600);
   border-radius: 50%;
   transform: translateY(-50%);
@@ -455,7 +454,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  color: var(--white);
+  color: var(--brand-700);
   font-style: normal;
   transform: translate(-50%, -50%);
 }
@@ -465,12 +464,12 @@
   display: flex;
   gap: 0.5rem;
   margin: 3rem auto 0;
-  color: var(--white);
+  color: var(--brand-700);
   text-underline-offset: 0.25em;
 }
 
 .system-section {
-  background: var(--surface-warm);
+  background: transparent;
 }
 
 .system-grid {
@@ -611,7 +610,7 @@
 }
 
 .solution-section {
-  background: var(--white);
+  background: transparent;
 }
 
 .sales-heading {
@@ -731,7 +730,7 @@
 }
 
 .relationship-section {
-  background: var(--surface-warm);
+  background: transparent;
 }
 
 .relationship-grid {
@@ -769,20 +768,20 @@
 }
 
 .program-section {
-  color: var(--white);
-  background: var(--brand-700);
+  color: var(--ink-950);
+  background: transparent;
 }
 
 .program-section .sales-kicker {
-  color: #d8d2ff;
+  color: var(--brand-700);
 }
 
 .program-section h2 {
-  color: var(--white);
+  color: var(--ink-950);
 }
 
 .program-section .sales-heading p {
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--ink-650);
 }
 
 .program-cards {
@@ -884,7 +883,7 @@
 .program-note {
   max-width: 54rem;
   margin: 2rem auto 0;
-  color: rgba(255, 255, 255, 0.88);
+  color: var(--ink-500);
   font-size: 0.82rem;
   text-align: center;
 }
@@ -896,8 +895,8 @@
   align-items: center;
   justify-content: center;
   padding: 5rem var(--gutter);
-  color: var(--white);
-  background: var(--ink-950);
+  color: var(--ink-950);
+  background: transparent;
   overflow: hidden;
   text-align: center;
 }
@@ -908,14 +907,14 @@
 }
 
 .final-sales-cta h2 {
-  color: var(--white);
+  color: var(--ink-950);
   font-size: clamp(2.5rem, 5vw, 5rem);
 }
 
 .final-sales-cta p:not(.sales-kicker) {
   max-width: 42rem;
   margin-inline: auto;
-  color: rgba(255, 255, 255, 0.64);
+  color: var(--ink-650);
 }
 
 .final-sales-cta .action-row {
@@ -924,7 +923,7 @@
 
 .final-sales-cta__close {
   margin-top: 2rem;
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--ink-500);
   font-size: 0.98rem;
   font-weight: 600;
 }

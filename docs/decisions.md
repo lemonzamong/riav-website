@@ -68,3 +68,9 @@
   - 감정 문구("누구나, 어디든 갈 수 있도록")를 마무리로 강등. title/og를 구매자-결과로.
 - 검증: 데스크톱/모바일 육안, 섹션 순서·단일 h1·오버플로우 0·안심 카드 확인. check-site 통과.
 - 상세: `docs/STRATEGY.md`, `docs/AUDIENCE.md`, `docs/INFORMATION_ARCHITECTURE.md`, `research/notes/audience_and_disconfirming.md`.
+
+## 2026-07-11 — 배경 통일: 연속 라벤더 필드 (배포됨)
+
+- 맥락: 대표 지적 — 검정·베이지 섹션 배경이 PPT처럼 칸 나뉘어 어색. 원래 톤인 "약간 보라 섞인 흰색" 하나로 통일 요청, 물 흐르듯 자연스럽게.
+- 선택: `body`에 고정 라벤더-흰색 그라디언트(+소프트 보라 radial). 전 섹션 배경 투명. 다크였던 섹션(proof·program·final-cta·section--ink/brand·page-hero)을 다크 텍스트로 전환, kicker 기본색 브랜드 보라, ghost 버튼 경계 브랜드로.
+- 검증: 홈+서브페이지 계산값(섹션 bg 투명·텍스트 다크)·가독성·오버플로우 0(1280px)·시각 확인.

@@ -93,7 +93,7 @@
 .button--ghost {
   color: var(--ink-950);
   background: transparent;
-  border-color: var(--line);
+  border-color: var(--brand-700);
 }
 
 .button--ghost:hover {
