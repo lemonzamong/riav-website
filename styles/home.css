@@ -24,6 +24,9 @@
 
 .sales-header .site-nav .nav-cta {
   min-height: 2.7rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 0 1.1rem;
   color: var(--white);
   background: var(--brand-700);
