@@ -277,7 +277,7 @@ writeFileSync(join(out, "404.html"), notFound);
 writeFileSync(join(out, "robots.txt"), `User-agent: *\nAllow: /\n\nSitemap: https://iruvy.com/sitemap.xml\n`);
 writeFileSync(join(out, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${routes.map(([route]) => `  <url><loc>https://iruvy.com/${route ? `${route}/` : ""}</loc><lastmod>${today}</lastmod></url>`).join("\n")}\n</urlset>\n`);
 
-const worker = `export default { async fetch(request) { return new Response("Iruvy Flow", { status: 200, headers: { "content-type": "text/plain; charset=utf-8" } }); } };\n`;
+const worker = `export default { async fetch(request, env) { return env.ASSETS.fetch(request); } };\n`;
 mkdirSync(join(out, "server"), { recursive: true });
 writeFileSync(join(out, "server", "index.js"), worker);
 mkdirSync(join(out, ".openai"), { recursive: true });
