@@ -257,7 +257,8 @@ for (const file of ["Pretendard-Regular.woff2", "Pretendard-SemiBold.woff2", "Pr
 }
 for (const file of ["iruvy-logo.svg"]) cpSync(join(root, "assets", file), join(out, "assets", file));
 for (const file of ["favicon.ico"]) cpSync(join(root, file), join(out, file));
-if (existsSync(join(root, "assets", "og-flow.png"))) cpSync(join(root, "assets", "og-flow.png"), join(out, "assets", "og.png"));
+if (existsSync(join(root, "assets", "og-flow-brand.png"))) cpSync(join(root, "assets", "og-flow-brand.png"), join(out, "assets", "og.png"));
+else if (existsSync(join(root, "assets", "og-flow.png"))) cpSync(join(root, "assets", "og-flow.png"), join(out, "assets", "og.png"));
 else if (existsSync(join(root, "assets", "og-iruvy.png"))) cpSync(join(root, "assets", "og-iruvy.png"), join(out, "assets", "og.png"));
 
 for (const [route, title, description] of routes) {
