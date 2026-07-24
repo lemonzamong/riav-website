@@ -1,0 +1,96 @@
+iruvy.com, www.iruvy.com, riav.duckdns.org, 15-165-254-36.sslip.io {
+	encode zstd gzip
+
+	@startup_report path /startup-report/*
+	header @startup_report Cache-Control "no-cache, no-store, must-revalidate"
+	header @startup_report Pragma "no-cache"
+	header @startup_report Expires "0"
+
+	@blocked path /.git* /.env* /.ssh* /Caddyfile
+	handle @blocked {
+		respond 404
+	}
+
+	@privacy_legacy path /privacy.html
+	redir @privacy_legacy /privacy/ 301
+
+	@retired_marketing path /go /go/* /guide /guide/* /pricing /pricing/* /solutions /solutions/* /cases /cases/* /proof /proof/* /product /product/* /resources /resources/*
+	handle @retired_marketing {
+		respond 410
+	}
+
+	@flow_testbed_root path /flow/testbed
+	redir @flow_testbed_root /flow/testbed/ 308
+
+	@admin_root path /admin
+	redir @admin_root /admin/ 308
+
+	handle_path /admin/* {
+		root * /var/www/iruvy-admin
+		try_files {path} /index.html
+		header Cache-Control "no-cache, no-store, must-revalidate"
+		header Pragma "no-cache"
+		header Expires "0"
+		file_server
+	}
+
+	handle_path /flow/testbed/* {
+		reverse_proxy 127.0.0.1:8430
+	}
+
+	@contact_api path /api/contact /api/events
+	handle @contact_api {
+		reverse_proxy 127.0.0.1:8431
+	}
+
+	@api path /v1/* /health /docs* /openapi.json /redoc*
+	handle @api {
+		reverse_proxy 127.0.0.1:8420
+	}
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; frame-src https://www.youtube-nocookie.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+		-Server
+	}
+
+	@site_html path_regexp site_html ^(?:/$|.*/$|.*\.html$)
+	header @site_html Cache-Control "no-cache, must-revalidate"
+	header @site_html Pragma "no-cache"
+	header @site_html Expires "0"
+
+	@static_assets path *.css *.js *.svg *.png *.jpg *.jpeg *.webp *.woff2
+	header @static_assets Cache-Control "public, max-age=2592000, stale-while-revalidate=86400"
+
+	handle {
+		root * /var/www/riav/dist
+		try_files {path} {path}/ =404
+		file_server
+	}
+
+	handle_errors {
+		root * /var/www/riav/dist
+		header {
+			Strict-Transport-Security "max-age=31536000; includeSubDomains"
+			Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; frame-src https://www.youtube-nocookie.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+			X-Content-Type-Options "nosniff"
+			X-Frame-Options "DENY"
+			Referrer-Policy "strict-origin-when-cross-origin"
+			Permissions-Policy "camera=(), microphone=(), geolocation=()"
+			-Server
+		}
+		@server_error expression `{http.error.status_code} >= 500`
+		handle @server_error {
+			rewrite * /500.html
+			file_server
+		}
+		handle {
+			rewrite * /404.html
+			file_server
+		}
+	}
+}

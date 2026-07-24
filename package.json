@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "node tests/check-site.mjs",
-    "check": "node tests/check-site.mjs",
-    "serve": "python3 -m http.server 4173"
+    "build": "node tools/build_flow_site.mjs && node tests/check-flow-site.mjs",
+    "check": "node tests/check-flow-site.mjs",
+    "test": "node tests/check-flow-site.mjs && PYTHONPATH=server python3 -m unittest server/test_contact_api.py",
+    "serve": "python3 -m http.server 4173 --directory dist"
   }
 }
