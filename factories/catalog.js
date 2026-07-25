@@ -1,9 +1,9 @@
 (() => {
   const positions = {
-    seoul:[4,3], busan:[8,8], daegu:[7,6], incheon:[3,3], gwangju:[4,8],
-    daejeon:[5,6], ulsan:[9,7], sejong:[5,5], gyeonggi:[4,2], gangwon:[7,2],
-    chungbuk:[6,4], chungnam:[4,5], jeonbuk:[5,7], jeonnam:[4,9],
-    gyeongbuk:[8,5], gyeongnam:[7,8], jeju:[2,11]
+    seoul:[3,3], busan:[9,8], daegu:[7,6], incheon:[1,3], gwangju:[3,8],
+    daejeon:[5,6], ulsan:[9,7], sejong:[3,6], gyeonggi:[5,2], gangwon:[7,1],
+    chungbuk:[5,4], chungnam:[3,4], jeonbuk:[5,7], jeonnam:[3,9],
+    gyeongbuk:[7,4], gyeongnam:[7,8], jeju:[1,11]
   };
   const $ = (id) => document.getElementById(id);
   const state = { index:null, region:null, category:null, tab:"all", rows:[], shown:60, query:"" };
