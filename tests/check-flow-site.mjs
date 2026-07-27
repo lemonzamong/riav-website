@@ -42,7 +42,6 @@ for (const page of pages) {
 
 const home = readFileSync(join(dist, "index.html"), "utf8");
 if (!home.includes("설비가 멈추고 납기가 밀릴 때")) errors.push("홈 핵심 헤드라인 누락");
-if (!home.includes("SYNTHETIC DATA")) errors.push("합성 데이터 표기 누락");
 if (!/관리자.*승인/.test(home)) errors.push("관리자 승인 메시지 누락");
 if (!home.includes("우리 공장 적합성 확인")) errors.push("홈 전환 CTA 누락");
 if (!home.includes("첫 문의에 원본 데이터 불필요")) errors.push("홈 위험 완화 문구 누락");
