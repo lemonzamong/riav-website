@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const out = join(root, "dist");
-const vTag = `20260728-v7-${Date.now()}`;
+const vTag = `20260728-v8-${Date.now()}`;
 const today = "2026-07-28";
 
 const routes = [
@@ -33,7 +33,6 @@ const header = (route = "") => `
   <div class="shell header-inner">
     <a class="brand" href="/" aria-label="Iruvy 홈">
       <span class="brand-word" aria-hidden="true"><i>I</i>ruvy</span>
-      <span class="brand-system-tag">FLOW CORE</span>
     </a>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>메뉴</button>
     <nav class="site-nav" id="site-nav" aria-label="주요 메뉴" data-nav>
@@ -418,7 +417,7 @@ const home = `
     <div>
       <div class="sys-tag">적합성 진단 프로그램</div>
       <h2>현장 데이터로 우리 공장의<br>병목과 캐파를 진단합니다.</h2>
-      <p class="lede">최근 납기 지연 사례 1건을 바탕으로 제약 지도 작성, 데이터 준비도 평가, 의사결정 콘솔 시뮬레이션을 진행합니다.</p>
+      <p.lede">최근 납기 지연 사례 1건을 바탕으로 제약 지도 작성, 데이터 준비도 평가, 의사결정 콘솔 시뮬레이션을 진행합니다.</p>
       <div class="actions"><a class="button primary" href="/capacity-lab/#apply" data-event="design_partner_view">우리 공장 적합성 확인</a></div>
     </div>
     <ul class="check-list">
@@ -865,4 +864,4 @@ writeFileSync(join(root, "index.html"), readFileSync(join(out, "index.html")));
 writeFileSync(join(root, "styles", "sales.css"), readFileSync(join(root, "site-src", "styles.css")));
 writeFileSync(join(root, "scripts", "site.js"), readFileSync(join(root, "site-src", "site.js")));
 
-console.log(`Built Iruvy Flow site with clean natural labels ${vTag}`);
+console.log(`Built Iruvy Flow site cleanly without FLOW CORE tag ${vTag}`);
