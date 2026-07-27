@@ -253,6 +253,123 @@
   border-radius: var(--radius-xl);
 }
 
+.company-hero .brand-shell {
+  max-width: 78rem;
+}
+
+.company-thesis {
+  margin-top: clamp(2.5rem, 6vw, 5rem);
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: clamp(2.5rem, 6vw, 5rem);
+  padding: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+.team-grid article {
+  min-height: 15rem;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  background: var(--white);
+}
+
+.team-grid span,
+.form-context span {
+  color: var(--brand-700);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.team-grid h3 {
+  margin-top: 2.5rem;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+}
+
+.evidence-note {
+  margin-top: 1.25rem;
+  color: var(--ink-500);
+  font-size: 0.86rem;
+}
+
+.inquiry-options {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.inquiry-options label {
+  position: relative;
+  cursor: pointer;
+}
+
+.inquiry-options input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.inquiry-options span {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 1.15rem 1.25rem;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  transition: border-color 160ms var(--ease), box-shadow 160ms var(--ease);
+}
+
+.inquiry-options input:checked + span {
+  border-color: var(--brand-700);
+  box-shadow: 0 0 0 3px var(--brand-100);
+}
+
+.inquiry-options input:focus-visible + span {
+  outline: 3px solid var(--ink-950);
+  outline-offset: 3px;
+}
+
+.inquiry-options small {
+  color: var(--ink-500);
+}
+
+.form-context {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1rem 1.1rem;
+  background: var(--brand-050);
+  border-radius: var(--radius-md);
+}
+
+.form-context strong {
+  color: var(--ink-800);
+  font-size: 0.95rem;
+}
+
+.contact-steps {
+  margin-top: 2.5rem;
+}
+
+.direct-mail {
+  margin-top: 2rem;
+}
+
+@media (max-width: 760px) {
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .form-row {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

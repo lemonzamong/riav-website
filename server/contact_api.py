@@ -3,6 +3,10 @@
 
 from __future__ import annotations
 
+import base64
+import binascii
+import hashlib
+import hmac
 import json
 import os
 import re
@@ -15,6 +19,9 @@ from collections import defaultdict, deque
 from datetime import datetime, timezone
 from email.message import EmailMessage
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from urllib.error import HTTPError, URLError
+from urllib.parse import parse_qs, urlsplit
+from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 
 
@@ -27,6 +34,9 @@ SMTP_PASSWORD = os.environ.get("CONTACT_SMTP_PASSWORD", "")
 MAIL_FROM = os.environ.get("CONTACT_MAIL_FROM", SMTP_USERNAME)
 MAIL_TO = os.environ.get("CONTACT_MAIL_TO", "iruvy.official@gmail.com")
 DB_PATH = os.environ.get("CONTACT_DB_PATH", "/var/lib/iruvy-contact/leads.db")
+RELAY_SECRET = os.environ.get("OUTREACH_RELAY_SECRET", "")
+RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "")
+RESEND_WEBHOOK_SECRET = os.environ.get("RESEND_WEBHOOK_SECRET", "")
 CONSENT_VERSION = "privacy-2026-07-24"
 LOCAL_TIMEZONE = ZoneInfo(os.environ.get("CONTACT_TIMEZONE", "Asia/Seoul"))
 ALLOWED_ORIGINS = {
@@ -38,6 +48,7 @@ ALLOWED_ORIGINS = {
     if origin.strip()
 }
 MAX_BODY_BYTES = 32_768
+MAX_WEBHOOK_BODY_BYTES = 262_144
 RATE_WINDOW_SECONDS = 600
 RATE_LIMIT = 5
 EMAIL_RE = re.compile(r"^[^\s@]+@[^\s@]+\.[^\s@]+$")
@@ -105,7 +116,7 @@ def validate(payload: object) -> tuple[dict[str, str] | None, str | None]:
         return None, "spam"
     if data["inquiry"] not in INQUIRIES:
         return None, "invalid_inquiry"
-    if not all(data[field] for field in ("name", "organization", "phone", "role", "environment", "scope", "timeline")):
+    if not all(data[field] for field in ("name", "organization", "role", "environment", "scope", "timeline")):
         return None, "missing_required"
     if data["privacy"] != "agreed":
         return None, "privacy_required"
@@ -198,6 +209,33 @@ def database() -> sqlite3.Connection:
             session_id TEXT NOT NULL DEFAULT ''
         );
         CREATE INDEX IF NOT EXISTS idx_analytics_event_time ON analytics_events(event_name, created_at DESC);
+        CREATE TABLE IF NOT EXISTS outreach_contacts (
+            email TEXT PRIMARY KEY,
+            unsubscribe_token TEXT NOT NULL UNIQUE,
+            opted_out INTEGER NOT NULL DEFAULT 0,
+            updated_at TEXT NOT NULL
+        );
+        CREATE TABLE IF NOT EXISTS outreach_schedules (
+            provider_id TEXT PRIMARY KEY,
+            message_id TEXT NOT NULL,
+            email TEXT NOT NULL,
+            status TEXT NOT NULL DEFAULT 'scheduled',
+            created_at TEXT NOT NULL,
+            updated_at TEXT NOT NULL,
+            FOREIGN KEY(email) REFERENCES outreach_contacts(email) ON DELETE CASCADE
+        );
+        CREATE INDEX IF NOT EXISTS idx_outreach_schedules_email
+            ON outreach_schedules(email, status);
+        CREATE TABLE IF NOT EXISTS outreach_events (
+            seq INTEGER PRIMARY KEY AUTOINCREMENT,
+            event_id TEXT NOT NULL UNIQUE,
+            event_type TEXT NOT NULL,
+            provider_id TEXT NOT NULL DEFAULT '',
+            sender_email TEXT NOT NULL DEFAULT '',
+            payload TEXT NOT NULL DEFAULT '{}',
+            created_at TEXT NOT NULL
+        );
+        CREATE INDEX IF NOT EXISTS idx_outreach_events_seq ON outreach_events(seq);
         """
     )
     lead_columns = {row[1] for row in connection.execute("PRAGMA table_info(leads)")}
@@ -215,6 +253,13 @@ def database() -> sqlite3.Connection:
     )
     connection.execute(
         "DELETE FROM analytics_events WHERE julianday(created_at) < julianday('now', '-365 days')"
+    )
+    connection.execute(
+        "DELETE FROM outreach_events WHERE julianday(created_at) < julianday('now', '-90 days')"
+    )
+    connection.execute(
+        "DELETE FROM outreach_schedules WHERE status != 'scheduled' "
+        "AND julianday(updated_at) < julianday('now', '-90 days')"
     )
     return connection
 
@@ -290,6 +335,258 @@ def store_event(payload: object) -> bool:
             (utc_now(), event_name, page, target, session_id),
         )
     return True
+
+
+def relay_authorized(headers: object) -> bool:
+    provided = getattr(headers, "get")("X-Relay-Secret", "") if headers else ""
+    return bool(RELAY_SECRET) and hmac.compare_digest(provided, RELAY_SECRET)
+
+
+def extract_email(value: object) -> str:
+    if not isinstance(value, str):
+        return ""
+    angled = re.search(r"<([^<>\s]+@[^<>\s]+)>", value)
+    candidate = angled.group(1) if angled else value
+    candidate = candidate.strip().lower()
+    return candidate if EMAIL_RE.fullmatch(candidate) else ""
+
+
+def verify_resend_signature(raw_body: bytes, headers: object) -> bool:
+    if not RESEND_WEBHOOK_SECRET or not headers:
+        return False
+    event_id = getattr(headers, "get")("svix-id", "")
+    timestamp = getattr(headers, "get")("svix-timestamp", "")
+    signature_header = getattr(headers, "get")("svix-signature", "")
+    try:
+        timestamp_number = int(timestamp)
+    except (TypeError, ValueError):
+        return False
+    if not event_id or not signature_header or abs(time.time() - timestamp_number) > 300:
+        return False
+    secret = (
+        RESEND_WEBHOOK_SECRET[6:]
+        if RESEND_WEBHOOK_SECRET.startswith("whsec_")
+        else RESEND_WEBHOOK_SECRET
+    )
+    try:
+        key = base64.b64decode(secret, validate=True)
+    except (ValueError, binascii.Error):
+        return False
+    signed = f"{event_id}.{timestamp}.".encode("utf-8") + raw_body
+    expected = base64.b64encode(
+        hmac.new(key, signed, hashlib.sha256).digest()
+    ).decode("ascii")
+    for part in signature_header.split():
+        if part.startswith("v1,") and hmac.compare_digest(part[3:], expected):
+            return True
+    return False
+
+
+def relay_register(payload: object) -> tuple[bool, str]:
+    if not isinstance(payload, dict):
+        return False, "invalid_payload"
+    email = extract_email(payload.get("email"))
+    token = clean_text(payload.get("unsubscribe_token"), 100).lower()
+    schedules = payload.get("schedules", [])
+    if not email or not re.fullmatch(r"[a-f0-9]{32}", token):
+        return False, "invalid_contact"
+    if not isinstance(schedules, list) or len(schedules) > 10:
+        return False, "invalid_schedules"
+    parsed_schedules: list[tuple[str, str]] = []
+    for item in schedules:
+        if not isinstance(item, dict):
+            return False, "invalid_schedule"
+        provider_id = clean_text(item.get("provider_id"), 160)
+        message_id = clean_text(item.get("message_id"), 160)
+        if not provider_id or not message_id:
+            return False, "invalid_schedule"
+        parsed_schedules.append((provider_id, message_id))
+    now = utc_now()
+    with database() as connection:
+        connection.execute(
+            """
+            INSERT INTO outreach_contacts
+                (email, unsubscribe_token, opted_out, updated_at)
+            VALUES (?, ?, 0, ?)
+            ON CONFLICT(email) DO UPDATE SET
+                unsubscribe_token=excluded.unsubscribe_token,
+                updated_at=excluded.updated_at
+            """,
+            (email, token, now),
+        )
+        for provider_id, message_id in parsed_schedules:
+            connection.execute(
+                """
+                INSERT INTO outreach_schedules
+                    (provider_id, message_id, email, status, created_at, updated_at)
+                VALUES (?, ?, ?, 'scheduled', ?, ?)
+                ON CONFLICT(provider_id) DO UPDATE SET
+                    message_id=excluded.message_id,
+                    email=excluded.email,
+                    updated_at=excluded.updated_at
+                """,
+                (provider_id, message_id, email, now, now),
+            )
+        opted_out = connection.execute(
+            "SELECT opted_out FROM outreach_contacts WHERE email = ?", (email,)
+        ).fetchone()["opted_out"]
+    if opted_out:
+        cancel_scheduled_for_email(email, "already_unsubscribed")
+    return True, ""
+
+
+def resend_cancel(provider_id: str) -> bool:
+    if not RESEND_API_KEY:
+        return False
+    request = Request(
+        f"https://api.resend.com/emails/{provider_id}/cancel",
+        method="POST",
+        headers={"Authorization": f"Bearer {RESEND_API_KEY}"},
+    )
+    try:
+        with urlopen(request, timeout=12) as response:
+            return 200 <= response.status < 300
+    except HTTPError as error:
+        return error.code in {404, 409}
+    except (URLError, TimeoutError):
+        return False
+
+
+def cancel_scheduled_for_email(email: str, reason: str) -> int:
+    with database() as connection:
+        rows = connection.execute(
+            """
+            SELECT provider_id FROM outreach_schedules
+            WHERE email = ? AND status = 'scheduled'
+            """,
+            (email,),
+        ).fetchall()
+    cancelled = 0
+    for row in rows:
+        if not resend_cancel(row["provider_id"]):
+            continue
+        with database() as connection:
+            connection.execute(
+                """
+                UPDATE outreach_schedules
+                SET status = 'cancelled', updated_at = ?
+                WHERE provider_id = ? AND status = 'scheduled'
+                """,
+                (utc_now(), row["provider_id"]),
+            )
+        cancelled += 1
+    if rows and cancelled < len(rows):
+        print(
+            f"outreach cancellation incomplete reason={reason} "
+            f"cancelled={cancelled} expected={len(rows)}",
+            flush=True,
+        )
+    return cancelled
+
+
+def relay_store_event(
+    event_id: str,
+    event_type: str,
+    provider_id: str = "",
+    sender_email: str = "",
+) -> None:
+    with database() as connection:
+        connection.execute(
+            """
+            INSERT OR IGNORE INTO outreach_events
+                (event_id, event_type, provider_id, sender_email, payload, created_at)
+            VALUES (?, ?, ?, ?, ?, ?)
+            """,
+            (
+                event_id[:200],
+                event_type[:100],
+                provider_id[:200],
+                sender_email[:254],
+                json.dumps({"type": event_type}, ensure_ascii=False),
+                utc_now(),
+            ),
+        )
+
+
+def process_resend_webhook(
+    payload: object, event_id: str
+) -> tuple[bool, str]:
+    if not isinstance(payload, dict):
+        return False, "invalid_payload"
+    event_type = clean_text(payload.get("type"), 100)
+    data = payload.get("data", {})
+    if not event_type or not isinstance(data, dict):
+        return False, "invalid_event"
+    provider_id = clean_text(data.get("email_id"), 200)
+    sender_email = (
+        extract_email(data.get("from")) if event_type == "email.received" else ""
+    )
+    recipients = data.get("to", [])
+    recipient_email = (
+        extract_email(recipients[0])
+        if isinstance(recipients, list) and recipients
+        else ""
+    )
+    related_email = sender_email or recipient_email
+    if not related_email and provider_id:
+        with database() as connection:
+            row = connection.execute(
+                "SELECT email FROM outreach_schedules WHERE provider_id = ?",
+                (provider_id,),
+            ).fetchone()
+            related_email = row["email"] if row else ""
+    if related_email and event_type in {
+        "email.received",
+        "email.bounced",
+        "email.complained",
+    }:
+        if event_type in {"email.bounced", "email.complained"}:
+            with database() as connection:
+                connection.execute(
+                    "UPDATE outreach_contacts SET opted_out = 1, updated_at = ? "
+                    "WHERE email = ?",
+                    (utc_now(), related_email),
+                )
+        cancel_scheduled_for_email(related_email, event_type)
+    relay_store_event(event_id, event_type, provider_id, related_email)
+    return True, ""
+
+
+def relay_unsubscribe(token: str) -> tuple[bool, str]:
+    if not re.fullmatch(r"[a-f0-9]{32}", token):
+        return False, ""
+    with database() as connection:
+        row = connection.execute(
+            "SELECT email FROM outreach_contacts WHERE unsubscribe_token = ?",
+            (token,),
+        ).fetchone()
+        if not row:
+            return False, ""
+        email = row["email"]
+        connection.execute(
+            "UPDATE outreach_contacts SET opted_out = 1, updated_at = ? "
+            "WHERE email = ?",
+            (utc_now(), email),
+        )
+    cancel_scheduled_for_email(email, "unsubscribed")
+    relay_store_event(f"unsubscribe:{token}", "contact.unsubscribed", "", email)
+    return True, email
+
+
+def relay_poll(after: int) -> dict[str, object]:
+    with database() as connection:
+        rows = connection.execute(
+            """
+            SELECT seq, event_id, event_type, provider_id, sender_email, created_at
+            FROM outreach_events WHERE seq > ? ORDER BY seq ASC LIMIT 100
+            """,
+            (max(0, after),),
+        ).fetchall()
+    events = [dict(row) for row in rows]
+    return {
+        "events": events,
+        "next_cursor": events[-1]["seq"] if events else max(0, after),
+    }
 
 
 def smtp_send(message: EmailMessage) -> None:
@@ -388,18 +685,94 @@ class ContactHandler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
+    def respond_html(self, status: int, title: str, message: str) -> None:
+        body = (
+            "<!doctype html><html lang=\"ko\"><meta charset=\"utf-8\">"
+            "<meta name=\"viewport\" content=\"width=device-width\">"
+            "<meta name=\"robots\" content=\"noindex,nofollow\">"
+            f"<title>{title}</title>"
+            "<body style=\"font-family:system-ui,sans-serif;max-width:560px;"
+            "margin:15vh auto;padding:24px;color:#171717\">"
+            "<p style=\"color:#654cff;font-weight:700\">IRUVY</p>"
+            f"<h1>{title}</h1><p>{message}</p></body></html>"
+        ).encode("utf-8")
+        self.send_response(status)
+        self.send_header("Content-Type", "text/html; charset=utf-8")
+        self.send_header("Cache-Control", "no-store")
+        self.send_header("X-Content-Type-Options", "nosniff")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
     def do_GET(self) -> None:
-        if self.path == "/health":
+        parsed = urlsplit(self.path)
+        query = parse_qs(parsed.query)
+        if parsed.path == "/health":
             self.respond(200, {"status": "ok"})
+            return
+        if parsed.path == "/api/contact" and "unsubscribe" in query:
+            token = clean_text(query.get("unsubscribe", [""])[0], 100).lower()
+            success, _email = relay_unsubscribe(token)
+            self.respond_html(
+                200 if success else 404,
+                "수신거부가 완료되었습니다." if success else "유효하지 않은 요청입니다.",
+                (
+                    "앞으로 Iruvy의 영업 메일을 보내지 않겠습니다."
+                    if success
+                    else "링크를 다시 확인해 주세요."
+                ),
+            )
+            return
+        if parsed.path == "/api/events" and query.get("relay", [""])[0] in {
+            "poll",
+            "status",
+        }:
+            if not relay_authorized(self.headers):
+                self.respond(401, {"ok": False, "error": "unauthorized"})
+                return
+            action = query.get("relay", [""])[0]
+            if action == "status":
+                with database() as connection:
+                    contacts = connection.execute(
+                        "SELECT COUNT(*) AS count FROM outreach_contacts"
+                    ).fetchone()["count"]
+                    scheduled = connection.execute(
+                        "SELECT COUNT(*) AS count FROM outreach_schedules "
+                        "WHERE status = 'scheduled'"
+                    ).fetchone()["count"]
+                self.respond(
+                    200,
+                    {
+                        "ok": True,
+                        "webhook_configured": bool(RESEND_WEBHOOK_SECRET),
+                        "email_configured": bool(RESEND_API_KEY),
+                        "contacts": contacts,
+                        "scheduled": scheduled,
+                    },
+                )
+                return
+            try:
+                after = int(query.get("after", ["0"])[0])
+            except ValueError:
+                after = 0
+            self.respond(200, {"ok": True, **relay_poll(after)})
             return
         self.respond(404, {"ok": False})
 
     def do_POST(self) -> None:
-        if self.path == "/api/events":
+        parsed = urlsplit(self.path)
+        query = parse_qs(parsed.query)
+        if parsed.path == "/api/events" and query.get("relay", [""])[0] == "register":
+            self.handle_relay_register()
+            return
+        if parsed.path == "/api/events":
             self.handle_event()
             return
-        if self.path != "/api/contact":
+        if parsed.path != "/api/contact":
             self.respond(404, {"ok": False})
+            return
+        if self.headers.get("svix-signature"):
+            self.handle_resend_webhook()
             return
 
         origin = self.headers.get("Origin", "")
@@ -473,6 +846,68 @@ class ContactHandler(BaseHTTPRequestHandler):
             "reference": public_reference,
             "notification": "sent" if notifications_sent else "pending",
         })
+
+    def handle_relay_register(self) -> None:
+        if not relay_authorized(self.headers):
+            self.respond(401, {"ok": False, "error": "unauthorized"})
+            return
+        if self.headers.get("Content-Type", "").split(";", 1)[0].strip() != "application/json":
+            self.respond(415, {"ok": False, "error": "json_required"})
+            return
+        try:
+            length = int(self.headers.get("Content-Length", "0"))
+        except ValueError:
+            length = 0
+        if length <= 0 or length > MAX_BODY_BYTES:
+            self.respond(413, {"ok": False, "error": "invalid_size"})
+            return
+        try:
+            payload = json.loads(self.rfile.read(length))
+        except (json.JSONDecodeError, UnicodeDecodeError):
+            self.respond(400, {"ok": False, "error": "invalid_json"})
+            return
+        try:
+            success, error = relay_register(payload)
+        except Exception as exception:
+            print(f"relay registration failed: {type(exception).__name__}", flush=True)
+            self.respond(503, {"ok": False, "error": "storage_failed"})
+            return
+        self.respond(
+            200 if success else 400,
+            {"ok": success, **({"error": error} if error else {})},
+        )
+
+    def handle_resend_webhook(self) -> None:
+        if self.headers.get("Content-Type", "").split(";", 1)[0].strip() != "application/json":
+            self.respond(415, {"ok": False, "error": "json_required"})
+            return
+        try:
+            length = int(self.headers.get("Content-Length", "0"))
+        except ValueError:
+            length = 0
+        if length <= 0 or length > MAX_WEBHOOK_BODY_BYTES:
+            self.respond(413, {"ok": False, "error": "invalid_size"})
+            return
+        raw_body = self.rfile.read(length)
+        if not verify_resend_signature(raw_body, self.headers):
+            self.respond(401, {"ok": False, "error": "invalid_signature"})
+            return
+        try:
+            payload = json.loads(raw_body)
+        except (json.JSONDecodeError, UnicodeDecodeError):
+            self.respond(400, {"ok": False, "error": "invalid_json"})
+            return
+        event_id = clean_text(self.headers.get("svix-id"), 200)
+        try:
+            success, error = process_resend_webhook(payload, event_id)
+        except Exception as exception:
+            print(f"resend webhook failed: {type(exception).__name__}", flush=True)
+            self.respond(503, {"ok": False, "error": "processing_failed"})
+            return
+        self.respond(
+            200 if success else 400,
+            {"ok": success, **({"error": error} if error else {})},
+        )
 
     def handle_event(self) -> None:
         origin = self.headers.get("Origin", "")

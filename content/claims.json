@@ -1,0 +1,81 @@
+{
+  "schemaVersion": "1.0",
+  "updatedAt": "2026-07-20",
+  "claims": [
+    {
+      "claimId": "CLM-001",
+      "publicText": "8개 기관·공간에서 현장 적용과 실증 경험",
+      "claimType": "deployment_experience",
+      "source": "IRUVY_GO.md 기관 원장",
+      "sourceOwner": "CEO",
+      "methodology": "기관별 관계는 도입·실증·지원·협력으로 별도 관리",
+      "requiredFootnote": "유료 고객·계약·매출 수가 아니며 기관별 상태가 서로 다릅니다.",
+      "allowedPages": ["/", "/cases/"],
+      "approvalStatus": "aggregate_only",
+      "approvedBy": "대표 확인 · 기관별 실명 공개 미승인",
+      "allowedChannels": ["website"],
+      "reviewDate": "2026-07-20",
+      "expiryDate": "2026-08-20"
+    },
+    {
+      "claimId": "CLM-002",
+      "publicText": "2차 실증에서 90명 중 87명 도착",
+      "claimType": "observed_result",
+      "source": "IR p.15 및 대표 확인",
+      "sourceOwner": "CEO",
+      "methodology": "/go/evidence/",
+      "requiredFootnote": "약 300m의 특정 복합 실내 경로에서 진행한 팀 제공 결과이며 제삼자 인증이나 모든 시설의 일반 성능이 아닙니다.",
+      "allowedPages": ["/", "/go/", "/cases/", "/go/evidence/"],
+      "approvalStatus": "qualified_public",
+      "approvedBy": "대표 확인",
+      "allowedChannels": ["website"],
+      "reviewDate": "2026-07-20",
+      "expiryDate": "2026-08-20"
+    },
+    {
+      "claimId": "CLM-003",
+      "publicText": "안내 전 26.6%에서 안내 후 96.7%",
+      "claimType": "observed_before_after",
+      "source": "IR p.15 및 대표 확인",
+      "sourceOwner": "CEO",
+      "methodology": "/go/evidence/",
+      "requiredFootnote": "동일 과제의 2차 실증 도착 성공률입니다. 원자료와 세부 도움 허용 조건은 외부 공개 전 추가 정리가 필요합니다.",
+      "allowedPages": ["/", "/go/", "/cases/", "/go/evidence/"],
+      "approvalStatus": "qualified_public",
+      "approvedBy": "대표 확인",
+      "allowedChannels": ["website"],
+      "reviewDate": "2026-07-20",
+      "expiryDate": "2026-08-20"
+    },
+    {
+      "claimId": "CLM-004",
+      "publicText": "앱 기반 현재 위치 인식 정확도 95%",
+      "claimType": "technical_metric",
+      "source": "과거 IR",
+      "sourceOwner": "Product Owner",
+      "methodology": null,
+      "requiredFootnote": "정확도 정의와 시험 조건 확인 필요",
+      "allowedPages": [],
+      "approvalStatus": "not_public",
+      "approvedBy": null,
+      "allowedChannels": [],
+      "reviewDate": "2026-07-20",
+      "expiryDate": null
+    },
+    {
+      "claimId": "CLM-005",
+      "publicText": "보조 하드웨어 기준점 인식률 99.9%",
+      "claimType": "technical_metric",
+      "source": "과거 IR",
+      "sourceOwner": "Product Owner",
+      "methodology": null,
+      "requiredFootnote": "시험 횟수와 환경 확인 필요",
+      "allowedPages": [],
+      "approvalStatus": "not_public",
+      "approvedBy": null,
+      "allowedChannels": [],
+      "reviewDate": "2026-07-20",
+      "expiryDate": null
+    }
+  ]
+}

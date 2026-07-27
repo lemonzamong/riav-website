@@ -2,9 +2,13 @@
 
 이 파일은 이 저장소(`website/`)에서 작업할 미래 에이전트를 위한 것이다. 전부 재발견하지 않고 바로 올바르게 일하도록 핵심 규칙·맥락을 담는다.
 
-## 프로젝트 미션
+## 브랜드와 이 웹사이트의 범위
 
-GPS가 닿지 않는 복합 실내공간에서 시각장애인·이동약자·초행 방문자가 **실제 목적지까지 스스로** 이동하도록 돕는 Iruvy 실내 내비게이션을, **기관 구매자**(병원·공공기관·복지시설·대학·교통시설)에게 설명·설득하고 PoC 문의로 전환시키는 공개 웹사이트.
+Iruvy의 현재 회사 카테고리는 `산업 자율운영 AI(Industrial Autonomy AI)`이며, 고객가치는 산업현장의 `유효 생산능력 증폭(Capacity Amplification)`이다. 유일한 외부 제품은 주문생산형 제조의 제약공정 캐파 증폭에서 시작하는 `Iruvy Flow`다. 회사·제품 사실은 `/Users/hyeokjun/.codex/docs/COMPANY_STRATEGY.md`와 `/Users/hyeokjun/.codex/docs/products/IRUVY_FLOW.md`를 우선한다.
+
+현재 배포된 웹사이트는 이전 사업방향의 실내 접근성 제품 `Iruvy Go`를 설명하는 **레거시 제품 웹사이트**다. 이 사이트의 카피, 수치, 정보구조와 제품명을 현재 Iruvy 회사 방향·제품 포트폴리오·고객 성과로 재사용하지 않는다.
+
+현재 Iruvy 회사 웹사이트나 제조 Iruvy Flow 사이트를 만들 때는 기존 Iruvy Go 정보구조에 임의로 섞지 말고 별도 재설계한다. `산업 자율운영 AI`는 회사 카테고리, `Physical AI`와 최대 1.5배는 장기 방향, 현재 제품은 한 제약공정의 관리자 승인형 `Observe·Recommend` 단계라는 경계를 지킨다.
 
 ## 1차 청중 (누구에게 말하는가)
 
@@ -17,7 +21,7 @@ GPS가 닿지 않는 복합 실내공간에서 시각장애인·이동약자·�
 1. **정직성.** 실증 수치엔 항상 제한 문구("팀 제공·제삼자 인증 아님·특정 환경"). 기관 관계는 협의/관심/지원/접점으로 구분 — 계약·정식 구축으로 과장 금지.
 2. **대외 공개·근거 사안은 대표 확인 후.** 실증 수치·기관 관계·라이브 배포는 임의 강화·변경 금지.
 3. **접근성은 1급 요구.** WCAG 2.2 AA 실무 기준. 대비·키보드·초점·제목구조·alt·reduced-motion·타깃 크기 유지. `docs/ACCESSIBILITY.md`.
-4. **구 브랜드 금지.** 표시 텍스트·참조 자산에 Riav/Atmos/소리블록 금지. `assets/app-user-clean.jpg`는 "Riav" baked-in → 사용 금지, 현재 브랜드 목업(`assets/product/*.jpg`, `assets/app-admin-clean.jpg`) 사용.
+4. **구 브랜드 금지.** 표시 텍스트·참조 자산에 Riav/Iruvy/소리블록 금지. `assets/app-user-clean.jpg`는 "Riav" baked-in → 사용 금지, 현재 브랜드 목업(`assets/product/*.jpg`, `assets/app-admin-clean.jpg`) 사용.
 5. **검증 후 완료.** write-success는 증거가 아님 — `tests/check-site.mjs` + 브라우저 육안(데스크톱/모바일) 확인.
 6. **최신 사실.** 실증 헤드라인 = 자력 도착률 **26.6% → 96.7%**(2차 PoC 87/90, 90명 규모). 구 93.3%/23명 재사용 금지.
 
@@ -45,8 +49,8 @@ python3 -m http.server 4173   # http://127.0.0.1:4173 (브라우저는 127.0.0.1
 
 ## 배포 (운영)
 
-- 서버: SSH `atmos-prod`(AWS Lightsail, ubuntu). 웹서버: Caddy, 문서 루트 `/var/www/riav`(HTML no-cache → 즉시 반영). 도메인 iruvy.com/www/riav.duckdns.org.
-- 자동 배포 없음. 절차: ① `/var/www/riav` 백업 → `/var/www/iruvy-backups/riav-<TS>` ② 변경 파일만 `rsync -avzR --rsync-path="sudo rsync" <files> atmos-prod:/var/www/riav/`(대용량 미디어 절대 제외) ③ curl/브라우저로 라이브 검증.
+- 서버: SSH `iruvy-prod`(AWS Lightsail, ubuntu). 웹서버: Caddy, 문서 루트 `/var/www/riav`(HTML no-cache → 즉시 반영). 도메인 iruvy.com/www/riav.duckdns.org.
+- 자동 배포 없음. 절차: ① `/var/www/riav` 백업 → `/var/www/iruvy-backups/riav-<TS>` ② 변경 파일만 `rsync -avzR --rsync-path="sudo rsync" <files> iruvy-prod:/var/www/riav/`(대용량 미디어 절대 제외) ③ curl/브라우저로 라이브 검증.
 - **운영 배포·origin 푸시는 대외 공개 행위 — 대표 확인 후.**
 
 ## 알려진 위험 / 이슈

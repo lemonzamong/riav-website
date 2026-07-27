@@ -3,3 +3,7 @@
 node_modules/
 dist/
 .env
+assets/media/
+.catalog-backups/
+deliverables/
+*.mp4

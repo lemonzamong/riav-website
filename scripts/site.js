@@ -1,128 +1,234 @@
-(function () {
+(() => {
+  // Sticky Header Scroll state
+  const header = document.querySelector("[data-header]");
   const toggle = document.querySelector("[data-nav-toggle]");
   const nav = document.querySelector("[data-nav]");
+  const setHeader = () => header?.classList.toggle("scrolled", window.scrollY > 40);
+  setHeader();
+  addEventListener("scroll", setHeader, { passive: true });
 
+  // Mobile Menu Toggle
   if (toggle && nav) {
-    const closeMenu = () => {
+    const close = () => {
+      nav.classList.remove("open");
       toggle.setAttribute("aria-expanded", "false");
-      nav.dataset.open = "false";
-      document.body.classList.remove("menu-open");
+      document.body.classList.remove("nav-open");
     };
-
     toggle.addEventListener("click", () => {
-      const open = toggle.getAttribute("aria-expanded") !== "true";
+      const open = !nav.classList.contains("open");
+      nav.classList.toggle("open", open);
       toggle.setAttribute("aria-expanded", String(open));
-      nav.dataset.open = String(open);
-      document.body.classList.toggle("menu-open", open);
+      document.body.classList.toggle("nav-open", open);
+      if (open) nav.querySelector("a")?.focus();
     });
-
-    nav.addEventListener("click", (event) => {
-      if (event.target.closest("a")) closeMenu();
-    });
-
-    document.addEventListener("keydown", (event) => {
+    nav.querySelectorAll("a").forEach((link) => link.addEventListener("click", close));
+    addEventListener("keydown", (event) => {
       if (event.key === "Escape") {
-        closeMenu();
+        close();
         toggle.focus();
       }
     });
-
-    window.addEventListener("resize", () => {
-      if (window.innerWidth > 960) closeMenu();
-    });
   }
 
-  document.querySelectorAll("[data-year]").forEach((node) => {
-    node.textContent = String(new Date().getFullYear());
-  });
+  // Event Tracking
+  const track = (event, target = "") => {
+    const allowed = new Set([
+      "nav_primary_cta_click", "hero_primary_cta_click", "hero_demo_open",
+      "demo_step_view", "use_case_view", "technology_view", "security_view",
+      "design_partner_view", "fit_form_start", "fit_form_step_complete",
+      "fit_form_submit", "fit_form_error", "contact_submit", "email_link_click",
+      "roi_calculator_used"
+    ]);
+    if (!allowed.has(event)) return;
+    fetch("/api/events", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ event, page: location.pathname, target, session_id: sessionStorage.getItem("iruvy-session") || "" }),
+      keepalive: true
+    }).catch(() => {});
+  };
+  document.querySelectorAll("[data-event]").forEach((el) => el.addEventListener("click", () => track(el.dataset.event, el.getAttribute("href") || el.dataset.demoStep || "")));
 
-  const audienceTabs = [...document.querySelectorAll("[data-audience-tab]")];
-  const audiencePanels = [...document.querySelectorAll("[data-audience-panel]")];
-  const audienceTitle = document.querySelector("[data-audience-title]");
+  // Interactive Digital Twin Console Demonstrator
+  const demoSteps = [...document.querySelectorAll("[data-demo-step]")];
+  const demo = document.querySelector("[data-demo]");
+  let demoIndex = 0;
+  let demoTimer;
 
-  if (audienceTabs.length && audiencePanels.length) {
-    const activateAudience = (tab, moveFocus = false) => {
-      const key = tab.dataset.audienceTab;
+  const showDemo = (index) => {
+    demoIndex = index;
+    demoSteps.forEach((button, i) => {
+      button.classList.toggle("active", i === index);
+      button.setAttribute("aria-pressed", String(i === index));
+    });
+    if (demo) {
+      demo.dataset.stage = String(index);
+      const risk = demo.querySelector("[data-risk-count]");
+      const state = demo.querySelector("[data-demo-state]");
+      const values = ["1건", "3건 (M-04 정지)", "3안 생성 완료", "대안 A안 승인"];
+      const labels = ["01 SENSE · ERP/MES 데이터 연결", "02 WORLD · M-04 정지 & 지연 감지", "03 DECIDE · 제약 충족 대안 생성", "04 COMMAND · 관리자 승인 완료"];
+      if (risk) risk.textContent = values[index];
+      if (state) state.textContent = labels[index];
+    }
+  };
 
-      audienceTabs.forEach((item) => {
-        const selected = item === tab;
-        item.setAttribute("aria-selected", String(selected));
-        item.tabIndex = selected ? 0 : -1;
-      });
+  const startDemo = () => {
+    clearInterval(demoTimer);
+    if (!matchMedia("(prefers-reduced-motion: reduce)").matches && demoSteps.length) {
+      demoTimer = setInterval(() => showDemo((demoIndex + 1) % demoSteps.length), 3200);
+    }
+  };
+  demoSteps.forEach((button, index) => button.addEventListener("click", () => {
+    showDemo(index);
+    track("demo_step_view", button.dataset.demoStep);
+    startDemo();
+  }));
+  showDemo(0);
+  startDemo();
 
-      audiencePanels.forEach((panel) => {
-        panel.hidden = panel.dataset.audiencePanel !== key;
-      });
-
-      if (audienceTitle) audienceTitle.textContent = tab.textContent.trim();
+  // Tabbed Console Switcher
+  const consoleTabs = [...document.querySelectorAll("[data-console-tab]")];
+  const consolePanels = [...document.querySelectorAll("[data-console-panel]")];
+  consoleTabs.forEach((tab, index) => {
+    const activate = (moveFocus = false) => {
+      consoleTabs.forEach((item) => item.setAttribute("aria-selected", String(item === tab)));
+      consolePanels.forEach((panel) => panel.classList.toggle("active", panel.id === tab.getAttribute("aria-controls")));
       if (moveFocus) tab.focus();
     };
-
-    audienceTabs.forEach((tab, index) => {
-      tab.addEventListener("click", () => activateAudience(tab));
-      tab.addEventListener("keydown", (event) => {
-        if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
-        event.preventDefault();
-
-        let nextIndex = index;
-        if (event.key === "ArrowLeft") nextIndex = (index - 1 + audienceTabs.length) % audienceTabs.length;
-        if (event.key === "ArrowRight") nextIndex = (index + 1) % audienceTabs.length;
-        if (event.key === "Home") nextIndex = 0;
-        if (event.key === "End") nextIndex = audienceTabs.length - 1;
-        activateAudience(audienceTabs[nextIndex], true);
-      });
+    tab.addEventListener("click", () => activate());
+    tab.addEventListener("keydown", (event) => {
+      if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      let next = index;
+      if (event.key === "ArrowLeft") next = (index - 1 + consoleTabs.length) % consoleTabs.length;
+      if (event.key === "ArrowRight") next = (index + 1) % consoleTabs.length;
+      if (event.key === "Home") next = 0;
+      if (event.key === "End") next = consoleTabs.length - 1;
+      consoleTabs[next].click();
+      consoleTabs[next].focus();
     });
+  });
 
-    activateAudience(audienceTabs.find((tab) => tab.getAttribute("aria-selected") === "true") || audienceTabs[0]);
+  // Interactive ROI & Capacity Calculator
+  const calcMachines = document.querySelector("[data-calc-machines]");
+  const calcDelays = document.querySelector("[data-calc-delays]");
+  const calcOutputHours = document.querySelector("[data-calc-hours]");
+  const calcOutputOtd = document.querySelector("[data-calc-otd]");
+
+  const updateRoiCalc = () => {
+    if (!calcMachines || !calcDelays || !calcOutputHours || !calcOutputOtd) return;
+    const machines = parseInt(calcMachines.value, 10) || 5;
+    const delays = parseInt(calcDelays.value, 10) || 12;
+
+    const labelMachines = document.querySelector("[data-val-machines]");
+    const labelDelays = document.querySelector("[data-val-delays]");
+    if (labelMachines) labelMachines.textContent = `${machines}대`;
+    if (labelDelays) labelDelays.textContent = `월 ${delays}건`;
+
+    // Calculation formula based on capacity recovery
+    const recoveredHours = Math.round(machines * 14.5 + delays * 3.2);
+    const otdBoost = Math.min(99, Math.round(72 + (machines * 1.2) + (delays * 0.8)));
+
+    calcOutputHours.textContent = `주 ${recoveredHours}시간`;
+    calcOutputOtd.textContent = `+${otdBoost - 72}%p (목표 ${otdBoost}%)`;
+  };
+
+  if (calcMachines && calcDelays) {
+    calcMachines.addEventListener("input", () => { updateRoiCalc(); track("roi_calculator_used"); });
+    calcDelays.addEventListener("input", () => { updateRoiCalc(); track("roi_calculator_used"); });
+    updateRoiCalc();
   }
 
-  const form = document.querySelector("[data-contact-form]");
-  const status = document.querySelector("[data-form-status]");
+  // Multi-step Fit Review Form
+  const form = document.querySelector("[data-fit-form]");
+  if (form) {
+    const steps = [...form.querySelectorAll("[data-form-step]")];
+    const progress = [...form.querySelectorAll("[data-progress]")];
+    const status = form.querySelector("[data-form-status]");
+    let current = 0;
 
-  if (form && status) {
-    const submitter = form.querySelector('[type="submit"]');
+    const renderStep = () => {
+      steps.forEach((step, index) => step.hidden = index !== current);
+      progress.forEach((item, index) => item.classList.toggle("active", index <= current));
+    };
 
-    submitter?.addEventListener("click", () => {
-      if (!form.checkValidity()) {
-        status.textContent = "필수 항목을 확인해 주세요. 첫 번째 미입력 항목으로 이동합니다.";
-      }
-    });
+    const validateStep = () => {
+      let valid = true;
+      steps[current].querySelectorAll("[required]").forEach((field) => {
+        const message = field.closest(".field,.check-field")?.querySelector(".field-error");
+        const okay = field.type === "checkbox" ? field.checked : field.checkValidity();
+        field.setAttribute("aria-invalid", String(!okay));
+        if (message) message.textContent = okay ? "" : "이 항목을 확인해 주세요.";
+        if (!okay && valid) field.focus();
+        valid = valid && okay;
+      });
+      return valid;
+    };
 
-    form.addEventListener(
-      "invalid",
-      () => {
-        status.textContent = "필수 항목을 확인해 주세요. 첫 번째 미입력 항목으로 이동합니다.";
-      },
-      true,
-    );
+    form.querySelectorAll("[data-next]").forEach((button) => button.addEventListener("click", () => {
+      if (!validateStep()) return;
+      current += 1;
+      renderStep();
+      track("fit_form_step_complete", String(current));
+      scrollTo({ top: form.getBoundingClientRect().top + scrollY - 100, behavior: "smooth" });
+    }));
 
-    form.addEventListener("input", () => {
-      if (form.checkValidity()) status.textContent = "";
-    });
+    form.querySelectorAll("[data-prev]").forEach((button) => button.addEventListener("click", () => {
+      current = Math.max(0, current - 1);
+      renderStep();
+    }));
 
-    form.addEventListener("submit", (event) => {
+    form.addEventListener("focusin", () => track("fit_form_start"), { once: true });
+
+    form.addEventListener("submit", async (event) => {
       event.preventDefault();
+      if (!validateStep()) return;
+      const submit = form.querySelector("[type=submit]");
+      submit.disabled = true;
+      if (status) status.textContent = "적합성 정보를 안전하게 접수하고 있습니다.";
 
-      if (!form.reportValidity()) {
-        status.textContent = "필수 항목을 확인해 주세요.";
-        return;
+      const values = Object.fromEntries(new FormData(form));
+      const params = new URLSearchParams(location.search);
+      Object.assign(values, {
+        inquiry: values.inquiry || "flow",
+        privacy: "agreed",
+        utm_source: params.get("utm_source") || "",
+        utm_medium: params.get("utm_medium") || "",
+        utm_campaign: params.get("utm_campaign") || "",
+        utm_content: params.get("utm_content") || "",
+        utm_term: params.get("utm_term") || "",
+        landing_page: location.pathname,
+        referrer: document.referrer,
+        first_touch_at: new Date().toISOString(),
+        last_touch_at: new Date().toISOString(),
+        session_id: sessionStorage.getItem("iruvy-session") || ""
+      });
+
+      track(form.dataset.formType === "contact" ? "contact_submit" : "fit_form_submit");
+
+      try {
+        const response = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(values)
+        });
+        const result = await response.json();
+        if (!response.ok || !result.ok) throw new Error(result.error || "submit_failed");
+
+        form.innerHTML = `
+          <div class="form-success" tabindex="-1">
+            <p class="eyebrow">SUBMITTED</p>
+            <h2>적합성 정보가 안전하게 접수되었습니다.</h2>
+            <p>입력해주신 현장 상태와 병목 문제를 Iruvy 엔지니어링 팀이 직접 검토합니다. 추가 연동 검토가 필요한 경우 회사 이메일로 안내드립니다.</p>
+            <p class="notice">접수 번호 · ${result.reference || "확인 메일을 발송했습니다"}</p>
+          </div>`;
+        form.querySelector(".form-success")?.focus();
+      } catch (error) {
+        if (status) status.textContent = "접수하지 못했습니다. 잠시 후 다시 시도하거나 contact@iruvy.com으로 연락해 주세요.";
+        submit.disabled = false;
+        track("fit_form_error", error.message);
       }
-
-      const data = new FormData(form);
-      const subject = `[Iruvy PoC 문의] ${data.get("organization")} · ${data.get("facility")}`;
-      const body = [
-        `이름: ${data.get("name")}`,
-        `기관: ${data.get("organization")}`,
-        `회신 이메일: ${data.get("email")}`,
-        `시설 유형: ${data.get("facility")}`,
-        `검토 일정: ${data.get("timeline") || "미정"}`,
-        "",
-        "현재 문제와 검토 범위:",
-        String(data.get("challenge")),
-      ].join("\n");
-
-      status.textContent = "이메일 작성 화면을 여는 중입니다. 전송은 이메일 앱에서 최종 확인해 주세요.";
-      window.location.href = `mailto:contact@iruvy.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     });
+    renderStep();
   }
 })();

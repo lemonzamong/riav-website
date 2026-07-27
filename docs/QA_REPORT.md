@@ -1,42 +1,71 @@
-# QA Report — 2026-07-11 (히어로 재설계 후)
+# Iruvy 웹사이트 QA 보고서
 
-계획: `docs/QA_PLAN.md`. 방식: 자동 검사 + 기계적 전수 grep + 브라우저 계측(데스크톱/모바일/경계폭) + 2차 독립 검토(§17).
+- 검수일: 2026-07-20
+- 대상: `https://iruvy.com`
+- 기준: Iruvy 웹사이트 마스터 플랜, WCAG 2.2 AA 실무 기준, 운영 Caddy·문의 API
 
-## 기계적 QA (전 페이지) — 통과
+## 최종 결과
 
-- 빌드/검사: `node tests/check-site.mjs` = 9 pages OK. `node -c scripts/site.js` OK.
-- 잔존 구 문자열 0: `93.3`, bare `23명`, `PoC 시작하기`, `Riav`, `Atmos`, `app-user-clean`, `hero-film`.
-- 고아 클래스 0(HTML): `hero-evidence`·`hero-video*`·`hero-problems`·`hero-solution`·`sales-hero__glow`·`evidence-label`.
-- `button--glass` 정의·사용 정상(최종 CTA, 다크 배경).
-- 홈 앵커 타깃 존재(#service·#results·#solutions·#programs), 단일 h1, kicker 라이트 오버라이드(brand-700).
-- 반응형 오버플로우/클리핑 0: 375·1000·1080·1300px 계측 확인.
+| 영역 | 결과 | 증거 |
+|---|---:|---|
+| 정적 사이트 검사 | 통과 | `node tests/check-site.mjs` · 24페이지 |
+| 문의 API 단위 테스트 | 통과 | `python3 -m unittest -v server/test_contact_api.py` · 5개 |
+| JavaScript 문법 | 통과 | `node --check scripts/site.js` |
+| 운영 사이트맵 URL | 통과 | 20개 URL 모두 HTTP 200 |
+| 없는 경로 | 통과 | 실제 임의 URL HTTP 404와 전용 404 화면 |
+| HTTPS 전환 | 통과 | HTTP → HTTPS 308 |
+| Caddy 설정 | 통과 | 운영 설정 검증·reload, 서비스 active |
+| 문의 서비스 | 통과 | localhost `/health` 200, 서비스 enabled·active |
+| Lighthouse 모바일 성능 | 98 | FCP 1.7초, LCP 2.3초, TBT 0ms, CLS 0.001 |
+| Lighthouse 접근성 | 100 | 자동 감사 실패 항목 0 |
+| Lighthouse 모범 사례 | 100 | 모바일 운영 URL 측정 |
+| Lighthouse SEO | 100 | 모바일 운영 URL 측정 |
 
-## 2차 독립 검토(§17) 결과 — Critical/High 없음
+## 페이지와 콘텐츠
 
-검토자가 실제 파일 검사·대비 계산·이미지 치수·전수 grep 수행. 확인된 clean(재검 불요): 고아 클래스 0, 대비 통과(히어로 kicker 6.4~6.9:1·카피 7.5:1·brand 버튼 7.1:1), 이미지 치수 일치, 앵커 유효, title/og 정합, JS 정상, 반응형 안전.
+- 공개 사이트맵 20개 URL과 404·500 화면을 포함한 24개 HTML을 검사했다.
+- 모든 검사 대상 페이지에 고유 title·description·canonical·H1·main·본문 바로가기·푸터 이메일이 있다.
+- 모든 이미지에 대체 텍스트와 명시적 크기가 있다.
+- iframe 영상이 있는 페이지는 장면별 텍스트 대본을 제공한다.
+- 홈과 Go 페이지 FAQ는 각각 12개 이상이다.
+- 홈·회사·문의의 제품 순서는 `Go → Guide → Flow`다.
+- 제품 상태는 Go `실증 완료`, Guide `개발·확장`, Flow `파일럿 준비`로 구분한다.
+- 병원·병동은 Flow의 첫 유즈케이스로만 사용하며 회사의 상위 정의로 쓰지 않는다.
 
-### 발견·조치
+## 브라우저 동작
 
-| ID | 심각도 | 발견 | 조치 | 검증 |
-|---|---|---|---|---|
-| M1 | Medium | 히어로 로고 img에 width/height 없음 → 상단 CLS | `width="1040" height="260"` 추가(SVG viewBox 1040×260 일치, 왜곡 없음) | logoHasDims=true |
-| L1 | Low | 라이트 히어로에서 ghost 버튼 경계 대비 ≈1.1:1(<3:1, WCAG 1.4.11) | `.sales-hero .button--ghost` 경계 `--brand-700` | 계산값 rgb(80,59,215) ≈6.5:1 |
-| L2 | Low | 모바일 네비 드로어 top이 4.75rem 고정 → 홈 헤더(5rem/4.4rem)와 불일치 | `.sales-header .site-nav` top 5rem(≤960)·4.4rem(≤680) 오버라이드 | 드로어 top 70.4px = 헤더 71px |
-| L3 | Low | 죽은 `.hero`/`.hero-map` CSS(미디어쿼리 잔재, 이미지 참조 없음, HTML 미사용) | pages.css에서 제거(page-hero-grid는 보존) | 검사 통과, 참조 0 |
+- 운영 주요 페이지 22개를 1280×720 환경에서 순회했다.
+- 모든 페이지에서 H1 1개, main 1개, 테마 버튼, 가로 넘침 0을 확인했다.
+- 시스템 테마를 기본으로 따르고 버튼으로 `자동 → 반대 테마 → 시스템 테마 → 자동`을 선택할 수 있다.
+- Flow 테스트베드는 H1·테마 버튼·차트·가로 넘침 0을 확인했다.
+- 모바일 성능 감사 기본 뷰포트에서도 레이아웃 이동과 가로 넘침 문제가 보고되지 않았다.
 
-### 관찰(무해, 미조치)
-- O1 `.sales-hero__product`의 role 없는 div `aria-label`은 AT가 대체로 무시(자식 img alt로 정보 충분).
-- O2 홈 헤더 비-sticky는 의도(앵커 점프 정상).
-- O3 영어 eyebrow 카피 — 전역 지침상 비선호(회귀 범위 밖, 콘텐츠 후속 검토: `docs/CONTENT_STRATEGY.md`).
+## 문의·리드·분석
 
-## 콘텐츠 QA
-- 수치 96.7%/90명 전 페이지 정합, 제한 문구 유지. 관계 표현 정직. CTA "PoC 문의하기" 통일.
+- 2단계 문의 폼은 기관명, 기관 유형, 이름, 부서·직책, 이메일, 연락처, 제품, 문제, 시설 범위, 도입 시점과 동의를 서버에서 다시 검증한다.
+- 오류 요약, 필드별 오류 문구, `aria-invalid`, 오류 설명 연결과 첫 오류 포커스를 구현했다.
+- UTM, landing page, referrer, first/last touch, session ID와 동의 버전을 저장한다.
+- 정상 리드는 SQLite에 저장되고 공개 접수 번호를 반환한다.
+- 내부 알림과 문의자 접수 메일 상태를 별도로 기록하며 실패 건만 재시도할 수 있다.
+- CRM 상태 16개, 상태 변경 이력, CSV 내보내기, 7일 대시보드를 제공한다.
+- 운영 DB 권한은 `600`, 서비스 UMask는 `0077`이다.
+- 잘못된 운영 API 요청은 HTTP 400으로 거부됨을 확인했다.
+- 실제 테스트 리드를 남기지 않았다.
 
-## 접근성 QA
-- 대비: 히어로·버튼·라벨 통과(계산 확인). 타깃 크기 24×24(2.5.8) 전수는 후속(네비·인라인 링크). 모션: 자동재생 요소 없음(영상 제거), reduced-motion 전역 준수. 키보드/초점/제목/랜드마크 이전 검토 유지.
+## 보안·성능
 
-## 남은 QA 후속(비차단)
-- 24×24 타깃 크기 전수, 스크린리더 1패스, 200% 확대 육안, 하위 페이지 시각 톤·영어 eyebrow 검토.
+- HSTS, CSP, `X-Content-Type-Options`, `X-Frame-Options`, Referrer Policy와 Permissions Policy를 적용했다.
+- HTML은 재검증하고 정적 CSS·JS·이미지·폰트는 30일 캐시한다.
+- 히어로 앱 이미지를 화면 크기에 맞게 별도 최적화해 약 381KB에서 약 85KB로 줄였다.
+- 정적 파일 경로, 환경 파일과 Git 경로는 공개하지 않는다.
+- 문의 Origin 확인, 본문 크기 제한, 허니팟과 IP별 속도 제한을 적용했다.
 
-## 결론
-Critical/High 결함 없음. 발견된 Medium/Low 전부 수정·검증. 배포 안전.
+## 아직 사람이 확인해야 하는 항목
+
+- iPhone VoiceOver, Android TalkBack, Windows NVDA의 실제 기기·OS 조합 테스트
+- 200% 확대와 키보드 전용 흐름의 최종 사용자 확인
+- 실제 기관명·로고·사진·수치 공개 허가서
+- 실제 내부 알림과 문의자 접수 메일 수신: Gmail 앱 비밀번호가 아직 설정되지 않음
+- 실제 서버 오류를 강제로 발생시키는 500 라우팅 시험: 500 파일과 Caddy 오류 분기는 검증했지만 운영 장애를 만들지 않기 위해 강제하지 않음
+
+자동 감사 100점은 실기기 접근성 검수를 대체하지 않는다.

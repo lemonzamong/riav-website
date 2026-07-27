@@ -50,3 +50,16 @@
   --ease: cubic-bezier(0.2, 0.75, 0.2, 1);
 }
 
+[data-theme="dark"] {
+  color-scheme: dark;
+  --ink-950: #f4f5f8;
+  --ink-800: #dfe2e8;
+  --ink-650: #a8afbc;
+  --ink-500: #7e8797;
+  --line: #2b313d;
+  --surface: #151a24;
+  --surface-warm: #10131b;
+  --white: #0c0f16;
+  --brand-100: #28223f;
+  --brand-050: #17142a;
+}

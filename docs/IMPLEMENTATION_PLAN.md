@@ -35,7 +35,7 @@ self-host 폰트·프리로드, 이미지 width/height·lazy, 최소 JS, 대용�
 `node tests/check-site.mjs`(링크·자산·메타·제목·alt) + `node -c scripts/site.js` + 브라우저 육안(데스크톱/모바일) + §14 QA.
 
 ## 배포 고려
-자동 배포 없음(KI-004). SSH `atmos-prod` + 백업 + 변경 파일 rsync(대용량 미디어 제외) + 라이브 검증. 대외 공개라 대표 확인 후.
+자동 배포 없음(KI-004). SSH `iruvy-prod` + 백업 + 변경 파일 rsync(대용량 미디어 제외) + 라이브 검증. 대외 공개라 대표 확인 후.
 
 ## 롤백 전략
 `/var/www/iruvy-backups/riav-<TS>` 타임스탬프 백업으로 즉시 복원. (최근: riav-20260711-084533 등.)

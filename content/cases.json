@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "1.0",
+  "updatedAt": "2026-07-20",
+  "cases": [
+    {
+      "id": "go-complex-route-poc-02",
+      "slug": "complex-indoor-route-poc",
+      "title": "복합 실내 경로 사용자 실증",
+      "publicInstitutionName": null,
+      "internalInstitutionName": "한양대학교 학생회관",
+      "status": "pilot",
+      "products": ["go"],
+      "facilityType": "대학 복합시설",
+      "location": null,
+      "startDate": null,
+      "endDate": null,
+      "summary": "약 300m 복합 실내 경로에서 목적지 도착 과제를 검증했습니다.",
+      "problem": "처음 방문한 이용자가 복합 실내 경로의 지정 목적지에 도착할 수 있는지 확인",
+      "scope": "약 300m 복합 실내 경로의 목적지 도착 과제",
+      "methodology": "/go/evidence/",
+      "participants": 90,
+      "hardwareAssistance": null,
+      "metrics": ["CLM-002", "CLM-003"],
+      "results": ["90명 중 87명 도착", "안내 전 26.6%에서 안내 후 96.7%"],
+      "limitations": "팀 제공 결과이며 제삼자 인증이 아닙니다. 참여자 구성과 세부 도움 허용 조건은 외부 공개 전 원자료 정리가 필요합니다.",
+      "nextSteps": "다른 시설·사용자군·기기 조건에서 같은 KPI로 반복 검증",
+      "sourceOwner": "CEO",
+      "metricReviewer": "대표 확인",
+      "institutionFinalApprover": null,
+      "permissions": {
+        "institutionName": false,
+        "institutionLogo": false,
+        "photos": false,
+        "quotes": false
+      },
+      "publishedAt": "2026-07-20",
+      "reviewAt": "2026-08-20"
+    }
+  ]
+}

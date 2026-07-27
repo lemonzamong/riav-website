@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
 
+import base64
+import hashlib
+import hmac
+import json
 import os
 import tempfile
 import unittest
+from unittest.mock import patch
 
 import contact_api
 
@@ -11,6 +16,7 @@ class ContactApiTests(unittest.TestCase):
     def setUp(self) -> None:
         self.tempdir = tempfile.TemporaryDirectory()
         contact_api.DB_PATH = os.path.join(self.tempdir.name, "leads.db")
+        self.previous_webhook_secret = contact_api.RESEND_WEBHOOK_SECRET
         self.valid = {
             "inquiry": "flow",
             "name": "테스트 담당자",
@@ -30,6 +36,7 @@ class ContactApiTests(unittest.TestCase):
         }
 
     def tearDown(self) -> None:
+        contact_api.RESEND_WEBHOOK_SECRET = self.previous_webhook_secret
         self.tempdir.cleanup()
 
     def test_flow_lead_validates_and_persists_attribution(self) -> None:
@@ -62,11 +69,18 @@ class ContactApiTests(unittest.TestCase):
         self.assertEqual(row["notification_status"], "failed")
 
     def test_required_sales_context_is_enforced(self) -> None:
-        for field in ("phone", "role", "environment", "scope", "timeline"):
+        for field in ("role", "environment", "scope", "timeline"):
             payload = dict(self.valid)
             payload[field] = ""
             _, error = contact_api.validate(payload)
             self.assertEqual(error, "missing_required", field)
+
+    def test_phone_is_optional_for_lower_friction_fit_review(self) -> None:
+        payload = dict(self.valid)
+        payload["phone"] = ""
+        data, error = contact_api.validate(payload)
+        self.assertIsNone(error)
+        self.assertEqual(data["phone"], "")
 
     def test_flow_funnel_events_are_allowed(self) -> None:
         for event in (
@@ -85,6 +99,155 @@ class ContactApiTests(unittest.TestCase):
     def test_full_sales_pipeline_statuses_are_available(self) -> None:
         for status in ("discovery_scheduled", "site_assessment", "pilot_active", "annual_contract", "nurture"):
             self.assertIn(status, contact_api.LEAD_STATUSES)
+
+    def test_relay_registers_contact_and_scheduled_messages(self) -> None:
+        token = "a" * 32
+        success, error = contact_api.relay_register(
+            {
+                "email": "Buyer <BUYER@example.com>",
+                "unsubscribe_token": token,
+                "schedules": [
+                    {"provider_id": "provider-1", "message_id": "message-1"},
+                    {"provider_id": "provider-2", "message_id": "message-2"},
+                ],
+            }
+        )
+        self.assertTrue(success)
+        self.assertEqual(error, "")
+        with contact_api.database() as db:
+            contact = db.execute(
+                "SELECT * FROM outreach_contacts WHERE email = ?",
+                ("buyer@example.com",),
+            ).fetchone()
+            schedules = db.execute(
+                "SELECT * FROM outreach_schedules ORDER BY provider_id"
+            ).fetchall()
+        self.assertEqual(contact["unsubscribe_token"], token)
+        self.assertEqual(contact["opted_out"], 0)
+        self.assertEqual([row["provider_id"] for row in schedules], ["provider-1", "provider-2"])
+
+    def test_unsubscribe_marks_contact_and_cancels_schedules(self) -> None:
+        token = "b" * 32
+        contact_api.relay_register(
+            {
+                "email": "buyer@example.com",
+                "unsubscribe_token": token,
+                "schedules": [
+                    {"provider_id": "provider-1", "message_id": "message-1"},
+                ],
+            }
+        )
+        with patch.object(contact_api, "resend_cancel", return_value=True):
+            success, email = contact_api.relay_unsubscribe(token)
+        self.assertTrue(success)
+        self.assertEqual(email, "buyer@example.com")
+        with contact_api.database() as db:
+            contact = db.execute(
+                "SELECT opted_out FROM outreach_contacts WHERE email = ?",
+                (email,),
+            ).fetchone()
+            schedule = db.execute(
+                "SELECT status FROM outreach_schedules WHERE provider_id = 'provider-1'"
+            ).fetchone()
+        self.assertEqual(contact["opted_out"], 1)
+        self.assertEqual(schedule["status"], "cancelled")
+        events = contact_api.relay_poll(0)["events"]
+        self.assertEqual(len(events), 1)
+        self.assertEqual(events[0]["event_type"], "contact.unsubscribed")
+        self.assertEqual(events[0]["sender_email"], email)
+
+    def test_reply_event_cancels_followups_and_is_idempotent(self) -> None:
+        token = "c" * 32
+        contact_api.relay_register(
+            {
+                "email": "buyer@example.com",
+                "unsubscribe_token": token,
+                "schedules": [
+                    {"provider_id": "provider-1", "message_id": "message-1"},
+                ],
+            }
+        )
+        payload = {
+            "type": "email.received",
+            "data": {"email_id": "inbound-1", "from": "Buyer <buyer@example.com>"},
+        }
+        with patch.object(contact_api, "resend_cancel", return_value=True):
+            self.assertEqual(
+                contact_api.process_resend_webhook(payload, "event-1"),
+                (True, ""),
+            )
+            self.assertEqual(
+                contact_api.process_resend_webhook(payload, "event-1"),
+                (True, ""),
+            )
+        with contact_api.database() as db:
+            schedule = db.execute(
+                "SELECT status FROM outreach_schedules WHERE provider_id = 'provider-1'"
+            ).fetchone()
+        self.assertEqual(schedule["status"], "cancelled")
+        self.assertEqual(len(contact_api.relay_poll(0)["events"]), 1)
+
+    def test_bounce_uses_recipient_to_stop_future_messages(self) -> None:
+        token = "d" * 32
+        contact_api.relay_register(
+            {
+                "email": "buyer@example.com",
+                "unsubscribe_token": token,
+                "schedules": [
+                    {"provider_id": "followup-1", "message_id": "message-1"},
+                ],
+            }
+        )
+        payload = {
+            "type": "email.bounced",
+            "data": {
+                "email_id": "initial-1",
+                "from": "Iruvy <contact@iruvy.com>",
+                "to": ["buyer@example.com"],
+            },
+        }
+        with patch.object(contact_api, "resend_cancel", return_value=True):
+            self.assertEqual(
+                contact_api.process_resend_webhook(payload, "event-bounce"),
+                (True, ""),
+            )
+        with contact_api.database() as db:
+            contact = db.execute(
+                "SELECT opted_out FROM outreach_contacts WHERE email = ?",
+                ("buyer@example.com",),
+            ).fetchone()
+            schedule = db.execute(
+                "SELECT status FROM outreach_schedules WHERE provider_id = ?",
+                ("followup-1",),
+            ).fetchone()
+        self.assertEqual(contact["opted_out"], 1)
+        self.assertEqual(schedule["status"], "cancelled")
+        event = contact_api.relay_poll(0)["events"][0]
+        self.assertEqual(event["sender_email"], "buyer@example.com")
+
+    def test_resend_webhook_signature_validation(self) -> None:
+        raw_secret = b"relay-webhook-test-secret"
+        contact_api.RESEND_WEBHOOK_SECRET = "whsec_" + base64.b64encode(raw_secret).decode("ascii")
+        raw_body = json.dumps(
+            {"type": "email.received", "data": {"email_id": "inbound-1"}},
+            separators=(",", ":"),
+        ).encode("utf-8")
+        timestamp = "1800000000"
+        event_id = "msg_test"
+        signed = f"{event_id}.{timestamp}.".encode("utf-8") + raw_body
+        signature = base64.b64encode(
+            hmac.new(raw_secret, signed, hashlib.sha256).digest()
+        ).decode("ascii")
+        headers = {
+            "svix-id": event_id,
+            "svix-timestamp": timestamp,
+            "svix-signature": f"v1,{signature}",
+        }
+        with patch.object(contact_api.time, "time", return_value=1800000000):
+            self.assertTrue(contact_api.verify_resend_signature(raw_body, headers))
+            self.assertFalse(
+                contact_api.verify_resend_signature(raw_body + b" ", headers)
+            )
 
 
 if __name__ == "__main__":
