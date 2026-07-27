@@ -4,11 +4,11 @@ import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const out = join(root, "dist");
-const vTag = `20260728-v5-${Date.now()}`;
+const vTag = `20260728-v6-${Date.now()}`;
 const today = "2026-07-28";
 
 const routes = [
-  ["", "Iruvy | 산업현장의 숨은 캐파를 실행 가능한 결정으로", "Iruvy Flow는 제조 현장의 병목과 납기 지연을 선제 감지하고 생산관리자가 승인할 작업순서 대안을 계산합니다."],
+  ["", "Iruvy | 설비 정지와 납기 지연 시 최적 작업 순서를 계산하는 제조 AI", "Iruvy Flow는 ERP·MES 데이터를 읽기 전용으로 연결하여 제약공정 병목을 풀고 최선의 작업 순서를 계산합니다."],
   ["flow", "Iruvy Flow | 제약공정 캐파 증폭 AI System", "ERP·MES·Excel 데이터 연결로 제약공정 병목을 풀고 납기를 지키는 최적 생산 대안을 계산하는 산업 자율운영 AI."],
   ["how-it-works", "작동 방식 | Iruvy Flow (IDFM Engine)", "데이터 수집부터 제약 시뮬레이션, 생산관리자 승인 및 성과 기록까지의 기술 구조."],
   ["capacity-lab", "Iruvy Capacity Lab | 공장 데이터 준비도 & 병목 진단", "최근 지연 사례 1건으로 우리 공장의 제약공정 캐파 증폭 가능성을 진단합니다."],
@@ -152,7 +152,7 @@ const home = `
   <div class="shell hero-grid">
     <div>
       <div class="sys-tag">SYS // INDUSTRIAL_AUTONOMY_AI</div>
-      <h1>산업현장의 숨은 캐파를,<br><span class="highlight">실행 가능한 결정으로.</span></h1>
+      <h1>설비가 멈추고 납기가 밀릴 때,<br><span class="highlight">최선의 작업 순서를 계산합니다.</span></h1>
       <p class="lede">Iruvy Flow는 ERP·MES·Excel의 생산 데이터를 읽기 전용으로 연결하여 제약공정의 병목과 납기 지연을 선제적으로 감지하고, 생산관리자가 검토·승인할 최적 작업 대안을 제시합니다.</p>
       <div class="actions">
         <a class="button primary" href="/capacity-lab/#apply" data-event="hero_primary_cta_click">우리 공장 적합성 확인</a>

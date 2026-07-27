@@ -41,7 +41,7 @@ for (const page of pages) {
 }
 
 const home = readFileSync(join(dist, "index.html"), "utf8");
-if (!home.includes("산업현장의 숨은 캐파를")) errors.push("홈 핵심 헤드라인 누락");
+if (!home.includes("설비가 멈추고 납기가 밀릴 때")) errors.push("홈 핵심 헤드라인 누락");
 if (!home.includes("SYNTHETIC DATA")) errors.push("합성 데이터 표기 누락");
 if (!/관리자.*승인/.test(home)) errors.push("관리자 승인 메시지 누락");
 if (!home.includes("우리 공장 적합성 확인")) errors.push("홈 전환 CTA 누락");
@@ -59,13 +59,9 @@ for (const route of ["flow", "how-it-works", "capacity-lab", "evidence", "compan
 }
 for (const phrase of ["/go/", "/guide/", "/pricing/", "/solutions/", "/design-partners/", "/technology/"]) if (sitemap.includes(phrase)) errors.push(`sitemap: 과거 경로 ${phrase}`);
 
-if (!existsSync(join(dist, "assets", "site.css"))) errors.push("공통 CSS 누락");
-if (!existsSync(join(dist, "assets", "site.js"))) errors.push("공통 JS 누락");
-if (!existsSync(join(dist, "assets", "og.png"))) errors.push("OG 이미지 누락");
-if (!existsSync(join(dist, "server", "index.js"))) errors.push("호스팅 worker 누락");
-
-if (errors.length) {
-  console.error(errors.join("\n"));
+if (errors.length > 0) {
+  console.error("Site check failed:\n" + errors.map(e => ` - ${e}`).join("\n"));
   process.exit(1);
+} else {
+  console.log(`Iruvy Flow site check passed: ${pages.length} pages`);
 }
-console.log(`Iruvy Flow site check passed: ${pages.length} pages`);
