@@ -439,7 +439,7 @@ def scene_contact(t: float) -> Image.Image:
     draw_text(img, (W // 2, 440), "AI 실내 내비게이션 인프라", 54, INK, anchor="mm")
     draw_text(img, (W // 2, 525), "누구나 어디든 갈 수 있는 세상", 42, MUTED, anchor="mm")
     card(img, (540, 650, 1380, 770), alpha=250, radius=22)
-    draw_text(img, (W // 2, 710), "contact@iruvy.com", 46, BRAND_DEEP, anchor="mm")
+    draw_text(img, (W // 2, 710), "iruvy.official@gmail.com", 46, BRAND_DEEP, anchor="mm")
     draw_text(img, (W // 2, 850), "iruvy.com", 34, MUTED, anchor="mm")
     return img
 

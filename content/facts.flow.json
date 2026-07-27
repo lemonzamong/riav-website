@@ -1,0 +1,39 @@
+{
+  "reviewedAt": "2026-07-24",
+  "claims": [
+    {
+      "id": "company-definition",
+      "status": "VERIFIED",
+      "value": "Iruvy는 복잡한 산업현장의 데이터를 실행 가능한 의사결정으로 바꾸는 산업 운영 소프트웨어 회사다.",
+      "evidence": "/Users/hyeokjun/.codex/docs/COMPANY_STRATEGY.md"
+    },
+    {
+      "id": "product-definition",
+      "status": "VERIFIED",
+      "value": "Iruvy Flow는 주문·공정·설비·작업 데이터를 연결해 납기 지연 위험과 병목을 보여주고 관리자가 대안을 검토하도록 돕는다.",
+      "evidence": "/Users/hyeokjun/.codex/docs/products/IRUVY_FLOW.md"
+    },
+    {
+      "id": "pilot-scope",
+      "status": "PILOT_SCOPE",
+      "value": "한 공장, 한 제품군 또는 생산셀, 한 가지 결정, 8~12주 섀도 파일럿",
+      "evidence": "/Users/hyeokjun/.codex/docs/products/IRUVY_FLOW.md"
+    },
+    {
+      "id": "on-premise",
+      "status": "ROADMAP",
+      "value": "현재 공개 약속하지 않음",
+      "evidence": "/Users/hyeokjun/.codex/docs/products/IRUVY_FLOW.md"
+    }
+  ],
+  "prohibitedClaims": [
+    "한국형 팔란티어",
+    "국내 유일",
+    "세계 최고",
+    "완전 자율 공장",
+    "100% 정확도",
+    "모든 ERP·MES 연동",
+    "검증된 보안",
+    "엔터프라이즈급 보안"
+  ]
+}

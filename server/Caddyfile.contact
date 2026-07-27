@@ -1,0 +1,25 @@
+	@privacy_legacy path /privacy.html
+	redir @privacy_legacy /privacy/ 301
+
+	@solutions_legacy path /solutions /solutions/ /solutions/index.html
+	redir @solutions_legacy /go/use-cases/ 301
+
+	@technology_legacy path /technology /technology/ /technology/index.html
+	redir @technology_legacy /go/how-it-works/ 301
+
+	@proof_legacy path /proof /proof/ /proof/index.html
+	redir @proof_legacy /go/evidence/ 301
+
+	@go_use_cases path /go/use-cases /go/use-cases/
+	rewrite @go_use_cases /solutions/index.html
+
+	@go_how_it_works path /go/how-it-works /go/how-it-works/
+	rewrite @go_how_it_works /technology/index.html
+
+	@go_evidence path /go/evidence /go/evidence/
+	rewrite @go_evidence /proof/index.html
+
+	@contact_api path /api/contact /api/events
+	handle @contact_api {
+		reverse_proxy 127.0.0.1:8431
+	}

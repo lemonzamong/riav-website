@@ -1,0 +1,1882 @@
+<!doctype html>
+<html lang="ko"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>도입 요금제 및 제안 안내｜Iruvy</title><meta name="description" content="Iruvy Go 실내 길찾기 서비스의 도입 요금 정책과 청년창업기업 특례 수의계약 가이드라인, 다년 계약 혜택 및 견적 시뮬레이션을 제공합니다."><link rel="canonical" href="https://iruvy.com/pricing/">
+  <meta property="og:title" content="도입 요금제 및 제안 안내｜Iruvy"><meta property="og:description" content="Iruvy Go 실내 길찾기 서비스의 도입 요금 정책과 청년창업기업 특례 수의계약 가이드라인, 다년 계약 혜택 및 견적 시뮬레이션을 제공합니다."><meta property="og:type" content="website"><meta property="og:url" content="https://iruvy.com/pricing/"><meta property="og:image" content="https://iruvy.com/assets/og-iruvy.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Iruvy 요금 정책 및 제안 안내">
+  <meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://iruvy.com/assets/og-iruvy.png"><link rel="icon" href="/favicon.ico">
+  <script>(function(){try{var m=localStorage.getItem("iruvy-theme-mode")||"auto";document.documentElement.dataset.themeMode=m;if(m==="dark"||(m==="auto"&&window.matchMedia("(prefers-color-scheme: dark)").matches))document.documentElement.dataset.theme="dark"}catch(e){}})();</script>
+  <link rel="stylesheet" href="/styles/sales.css?v=20260720-11"><script src="/scripts/site.js?v=20260720-11" defer></script>
+  <style>
+    /* Pricing Page Specific Interactive Simulator Styles */
+    .simulator-card {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 24px;
+      padding: 3rem;
+      box-shadow: var(--shadow);
+      margin-top: 2rem;
+    }
+    [data-theme="dark"] .simulator-card {
+      background: rgba(18, 20, 32, 0.65);
+      border-color: rgba(255, 255, 255, 0.05);
+    }
+    .sim-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 3.5rem;
+      align-items: start;
+    }
+    .sim-controls {
+      display: grid;
+      gap: 2rem;
+      text-align: left;
+    }
+    .control-group {
+      display: grid;
+      gap: 0.8rem;
+    }
+    .control-group label {
+      font-weight: 750;
+      font-size: 1.05rem;
+      color: var(--text);
+    }
+    .slider-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+    .slider-wrap input[type="range"] {
+      flex: 1;
+      height: 6px;
+      background: var(--line-strong);
+      border-radius: 99px;
+      outline: none;
+      -webkit-appearance: none;
+    }
+    .slider-wrap input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--brand-neon);
+      cursor: pointer;
+      box-shadow: 0 0 10px var(--brand-neon-glow);
+    }
+    .slider-val {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--brand-neon);
+      min-width: 75px;
+    }
+    .btn-select-group {
+      display: flex;
+      gap: 0.6rem;
+    }
+    .btn-select {
+      flex: 1;
+      min-height: 48px;
+      background: var(--surface);
+      border: 1px solid var(--line-strong);
+      border-radius: 12px;
+      font-weight: 650;
+      cursor: pointer;
+      color: var(--text-2);
+      transition: all 0.2s var(--ease);
+    }
+    [data-theme="dark"] .btn-select {
+      background: var(--surface-2);
+    }
+    .btn-select.active {
+      background: var(--brand-neon-glow);
+      border-color: var(--brand-neon);
+      color: var(--brand-neon);
+      box-shadow: 0 0 12px var(--brand-neon-glow);
+    }
+    .sim-result-box {
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 2.2rem;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    [data-theme="dark"] .sim-result-box {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .result-price-label {
+      font-size: 0.9rem;
+      color: var(--text-2);
+      margin-bottom: 0.4rem;
+    }
+    .result-price-val {
+      font-size: 2.5rem;
+      font-weight: 950;
+      color: var(--text);
+      letter-spacing: -0.04em;
+      margin-bottom: 1.5rem;
+    }
+    .result-breakdown {
+      font-size: 0.85rem;
+      color: var(--text-2);
+      border-top: 1px solid var(--line);
+      padding-top: 1.2rem;
+      margin-bottom: 1.8rem;
+      display: grid;
+      gap: 0.6rem;
+    }
+    .breakdown-row {
+      display: flex;
+      justify-content: space-between;
+    }
+    .badge-contract-status {
+      padding: 0.8rem 1rem;
+      border-radius: 12px;
+      font-size: 0.83rem;
+      font-weight: 800;
+      text-align: center;
+      margin-top: auto;
+      border: 1px solid transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    .badge-contract-status.success {
+      background: hsla(145, 80%, 40%, 0.1);
+      color: hsl(145, 80%, 35%);
+      border-color: hsla(145, 80%, 40%, 0.2);
+    }
+    .badge-contract-status.warning {
+      background: hsla(38, 80%, 40%, 0.1);
+      color: hsl(38, 80%, 35%);
+      border-color: hsla(38, 80%, 40%, 0.2);
+    }
+    .proposal-badge {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      border-radius: 99px;
+      background: var(--brand-neon-glow);
+      color: var(--brand-neon);
+      font-size: 0.78rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      letter-spacing: 0.05em;
+    }
+    .sec-desc {
+      margin-bottom: 3.5rem;
+      color: var(--text-2);
+      font-size: 1.1rem;
+    }
+    
+    /* ---------------------------------------------------- */
+    /* DESKTOP WEB ADMIN DASHBOARD SIMULATOR STYLES */
+    /* ---------------------------------------------------- */
+    .admin-dashboard-container {
+      display: flex;
+      flex-direction: column;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      margin-top: 2rem;
+      transition: all 0.3s ease;
+    }
+    [data-theme="dark"] .admin-dashboard-container {
+      background: rgba(18, 20, 32, 0.65);
+      border-color: rgba(255, 255, 255, 0.05);
+    }
+    .db-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.1rem 2rem;
+      background: rgba(0, 0, 0, 0.015);
+      border-bottom: 1px solid var(--line);
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+    [data-theme="dark"] .db-topbar {
+      background: rgba(255, 255, 255, 0.015);
+    }
+    .db-logo {
+      font-weight: 800;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+    .db-logo-mark {
+      color: var(--brand-neon);
+      font-size: 1rem;
+    }
+    .db-logo-tag {
+      font-size: 0.68rem;
+      background: var(--brand-neon-glow);
+      color: var(--brand-neon);
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+    .db-breadcrumbs {
+      color: var(--text-2);
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    .db-status-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.78rem;
+      color: #18c775;
+      font-weight: 600;
+    }
+    .db-status-dot {
+      width: 7px;
+      height: 7px;
+      background: #18c775;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #18c775;
+    }
+    .db-main-layout {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      min-height: 580px;
+    }
+    .db-sidebar {
+      background: rgba(0, 0, 0, 0.01);
+      border-right: 1px solid var(--line);
+      padding: 2rem 1.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+      text-align: left;
+    }
+    [data-theme="dark"] .db-sidebar {
+      background: rgba(255, 255, 255, 0.01);
+    }
+    .db-section-title {
+      font-size: 0.83rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      color: var(--text-2);
+      margin-bottom: 0.2rem;
+      border-left: 3px solid var(--brand-neon);
+      padding-left: 0.5rem;
+      text-transform: uppercase;
+    }
+    .db-content {
+      background: rgba(0, 0, 0, 0.02);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
+    }
+    [data-theme="dark"] .db-content {
+      background: rgba(0, 0, 0, 0.15);
+    }
+    .db-stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    .db-stat-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 1.1rem;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    }
+    [data-theme="dark"] .db-stat-card {
+      background: var(--surface-2);
+      box-shadow: none;
+    }
+    .db-stat-card .stat-lbl {
+      font-size: 0.75rem;
+      color: var(--text-2);
+      font-weight: 500;
+    }
+    .db-stat-card .stat-val {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+    .db-map-card {
+      flex: 1;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+    .db-map-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.4rem;
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+    .db-map-canvas {
+      flex: 1;
+      min-height: 520px;
+      position: relative;
+      background: var(--surface-3);
+    }
+    [data-theme="dark"] .db-map-canvas {
+      background: #090a0f;
+    }
+    
+    .console-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .console-input-group label {
+      font-weight: 750;
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+    .console-text-input {
+      padding: 0.65rem 0.9rem;
+      border-radius: 8px;
+      border: 1px solid var(--line-strong);
+      background: var(--surface);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.88rem;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    .console-text-input:focus {
+      border-color: var(--brand-neon);
+    }
+    
+    .mock-warning-bar {
+      background: #e02a2a;
+      color: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 0.55rem 1rem;
+      display: none;
+      align-items: center;
+      gap: 0.5rem;
+      animation: mockPulse 2s infinite;
+      z-index: 20;
+    }
+    .mock-warning-bar.active {
+      display: flex;
+    }
+    @keyframes mockPulse {
+      0% { opacity: 0.95; }
+      50% { opacity: 0.65; }
+      100% { opacity: 0.95; }
+    }
+    
+    /* PURE CSS 3D MAP SCENE STYLES */
+    .scene-3d-wrap {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      perspective: 800px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform-style: preserve-3d;
+    }
+    .floor-3d {
+      position: relative;
+      width: 320px;
+      height: 250px;
+      background: rgba(22, 26, 42, 0.9);
+      border: 2px solid rgba(101, 72, 245, 0.38);
+      border-radius: 12px;
+      transform: rotateX(60deg) rotateZ(-40deg) scale3d(1.3, 1.3, 1.3);
+      transform-style: preserve-3d;
+      box-shadow: -20px 20px 45px rgba(0, 0, 0, 0.6);
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    [data-theme="light"] .floor-3d {
+      background: rgba(240, 244, 252, 0.95) !important;
+      border-color: rgba(101, 72, 245, 0.25) !important;
+      box-shadow: -15px 15px 35px rgba(0, 0, 0, 0.1) !important;
+    }
+    .floor-grid {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-size: 20px 20px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      border-radius: 10px;
+    }
+    [data-theme="light"] .floor-grid {
+      background-image: 
+        linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px) !important;
+    }
+    
+    /* Interactive 3D Room Zones */
+    .room-3d {
+      position: absolute;
+      transform-style: preserve-3d;
+      cursor: pointer;
+      border: 1px dashed rgba(255,255,255,0.04);
+      background: rgba(255,255,255,0.015);
+      transition: all 0.3s ease;
+    }
+    [data-theme="light"] .room-3d {
+      border-color: rgba(0,0,0,0.05);
+      background: rgba(0,0,0,0.005);
+    }
+    .room-3d:hover {
+      background: rgba(101, 72, 245, 0.1);
+      border-color: rgba(101, 72, 245, 0.5);
+      transform: translateZ(5px); /* Hover elevates in 3D Space */
+    }
+    .room-3d.selected {
+      background: rgba(24, 199, 117, 0.12);
+      border: 1.5px solid var(--brand-neon);
+      box-shadow: 0 0 20px rgba(24, 199, 117, 0.25);
+    }
+    
+    /* CSS 3D Box (Cuboid) Generator */
+    .cube-3d {
+      position: absolute;
+      transform-style: preserve-3d;
+      width: var(--w);
+      height: var(--h);
+    }
+    .cube-3d .face {
+      position: absolute;
+      background: var(--cb, rgba(255, 255, 255, 0.15));
+      border: 1px solid var(--cborder, rgba(255, 255, 255, 0.18));
+      box-sizing: border-box;
+    }
+    [data-theme="light"] .cube-3d .face {
+      background: var(--cb, rgba(0, 0, 0, 0.08));
+      border-color: var(--cborder, rgba(0, 0, 0, 0.12));
+    }
+    .cube-3d .face.top {
+      width: var(--w);
+      height: var(--h);
+      transform: translateZ(var(--z));
+      background: var(--cube-top-bg, rgba(255, 255, 255, 0.22));
+    }
+    [data-theme="light"] .cube-3d .face.top {
+      background: var(--cube-top-bg, rgba(0, 0, 0, 0.12));
+    }
+    .cube-3d .face.front {
+      width: var(--w);
+      height: var(--z);
+      transform: rotateX(-90deg);
+      transform-origin: bottom;
+      bottom: 0;
+    }
+    .cube-3d .face.left {
+      width: var(--z);
+      height: var(--h);
+      transform: rotateY(-90deg);
+      transform-origin: left;
+      left: 0;
+    }
+    .cube-3d .face.right {
+      width: var(--z);
+      height: var(--h);
+      transform: rotateY(90deg);
+      transform-origin: right;
+      right: 0;
+    }
+    
+    /* Pool Visual styling */
+    .pool-3d-liquid {
+      position: absolute;
+      left: 5px;
+      top: 5px;
+      width: calc(100% - 10px);
+      height: calc(100% - 10px);
+      background: linear-gradient(135deg, #1d8cf8, #11cdef);
+      opacity: 0.75;
+      border-radius: 4px;
+      box-shadow: inset 0 0 12px rgba(0,0,0,0.6);
+      animation: waterRipple 3s infinite ease-in-out;
+    }
+    [data-theme="light"] .pool-3d-liquid {
+      opacity: 0.65;
+      box-shadow: inset 0 0 8px rgba(0,0,0,0.3);
+    }
+    @keyframes waterRipple {
+      0% { filter: hue-rotate(0deg); opacity: 0.75; }
+      50% { filter: hue-rotate(15deg); opacity: 0.85; }
+      100% { filter: hue-rotate(0deg); opacity: 0.75; }
+    }
+    
+    /* Ramp Board 3D Slope */
+    .ramp-board-3d {
+      position: absolute;
+      left: 5px;
+      top: 2px;
+      width: calc(100% - 10px);
+      height: calc(100% - 4px);
+      background: #2b303c;
+      border: 1px solid rgba(24, 199, 117, 0.3);
+      transform: rotateX(-12deg);
+      transform-origin: bottom;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    }
+    [data-theme="light"] .ramp-board-3d {
+      background: #e2e8f0;
+      border-color: rgba(24, 199, 117, 0.2);
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    }
+    
+    /* Upright standing 3D Billboard Pin tags (Counter-acting floor rotation) */
+    .pin-3d {
+      position: absolute;
+      background: var(--surface);
+      border: 1.5px solid var(--brand-neon);
+      color: var(--text);
+      padding: 0.25rem 0.55rem;
+      border-radius: 6px;
+      font-size: 9px;
+      font-weight: bold;
+      white-space: nowrap;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      cursor: pointer;
+      pointer-events: auto;
+      z-index: 100;
+      /* Negates the .floor-3d angles rotateX(60deg) rotateZ(-40deg) and floats above at Z = 35px */
+      transform: rotateZ(40deg) rotateX(-60deg) translate3d(-50%, -100%, 35px);
+      transform-origin: bottom center;
+      transition: all 0.3s ease;
+    }
+    .pin-3d::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 100%;
+      width: 1px;
+      height: 35px;
+      background: linear-gradient(to bottom, var(--brand-neon), transparent);
+      transform: translate3d(-50%, 0, -10px);
+      display: block;
+      z-index: -1;
+    }
+    .neon-path-line {
+      fill: none !important;
+      stroke-width: 4px;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    [data-theme="dark"] .pin-3d {
+      background: rgba(17, 19, 26, 0.95);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.6);
+    }
+    .pin-3d::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 4px 3px 0;
+      border-style: solid;
+      border-color: var(--surface) transparent;
+      display: block;
+      width: 0;
+    }
+    [data-theme="dark"] .pin-3d::after {
+      border-color: rgba(17, 19, 26, 0.95) transparent;
+    }
+    
+    /* Specific coordinates for Pins inside the 3D grid coordinate system */
+    .pin-3d.hydro-pin {
+      left: 65px;
+      top: 175px;
+    }
+    .pin-3d.art-pin {
+      left: 65px;
+      top: 70px;
+    }
+    .pin-3d.lobby-pin {
+      left: 230px;
+      top: 140px;
+    }
+    .pin-3d.machine-pin {
+      left: 160px;
+      top: 130px;
+    }
+    .pin-3d.office-pin {
+      left: 170px;
+      top: 120px;
+    }
+    
+    /* 3D Path SVG Overlay flatly integrated inside floor */
+    .iso-path-svg-3d {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      transform: translateZ(1px); /* Lay flat directly on top of floor grid */
+      transform-style: preserve-3d;
+    }
+    
+    /* Inline Popup Editor style */
+    .room-editor-pop {
+      position: absolute;
+      background: rgba(17, 19, 26, 0.98);
+      border: 1px solid var(--brand-neon);
+      border-radius: 12px;
+      padding: 1.1rem;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+      z-index: 900;
+      display: none;
+      flex-direction: column;
+      gap: 0.6rem;
+      min-width: 200px;
+      backdrop-filter: blur(12px);
+    }
+    
+    /* Floor Switcher Controller Styles */
+    .floor-switcher-wrap-mini {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 99px;
+      padding: 0.35rem 0.9rem;
+      z-index: 20;
+    }
+    [data-theme="light"] .floor-switcher-wrap-mini {
+      background: var(--surface-2);
+      border-color: var(--line);
+    }
+    .btn-floor-arrow-mini {
+      background: none;
+      border: none;
+      color: var(--brand-neon);
+      font-size: 0.95rem;
+      cursor: pointer;
+      outline: none;
+      transition: transform 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn-floor-arrow-mini:hover {
+      transform: scale(1.2);
+    }
+    .current-floor-lbl-mini {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #ffffff;
+      min-width: 80px;
+      text-align: center;
+      letter-spacing: 0.05em;
+    }
+    [data-theme="light"] .current-floor-lbl-mini {
+      color: var(--text);
+    }
+    
+    /* PRINT / PDF ESTIMATE STYLES */
+    #printEstimateArea {
+      display: none;
+    }
+    
+    @media print {
+      html, body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        height: auto !important;
+        min-height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: visible !important;
+      }
+      body.sales-site > * {
+        display: none !important;
+      }
+      body.sales-site > #printEstimateArea {
+        display: block !important;
+        position: relative !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        page-break-inside: avoid !important;
+        page-break-after: avoid !important;
+        page-break-before: avoid !important;
+      }
+    }
+    @media (max-width: 960px) {
+      .sim-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+      .db-main-layout {
+        grid-template-columns: 1fr;
+      }
+      .db-sidebar {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+    }
+  </style>
+</head><body class="sales-site"><a class="skip-link" href="#main">본문으로 이동</a>
+<header class="sales-header"><div class="sales-shell sales-header-inner">
+  <a class="sales-brand" href="/"><img src="/assets/iruvy-logo.svg" alt="Iruvy" width="1180" height="320"></a>
+  <button class="sales-menu" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>메뉴</button>
+  <nav class="sales-nav" id="site-nav" data-nav data-open="false" aria-label="주요 메뉴">
+    <details><summary>솔루션</summary><div class="sales-dropdown"><a href="/go/"><strong>Iruvy Go</strong><span>실증 완료 · 현재 도입 상담</span></a><a href="/guide/"><strong>Iruvy Guide</strong><span>개발·확장 · 디자인 파트너</span></a><a href="/flow/"><strong>Iruvy Flow</strong><span>파일럿 준비 · 기관 운영 효율화</span></a></div></details>
+    <details><summary>적용 분야</summary><div class="sales-dropdown"><a href="/solutions/welfare/">장애인·복지기관</a><a href="/solutions/public/">공공·문화·교육시설</a><a href="/solutions/hospital/">병원·대형 복합시설</a></div></details>
+    <a href="/cases/">실증·사례</a><a href="/technology/">기술·보안</a><a href="/resources/">자료실</a><a href="/pricing/">도입 요금제</a><a class="sales-nav-cta" href="/contact/?product=go" data-event="nav_contact_click">기관 도입 상담</a>
+  </nav>
+</div></header>
+
+<main id="main">
+  <!-- 1. Page Hero -->
+  <section class="page-hero">
+    <div class="sales-shell page-hero-grid single">
+      <div>
+        <span class="proposal-badge">PUBLIC SECTOR & WELFARE PROPOSAL</span>
+        <h1>도입 및 제안 요금 정책</h1>
+        <p class="sec-desc">장애인 이용자의 자력 이동 지원과 시설 운영 효율화를 실현하는 디지털 실내길찾기 서비스의 도입 단가와 청년창업기업 특례 1인 수의계약 매뉴얼을 제안합니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Interactive Simulator Section -->
+  <section class="sales-section page-section">
+    <div class="sales-shell">
+      <div class="section-heading">
+        <p class="sales-kicker">PRICING SIMULATOR</p>
+        <h2>도입 예산 규모별 견적 시뮬레이터</h2>
+        <p>복지관의 공간 규모(연면적, 층수)와 다년도 계약 옵션에 따른 실시간 제안 금액을 시뮬레이션할 수 있습니다.</p>
+      </div>
+
+      <div class="simulator-card">
+        <div class="sim-grid">
+          <!-- Controls -->
+          <div class="sim-controls">
+            <!-- Control 1: POI (Scale) & Area -->
+            <div class="control-group">
+              <label for="poiRange">구축 공간 규모 및 등록 목적지 (POI)</label>
+              <p style="margin: 0; font-size: 0.88rem; color: var(--text-2);">대상 연면적 내 프로그램실, 치료실, 엘리베이터 등 안내가 필요한 목적지 개수와 면적 규모입니다.</p>
+              <div class="slider-wrap">
+                <input type="range" id="poiRange" min="50" max="400" step="10" value="130">
+                <span class="slider-val" id="poiVal">130개</span>
+              </div>
+              <div style="font-size: 0.9rem; font-weight: 700; color: var(--brand-neon); margin-top: -0.2rem;" id="scaleDetailVal">
+                건물 총 연면적: 약 4,033 ㎡ (1,220평)
+              </div>
+            </div>
+
+            <!-- Control 2: Contract Period -->
+            <div class="control-group">
+              <label>연간 플랫폼 이용·운영비 다년도 계약 기간</label>
+              <p style="margin: 0; font-size: 0.88rem; color: var(--text-2);">본 제안 금액은 기본 구축 완료일로부터 <strong>1개년 무상 플랫폼 이용·운영 서비스</strong>가 기본으로 제공됩니다. 다년 계약 연장 시 결합 할인율이 적용됩니다.</p>
+              <div class="btn-select-group">
+                <button type="button" class="btn-select active" data-years="1">1년 (기본 구축 + 1년 무상)</button>
+                <button type="button" class="btn-select" data-years="2">2년 (1년 무상 + 1년 유상 연장 / 7% 결합 할인)</button>
+                <button type="button" class="btn-select" data-years="3">3년 (1년 무상 + 2년 유상 연장 / 15% 결합 할인)</button>
+              </div>
+            </div>
+
+            <!-- Control 3: Scope Items -->
+            <div class="control-group">
+              <label>제안 비용 포함 혜택 범위</label>
+              <ul style="margin: 0; padding-left: 1.2rem; font-size: 0.88rem; color: var(--text-2); display: grid; gap: 0.4rem;">
+                <li>기본 1년 무상 플랫폼 이용·운영 서비스 및 패치 업데이트 기본 제공</li>
+                <li>현장 조사 및 동선 분석 최대 3회 포함</li>
+                <li>접근성 회피(휠체어용 계단 회피, 경사로 우선) 실내 이동망 구축</li>
+                <li>보행 안내 전용 모바일 웹서비스 라이선스 제공</li>
+                <li>관리자 정보 수정 운영 소프트웨어 라이선스 제공</li>
+                <li>관리자 실무 교육 2회 및 표준 가이드라인 매뉴얼 기본 증정</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Result Card -->
+          <div class="sim-result-box">
+            <span class="result-price-label">총 제안 공급가액 (VAT 별도)</span>
+            <div class="result-price-val" id="supplyPrice">39,800,000 원</div>
+
+            <div class="result-breakdown">
+              <div class="breakdown-row">
+                <span>기본 구축비 (1년 무상 포함)</span>
+                <span id="subtotalPrice">39,800,000 원</span>
+              </div>
+              <div class="breakdown-row">
+                <span>연장 플랫폼 이용·운영비 (할인 전)</span>
+                <span id="extensionPrice">0 원</span>
+              </div>
+              <div class="breakdown-row" style="border-top: 1px dashed var(--line); padding-top: 0.6rem; margin-top: 0.4rem; font-weight: 700; color: var(--brand-neon);">
+                <span>장기 계약 결합 할인율</span>
+                <span id="discountVal">0%</span>
+              </div>
+            </div>
+
+            <!-- 세부 견적서 다운로드/인쇄 버튼 -->
+            <button type="button" class="sales-button primary" id="btnPrintEstimate" style="width: 100%; margin-bottom: 1.2rem; min-height: 52px; border-radius: 12px; font-size: 0.95rem;">
+              📄 세부 산출내역서 인쇄 / PDF 저장
+            </button>
+
+            <!-- 수의계약 여부 피드백 배지 (지방계약법상 공급가액 즉 추정가격 5,000만원 이하 기준) -->
+            <div class="badge-contract-status success" id="contractBadge">
+              <span>🟢</span> 즉시 1인 수의계약 검토 가능 대상 (청년기업 특례)
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Interactive Operation Console Demo Section (SaaS Web Dashboard Style Upgrade) -->
+  <section class="sales-section page-section" style="background: var(--surface); border-top: 1px solid var(--line);">
+    <div class="sales-shell">
+      <div class="section-heading">
+        <p class="sales-kicker">DESKTOP ADMIN TWIN</p>
+        <h2>실내 공간 관제 및 운영자 대시보드 예시</h2>
+        <p>실제 도입 기관의 실무 관리자가 PC에서 직접 조작하는 실내 관제 화면 예시입니다. 수중치료실의 긴급 소독 상태 등록이나 치료실 명칭 변경 등 공간 변동 상황을 외주 업체 요청 없이 실시간으로 즉시 제어할 수 있습니다.</p>
+      </div>
+
+      <div class="admin-dashboard-container">
+        <!-- Dashboard Topbar -->
+        <div class="db-topbar">
+          <div class="db-logo" style="display: flex; align-items: center; gap: 0.4rem;">
+            <img src="/assets/iruvy-logo.svg" alt="Iruvy" width="59" height="16" style="height: 16px; width: auto;">
+          </div>
+          <div class="db-breadcrumbs">본관동 ➔ 실내 관제 시스템 ➔ 3D 트윈 제어 맵</div>
+          <div class="db-status-bar">
+            <span class="db-status-dot"></span> <span>서버 활성화 (SLA 99.9% 보장)</span>
+          </div>
+        </div>
+
+        <div class="db-main-layout">
+          <!-- Left: Sidebar controls -->
+          <div class="db-sidebar">
+            <!-- Sidebar Section 1 -->
+            <div>
+              <div class="db-section-title">목적지 POI 상태 편집</div>
+              <div style="display:flex; flex-direction:column; gap:1rem; margin-top:0.8rem;">
+                <div class="console-input-group">
+                  <label>본관 1층 [수중치료실] 상태</label>
+                  <div class="btn-select-group" style="margin-top:0.2rem;">
+                    <button type="button" class="btn-select active" id="btnStatusNormal" style="min-height:36px; font-size:0.82rem; border-radius:8px;">정상 운영</button>
+                    <button type="button" class="btn-select" id="btnStatusWarning" style="min-height:36px; font-size:0.82rem; border-radius:8px;">임시 소독</button>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+
+            <!-- Sidebar Section 2 -->
+            <div>
+              <div class="db-section-title">실내 길찾기 경로 규칙</div>
+              <div style="display:flex; flex-direction:column; gap:1rem; margin-top:0.8rem;">
+                <div class="console-input-group">
+                  <label>안내 네트워크 주행 엔진</label>
+                  <div class="btn-select-group" style="margin-top:0.2rem; flex-direction:column; gap:0.4rem;">
+                    <button type="button" class="btn-select active" id="btnRouteNormal" style="min-height:36px; font-size:0.82rem; border-radius:8px; width:100%;">일반 도보 동선</button>
+                    <button type="button" class="btn-select" id="btnRouteWheelchair" style="min-height:36px; font-size:0.82rem; border-radius:8px; width:100%;">♿ 휠체어 우회 동선</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sidebar Section 3 (Help note) -->
+            <div style="margin-top:auto; font-size:0.75rem; color:#8c93a3; line-height:1.45; border-top:1px solid rgba(255,255,255,0.06); padding-top:1rem;">
+              ℹ️ <strong>대시보드 안내</strong><br>
+              지도상에 배치된 임의의 방 구역을 **마우스로 직접 클릭**해도 해당 구역의 태그 이름을 실시간으로 수정하실 수 있습니다.
+            </div>
+          </div>
+
+          <!-- Right: Main Content Panel -->
+          <div class="db-content">
+            <!-- Stats Row -->
+            <div class="db-stats-row">
+              <div class="db-stat-card">
+                <span class="stat-lbl">오늘의 길안내 호출 횟수</span>
+                <strong class="stat-val">1,248회</strong>
+              </div>
+              <div class="db-stat-card">
+                <span class="stat-lbl">등록 목적지 POI 스펙</span>
+                <strong class="stat-val" id="dbStatPoi">130개</strong>
+              </div>
+              <div class="db-stat-card">
+                <span class="stat-lbl">실시간 우회 탐색 가동</span>
+                <strong class="stat-val" id="dbStatDetour">0건</strong>
+              </div>
+            </div>
+
+            <!-- 3D map canvas viewport card -->
+            <div class="db-map-card">
+              <!-- Warning alert bar inside map header -->
+              <div class="mock-warning-bar" id="mockWarning">
+                ⚠️ [실시간 통제 경보] 수중치료실 내부 긴급 소독 가동 중 — 휠체어 및 도보 보행 안내망 우회 조치 시행
+              </div>
+
+              <!-- Map Header toolbar -->
+              <div class="db-map-header">
+                <div style="display:flex; flex-direction:column; gap:0.15rem; text-align:left;">
+                  <span style="font-weight:800; font-size:0.9rem; color:var(--text);" id="mockRoomTitle">미술 치료실</span>
+                  <span style="font-size:0.75rem; color:var(--text-2);" id="mockRouteDesc">본관 1층 통로 ➔ 미술치료실 연결 계단 진입 (도보 3분)</span>
+                </div>
+                
+                <!-- Floor switcher mini toolbar -->
+                <div class="floor-switcher-wrap-mini">
+                  <button type="button" class="btn-floor-arrow-mini" id="btnFloorPrev">◀</button>
+                  <span class="current-floor-lbl-mini" id="currentFloorText">지상 1층</span>
+                  <button type="button" class="btn-floor-arrow-mini" id="btnFloorNext">▶</button>
+                </div>
+              </div>
+
+              <!-- Canvas 3D Space -->
+              <div class="db-map-canvas">
+                <div class="scene-3d-wrap" id="scene3DWrap">
+                  <div class="floor-3d" id="floor3D">
+                    <!-- Floor grid line overlay -->
+                    <div class="floor-grid"></div>
+
+                    <!-- 3D NEON routing path -->
+                    <svg class="iso-path-svg-3d" viewBox="0 0 320 250">
+                      <!-- Default direct path line (Hydro -> Pt -> Art) -->
+                      <path d="M 65 175 L 125 70 L 65 30" class="neon-path-line" id="neonPathLine" />
+                    </svg>
+
+                    <!-- 1. 1F Layer (Active by Default with 8 Detailed Rooms) -->
+                    <div class="floor-layer-3d" id="layer1F">
+                      <!-- 1) 미술치료실 Room -->
+                      <div class="room-3d" id="room1F_art" data-room="art" style="left: 10px; top: 10px; width: 75px; height: 60px;">
+                        <!-- Table wood cube -->
+                        <div class="cube-3d" style="--w:30px; --h:18px; --z:10px; left:20px; top:20px; --cb:#8a6245; --cube-top-bg:#b2825f;">
+                          <div class="face top"></div><div class="face front"></div><div class="face left"></div><div class="face right"></div>
+                        </div>
+                        <div class="cube-3d" style="--w:75px; --h:4px; --z:16px; left:0; top:0; --cb:rgba(101,72,245,0.18); --cborder:rgba(101,72,245,0.4); --cube-top-bg:rgba(101,72,245,0.3);">
+                          <div class="face top"></div><div class="face front"></div><div class="face left"></div><div class="face right"></div>
+                        </div>
+                      </div>
+
+                      <!-- 2) 심리안정실 Room -->
+                      <div class="room-3d" id="room1F_sensory" data-room="sensory" style="left: 10px; top: 75px; width: 75px; height: 60px;">
+                        <!-- Glowing sensory cube -->
+                        <div class="cube-3d" style="--w:12px; --h:12px; --z:20px; left:30px; top:25px; --cb:rgba(27, 207, 180, 0.4); --cborder:rgba(27, 207, 180, 0.8); --cube-top-bg:rgba(27, 207, 180, 0.9);">
+                          <div class="face top"></div><div class="face front"></div><div class="face left"></div><div class="face right"></div>
+                        </div>
+                        <div class="cube-3d" style="--w:75px; --h:4px; --z:16px; left:0; top:0; --cb:rgba(101,72,245,0.18); --cborder:rgba(101,72,245,0.4); --cube-top-bg:rgba(101,72,245,0.3);">
+                          <div class="face top"></div><div class="face front"></div><div class="face left"></div><div class="face right"></div>
+                        </div>
+                      </div>
+
+                      <!-- 3) 물리치료실 Room -->
+                      <div class="room-3d" id="room1F_pt" data-room="pt" style="left: 90px; top: 10px; width: 75px; height: 125px;">
+                        <!-- Treatment Beds -->
+                        <div class="cube-3d" style="--w:16px; --h:32px; --z:8px; left:15px; top:20px; --cb:#3065a6; --cube-top-bg:#4a7ebb;">
+                          <div class="face top"></div><div class="face front"></div><div class="face left"></div><div class="face right"></div>
+                        </div>
+                        <div class="cube-3d" style="--w:16px; --h:32px; --z:8px; left:45px; top:20px; --cb:#3065a6; --cube-top-bg:#4a7ebb;">
+                          <div class="face top"></div><div class="face front"></div><div class="face left"></div><div class="face right"></div>
+                        </div>
+                        <!-- Partition Wall -->
+                        <div class="cube-3d" style="--w:4px; --h:125px; --z:16px; left:71px; top:0; --cb:rgba(101,72,245,0.18); --cborder:rgba(101,72,245,0.4); --cube-top-bg:rgba(101,72,245,0.3);">
+                          <div class="face top"></div><div class="face front"></div><div class="face left"></div><div class="face right"></div>
+                        </div>
+                      </div>
+
+                      <!-- 4) 수중치료실 Room -->
+                      <div class="room-3d selected" id="room1F_hydro" data-room="hydro" style="left: 10px; top: 140px; width: 155px; height: 90px;">
+                        <!-- pool -->
+                        <div class="pool-3d-liquid"></div>
+                        <!-- Wall horizontal -->
+                        <div class="cube-3d" style="--w:155px; --h:4px; --z:16px; left:0; top:0; --cb:rgba(101,72,245,0.18); --cborder:rgba(101,72,245,0.4); --cube-top-bg:rgba(101,72,245,0.3);">
+                          <div class="face top"></div><div class="face front"></div><div class="face left"></div><div class="face right"></div>
+                        </div>
+                        <!-- Wall vertical -->
+                        <div class="cube-3d" style="--w:4px; --h:90px; --z:16px; left:151px; top:0; --cb:rgba(101,72,245,0.18); --cborder:rgba(101,72,245,0.4); --cube-top-bg:rgba(101,72,245,0.3);">
+                          <div class="face top"></div><div class="face front"></div><div class="face left"></div><div class="face right"></div>
+                        </div>
+                      </div>
+
+                      <!-- 5) 안내 데스크 Room -->
+                      <div class="room-3d" id="room1F_info" data-room="info" style="left: 175px; top: 10px; width: 135px; height: 50px;">
+                        <!-- Counter -->
+                        <div class="cube-3d" style="--w:60px; --h:10px; --z:12px; left:30px; top:20px; --cb:#805333; --cube-top-bg:#a66e46;">
+                          <div class="face top"></div><div class="face front"></div><div class="face left"></div><div class="face right"></div>
+                        </div>
+                        <!-- Partition Wall -->
+                        <div class="cube-3d" style="--w:135px; --h:4px; --z:16px; left:0; top:46px; --cb:rgba(101,72,245,0.18); --cborder:rgba(101,72,245,0.4); --cube-top-bg:rgba(101,72,245,0.3);">
+                          <div class="face top"></div><div class="face front"></div><div class="face left"></div><div class="face right"></div>
+                        </div>
+                      </div>
+
+                      <!-- 6) 중앙 로비 대기실 Room -->
+                      <div class="room-3d" id="room1F_lobby" data-room="lobby" style="left: 175px; top: 65px; width: 135px; height: 110px;">
+                        <!-- L-Sofa assembly -->
+                        <div class="cube-3d" style="--w:50px; --h:15px; --z:8px; left:30px; top:50px; --cb:#2f3b54; --cube-top-bg:#48587b;">
+                          <div class="face top"></div><div class="face front"></div><div class="face left"></div><div class="face right"></div>
+                        </div>
+                        <div class="cube-3d" style="--w:15px; --h:30px; --z:8px; left:65px; top:20px; --cb:#2f3b54; --cube-top-bg:#48587b;">
+                          <div class="face top"></div><div class="face front"></div><div class="face left"></div><div class="face right"></div>
+                        </div>
+                      </div>
+
+                      <!-- 7) 엘리베이터 홀 Room -->
+                      <div class="room-3d" id="room1F_elevator" data-room="elevator" style="left: 175px; top: 180px; width: 65px; height: 50px;">
+                        <!-- Elevator Door cube -->
+                        <div class="cube-3d" style="--w:24px; --h:4px; --z:22px; left:20px; top:40px; --cb:#606060; --cube-top-bg:#808080;">
+                          <div class="face top"></div><div class="face front"></div><div class="face left"></div><div class="face right"></div>
+                        </div>
+                        <!-- Wall separator -->
+                        <div class="cube-3d" style="--w:4px; --h:50px; --z:16px; left:61px; top:0; --cb:rgba(101,72,245,0.18); --cborder:rgba(101,72,245,0.4); --cube-top-bg:rgba(101,72,245,0.3);">
+                          <div class="face top"></div><div class="face front"></div><div class="face left"></div><div class="face right"></div>
+                        </div>
+                      </div>
+
+                      <!-- 8) 상담실 Room -->
+                      <div class="room-3d" id="room1F_counseling" data-room="counseling" style="left: 245px; top: 180px; width: 65px; height: 50px;">
+                        <!-- Table -->
+                        <div class="cube-3d" style="--w:20px; --h:20px; --z:10px; left:20px; top:15px; --cb:#a87d5b; --cube-top-bg:#cb9d78;">
+                          <div class="face top"></div><div class="face front"></div><div class="face left"></div><div class="face right"></div>
+                        </div>
+                      </div>
+
+                      <!-- 9) ♿ 경사로 Room -->
+                      <div class="room-3d" id="room1F_ramp" data-room="ramp" style="left: 10px; top: 233px; width: 155px; height: 14px;">
+                        <div class="ramp-board-3d"></div>
+                      </div>
+                    </div>
+
+                    <!-- 2. B1F Layer (Hidden by default) -->
+                    <div class="floor-layer-3d" id="layerB1F" style="display:none;">
+                      <!-- 기계실 / 관리구역 Room -->
+                      <div class="room-3d" id="roomB1F_machinery" data-room="machinery" style="left: 10px; top: 10px; width: 300px; height: 230px;">
+                        <!-- Industrial generator metal box -->
+                        <div class="cube-3d" style="--w:70px; --h:70px; --z:35px; left:40px; top:50px; --cb:#4b4e54; --cube-top-bg:#61656e;">
+                          <div class="face top"></div><div class="face front"></div><div class="face left"></div><div class="face right"></div>
+                        </div>
+                        <div class="cube-3d" style="--w:60px; --h:50px; --z:25px; left:180px; top:120px; --cb:#3a3c42; --cube-top-bg:#4e5159;">
+                          <div class="face top"></div><div class="face front"></div><div class="face left"></div><div class="face right"></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- 3. 2F Layer (Hidden by default) -->
+                    <div class="floor-layer-3d" id="layer2F" style="display:none;">
+                      <!-- 사무실 Room -->
+                      <div class="room-3d" id="room2F_office" data-room="office" style="left: 10px; top: 10px; width: 300px; height: 230px;">
+                        <!-- Office desks -->
+                        <div class="cube-3d" style="--w:40px; --h:20px; --z:10px; left:50px; top:50px; --cb:#79808a; --cube-top-bg:#9eabbb;">
+                          <div class="face top"></div><div class="face front"></div><div class="face left"></div><div class="face right"></div>
+                        </div>
+                        <div class="cube-3d" style="--w:40px; --h:20px; --z:10px; left:50px; top:110px; --cb:#79808a; --cube-top-bg:#9eabbb;">
+                          <div class="face top"></div><div class="face front"></div><div class="face left"></div><div class="face right"></div>
+                        </div>
+                        <div class="cube-3d" style="--w:40px; --h:20px; --z:10px; left:180px; top:50px; --cb:#79808a; --cube-top-bg:#9eabbb;">
+                          <div class="face top"></div><div class="face front"></div><div class="face left"></div><div class="face right"></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Upright standing 3D Billboard Pin tags -->
+                    <!-- 1F Pins (8 Rooms Tags) -->
+                    <div class="pin-3d hydro-pin" id="isoHydroPin" data-room="hydro" style="left: 85px; top: 185px;">
+                      <span id="hydroIndicator">🟢</span> <span id="isoHydroPinText">수중치료실</span>
+                    </div>
+                    <div class="pin-3d art-pin" id="isoArtPin" data-room="art" style="left: 45px; top: 40px;">
+                      📍 <span id="isoArtPinText">미술 치료실</span>
+                    </div>
+                    <div class="pin-3d sensory-pin" id="isoSensoryPin" data-room="sensory" style="left: 45px; top: 105px;">
+                      ✨ <span id="isoSensoryPinText">심리안정실</span>
+                    </div>
+                    <div class="pin-3d pt-pin" id="isoPtPin" data-room="pt" style="left: 125px; top: 70px;">
+                      🏥 <span id="isoPtPinText">물리치료실</span>
+                    </div>
+                    <div class="pin-3d info-pin" id="isoInfoPin" data-room="info" style="left: 240px; top: 35px;">
+                      💁 <span id="isoInfoPinText">안내데스크</span>
+                    </div>
+                    <div class="pin-3d lobby-pin" id="isoLobbyPin" data-room="lobby" style="left: 240px; top: 120px;">
+                      🏢 <span id="isoLobbyPinText">로비대기실</span>
+                    </div>
+                    <div class="pin-3d elevator-pin" id="isoElevatorPin" data-room="elevator" style="left: 205px; top: 205px;">
+                      🛗 <span id="isoElevatorPinText">엘리베이터홀</span>
+                    </div>
+                    <div class="pin-3d counseling-pin" id="isoCounselingPin" data-room="counseling" style="left: 275px; top: 205px;">
+                      💬 <span id="isoCounselingPinText">상담실</span>
+                    </div>
+                    
+                    <!-- B1F Pin -->
+                    <div class="pin-3d machine-pin" id="isoMachinePin" data-room="machinery" style="display:none;">
+                      ⚙️ <span id="isoMachinePinText">지하 기계실</span>
+                    </div>
+
+                    <!-- 2F Pin -->
+                    <div class="pin-3d office-pin" id="isoOfficePin" data-room="office" style="display:none;">
+                      💼 <span id="isoOfficePinText">통합 사무실</span>
+                    </div>
+
+                  </div>
+                </div>
+
+                <!-- Floating Room Name Editor Popover inside dashboard map container -->
+                <div class="room-editor-pop" id="roomEditorPop">
+                  <div style="font-size:0.78rem; font-weight:800; color:var(--brand-neon); margin-bottom:0.3rem;">🏷️ 선택 구역 이름 수정</div>
+                  <input type="text" id="popRoomInput" class="console-text-input" style="padding:0.45rem; font-size:0.85rem; width:100%; border-radius:6px; background:#181b26; color:#ffffff;" value="">
+                  <div style="display:flex; gap:0.4rem; margin-top:0.4rem;">
+                    <button type="button" class="btn-select" style="min-height:30px; font-size:0.8rem; border-radius:6px; background:var(--brand-neon); color:#ffffff;" id="btnPopSave">저장</button>
+                    <button type="button" class="btn-select" style="min-height:30px; font-size:0.8rem; border-radius:6px; background:rgba(255,255,255,0.06); color:#aaaaaa;" id="btnPopCancel">취소</button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. 단계별 구독 및 비즈니스 모델 철학 -->
+  <section class="sales-section page-section" style="background: rgba(101, 72, 245, 0.025); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+    <div class="sales-shell">
+      <div class="section-heading">
+        <p class="sales-kicker">BUSINESS MODEL</p>
+        <h2>초기 도입 부담 완화 및 가치 중심의 단계별 구독 체계</h2>
+        <p>Iruvy는 일회성 시스템 구축에 머물지 않고, 기관의 예산 부담을 최소화하며 장기적으로 안정된 운영과 품질 고도화를 보장하는 구독 파트너십 모델을 제공합니다.</p>
+      </div>
+
+      <div class="page-card-grid" style="grid-template-columns: repeat(3, 1fr);">
+        <article>
+          <span>VALUE 01</span>
+          <h3>예측 가능한 지속 운영 (ARR)</h3>
+          <p>구축 이후 방치되어 정보가 낡아지는 한계를 완전히 극복하기 위해, 라이선스 및 실시간 데이터 갱신이 결합된 합리적인 연간 플랫폼 이용·운영비 형태로 예산을 예측 가능하게 제공합니다.</p>
+        </article>
+        <article>
+          <span>VALUE 02</span>
+          <h3>기술 혁신을 통한 단가 효율화</h3>
+          <p>표준화된 공간인식 스캔 파이프라인과 자동화된 이동망 생성 인프라를 바탕으로, 초기 설치 시 발생하는 현장 셋업 공수를 줄여 공공 도입 단가를 비약적으로 경감시켰습니다.</p>
+        </article>
+        <article>
+          <span>VALUE 03</span>
+          <h3>경량화 온디바이스 서버비 최소화</h3>
+          <p>Iruvy가 독자 개발한 경량화 Physical AI 모델과 단말기 자체 연산(On-device) 기술을 활용하여, 대형 고비용 클라우드 서버에 의존하지 않으므로 추가 서버 운영 관리비가 들지 않습니다.</p>
+        </article>
+      </div>
+      
+      <div style="margin-top: 2rem; padding: 1.5rem; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; font-size: 0.88rem; color: var(--text-2); text-align: left;">
+        <p style="margin: 0; line-height: 1.6;">💡 <strong>안내 고지</strong>: 본 제안 요금은 공공 복지 및 의료 복합 공간의 표준적인 2년 계약을 기준으로 설계되었습니다. 상위 제품군 및 전체 공간 연동 범위, 특정 관제 솔루션 결합 여부 및 시스템 연동(CCTV 비식별화 연동 등)과 SLA 수준에 따라 단가가 유연하게 조정될 수 있으며, 세부 산출 근거 자료는 도입 상담 시 조달 데이터룸을 통해 제공해 드립니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. 방문자의 현재 문제 분석 -->
+  <section class="sales-section page-section">
+    <div class="sales-shell">
+      <div class="section-heading">
+        <p class="sales-kicker">PROBLEM STATEMENT</p>
+        <h2>복지시설 방문자가 겪는 물리적 한계</h2>
+        <p>복지관은 다양한 치료실과 활동 구역이 혼재되어 처음 방문한 이용자가 독립적으로 행동하기에 어려운 동선 구조를 지니고 있습니다.</p>
+      </div>
+
+      <div class="page-card-grid">
+        <article>
+          <span>01. 방향 정위성 상실</span>
+          <h3>현재 위치 및 방향 판단 불가</h3>
+          <p>벽면 안내도나 평면 종이 도면만으로는 이용자가 스스로의 진행 방향을 인식하기 매우 어렵습니다.</p>
+        </article>
+        <article>
+          <span>02. 정보의 분산과 지연</span>
+          <h3>정보 탐색 피로도 가중</h3>
+          <p>이용자가 직접 여러 안내판을 조합하여 프로그램실이나 화장실 동선을 찾아가야 하므로 탐색 시간이 낭비됩니다.</p>
+        </article>
+        <article>
+          <span>03. 이동 장벽 존재</span>
+          <h3>장애물 회피 경로 정보의 부재</h3>
+          <p>단차, 계단, 경사로 경사도 등 휠체어 이용자에게 치명적인 이동 제한 요소가 미리 공유되지 않아 이동에 좌절을 겪습니다.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. 구축 범위 및 성과 지표 (KPI) -->
+  <section class="sales-section page-section">
+    <div class="sales-shell">
+      <div class="section-heading">
+        <p class="sales-kicker">SCOPE & DELIVERY</p>
+        <h2>제안 금액 내 포함되는 구축 스펙</h2>
+        <p>현장 실측부터 최적 경로 인덱싱, 관리자 연동 및 플랫폼 이용·운영 서비스 제공까지 일관된 풀 패키지 범위를 보장합니다.</p>
+      </div>
+
+      <div class="page-card-grid four">
+        <article>
+          <h3>실측 및 맵핑</h3>
+          <p>최대 3회의 현장 실측 조사 및 층별 접근성 경로 시각화 지도 구축</p>
+        </article>
+        <article>
+          <h3>목적지 POI 연동</h3>
+          <p>치료실, 상담실, 편의공간 등 최대 200개 핵심 목적지의 상세 등록 및 메타데이터화</p>
+        </article>
+        <article>
+          <h3>휠체어 최적화 경로</h3>
+          <p>장애 조건에 따라 수직 이동수단(엘리베이터) 및 경사로를 우선 연산하는 알고리즘 탑재</p>
+        </article>
+        <article>
+          <h3>운영 인프라 및 교육</h3>
+          <p>수정 관리가 가능한 시스템 라이선스 권한 이양, 관리자 교육 2회 및 메뉴얼 이관</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. 청년기업 수의계약 검토 가이드 -->
+  <section class="sales-section page-section">
+    <div class="sales-shell">
+      <div class="section-heading">
+        <p class="sales-kicker">CONTRACT MANUAL</p>
+        <h2>수의계약 집행의 행정적 이점</h2>
+        <p>복지관의 신속한 예산 집행과 간소화된 조달 절차를 위해 청년창업기업 특례 법적 지침에 따른 수의계약을 지원합니다.</p>
+      </div>
+
+      <div style="background: rgba(101, 72, 245, 0.05); border: 1px solid rgba(101, 72, 245, 0.2); border-radius: var(--radius-lg); padding: 3rem; text-align: left;">
+        <h3 style="font-size: 1.5rem; font-weight: 800; margin-top: 0; color: var(--text);">추정가격 5,000만 원 이하의 경우 1인 수의계약 가능</h3>
+        <p style="color: var(--text-2); line-height: 1.7; margin-bottom: 2rem;">지방자치단체를 당사자로 하는 계약에 관한 법률 시행령에 따라, 여성·장애인·청년창업기업에 해당하는 경우 <strong>추정가격(부가가치세 제외 공급가액) 5,000만 원 이하</strong>의 용역 또는 구축 사업에 대해 공개 경쟁입찰 없이 단독 견적만으로 즉시 수의계약이 가능합니다.</p>
+        
+        <div class="page-card-grid" style="grid-template-columns: repeat(3, 1fr);">
+          <div style="background: var(--surface); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--line);">
+            <strong style="color: var(--brand-neon); display: block; font-size: 1.1rem; margin-bottom: 0.5rem;">01. 행정 소요 일수 대폭 절감</strong>
+            <span style="font-size: 0.88rem; color: var(--text-2);">경쟁 입찰 공고 및 유찰 대기 절차가 생략되어, 착수부터 도입까지 걸리는 행정 소요를 최소 3주 이상 절감합니다.</span>
+          </div>
+          <div style="background: var(--surface); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--line);">
+            <strong style="color: var(--brand-neon); display: block; font-size: 1.1rem; margin-bottom: 0.5rem;">02. 완벽한 구비 서류 상시 대기</strong>
+            <span style="font-size: 0.88rem; color: var(--text-2);">청년창업기업 확인서, 중소기업확인서, 산출내역서, 계약이행보증서 등 복지관 행정 감사용 필수 증빙서류 일체를 즉시 발송합니다.</span>
+          </div>
+          <div style="background: var(--surface); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--line);">
+            <strong style="color: var(--brand-neon); display: block; font-size: 1.1rem; margin-bottom: 0.5rem;">03. 1년간 무상 서비스 기본 지원</strong>
+            <span style="font-size: 0.88rem; color: var(--text-2);">기본 계약에 완료일로부터 1개년의 무상 플랫폼 이용·운영 서비스가 포함되어 초기 안정화 비용 부담이 없습니다.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. 성과 지표 및 검수 절차 -->
+  <section class="sales-section page-section">
+    <div class="sales-shell">
+      <div class="section-heading">
+        <p class="sales-kicker">METRICS & INSPECTION</p>
+        <h2>효과 증명과 장애 특화 검수</h2>
+        <p>단순 완료 여부가 아닌, 실제 휠체어 보행자 검수 및 안내 절감 만족도를 바탕으로 준공을 검증합니다.</p>
+      </div>
+
+      <div class="page-card-grid">
+        <article>
+          <span>METRICS</span>
+          <h3>자력 도착률 96.7% 성과 기준</h3>
+          <p>도입 전 26.6%에 불과한 실내 독립 도착률을 정식 구축 후 동일 현장 검증을 통해 90% 이상으로 상향 완수합니다.</p>
+        </article>
+        <article>
+          <span>ACCESSIBILITY VERIFICATION</span>
+          <h3>휠체어 직접 탑승 검수</h3>
+          <p>복지관에서 지정한 이동 약자 이용자가 계산된 우회 경로(계단 회피, 경사로 진입)를 직접 보행하여 연결 적합성을 확인합니다.</p>
+        </article>
+        <article>
+          <span>ADMINISTRATION</span>
+          <h3>운영 인프라 권한 테스트</h3>
+          <p>복지관 담당 부서 실무자가 프로그램실 등의 공간 변동을 관리자 화면에서 직접 노출 차단 또는 변경 수정하여 1분 이내에 적용되는지 확인합니다.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. Sales Final -->
+  <section class="sales-final">
+    <div class="sales-shell sales-final-grid">
+      <div>
+        <p class="sales-kicker">PROPOSAL INQUIRY</p>
+        <h2>복지관을 위한 전용 제안서 및 서류 신청</h2>
+        <p>수의계약 검토를 위한 법인 자격 증빙서류 패키지 및 예산 계획 제안서 파일을 발송해 드립니다.</p>
+      </div>
+      <div class="sales-final-actions">
+        <a class="sales-button primary" href="/contact/?product=go">제안 패키지 신청하기</a>
+        <a class="sales-button" href="mailto:iruvy.official@gmail.com">iruvy.official@gmail.com</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- 10. PRINT-ONLY STATEMENT SHEET TEMPLATE (No h1-h6 tags for strict build validation) -->
+<div id="printEstimateArea">
+  <div style="padding: 2.2cm; font-family: sans-serif; color: #111111; line-height: 1.6; text-align: left;">
+    <div style="display: flex; justify-content: space-between; border-bottom: 2px solid #111111; padding-bottom: 1rem; margin-bottom: 2rem;">
+      <div>
+        <div style="font-size: 2.2rem; font-weight: 800; margin: 0; color: #000000 !important; letter-spacing: -0.03em;">산 출 내 역 서</div>
+        <p style="margin: 0.5rem 0 0; color: #555555; font-size: 0.9rem;">Iruvy Go 실내 길찾기 서비스 구축 및 플랫폼 라이선스 제안 견적</p>
+      </div>
+      <div style="text-align: right; font-size: 0.85rem; color: #444444;">
+        <p style="margin: 0;">발행일자: <span id="printDate">2026년 07월 20일</span></p>
+        <p style="margin: 0;">유효기간: 발행일로부터 30일</p>
+      </div>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem; font-size: 0.9rem;">
+      <div>
+        <div style="margin: 0 0 0.5rem; font-size: 1.05rem; font-weight: 800; border-bottom: 1px solid #cccccc; padding-bottom: 0.3rem; color: #000000 !important;">공급받는 자 (귀 기관)</div>
+        <p style="margin: 0.3rem 0;"><strong>기관명:</strong> </p>
+        <p style="margin: 0.3rem 0;"><strong>사업내용:</strong> 디지털 실내지도 및 실내길찾기 서비스 구축</p>
+      </div>
+      <div style="position: relative;">
+        <div style="margin: 0 0 0.5rem; font-size: 1.05rem; font-weight: 800; border-bottom: 1px solid #cccccc; padding-bottom: 0.3rem; color: #000000 !important;">공급자 (제안사)</div>
+        <p style="margin: 0.3rem 0;"><strong>회사명:</strong> 주식회사 이루비 (Iruvy Corp.)</p>
+        <p style="margin: 0.3rem 0;"><strong>대표이사:</strong> 권혁준</p>
+        <p style="margin: 0.3rem 0;"><strong>연락처:</strong> iruvy.official@gmail.com</p>
+        <div style="position: absolute; right: 10px; bottom: 0; width: 62px; height: 62px; border: 2.5px solid #e02a2a; border-radius: 50%; display: grid; place-items: center; color: #e02a2a; font-weight: 800; font-size: 0.8rem; transform: rotate(-10deg); opacity: 0.85;">
+          주식회사<br>이루비인
+        </div>
+      </div>
+    </div>
+
+    <!-- 견적 요약 -->
+    <div style="background: #f4f6fa; padding: 1.2rem; border-radius: 8px; margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center;">
+      <span style="font-weight: 700; font-size: 1.1rem; color: #000000 !important;">최종 제안 공급가액 합계 (VAT 별도)</span>
+      <strong style="font-size: 1.6rem; color: #6548f5;" id="printFinalPrice">39,800,000 원</strong>
+    </div>
+
+    <!-- 세부 내역 테이블 -->
+    <table style="width: 100%; border-collapse: collapse; margin-bottom: 2.5rem; font-size: 0.9rem;">
+      <thead>
+        <tr style="background: #eeeeee; border-top: 2px solid #333333; border-bottom: 1px solid #cccccc;">
+          <th style="padding: 0.8rem; text-align: left; color: #000000 !important;">구분 및 비목</th>
+          <th style="padding: 0.8rem; text-align: right; width: 30%; color: #000000 !important;">산출 기준 / 상세 사양</th>
+          <th style="padding: 0.8rem; text-align: right; width: 25%; color: #000000 !important;">금액 (VAT 별도)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom: 1px solid #eeeeee;">
+          <td style="padding: 0.8rem;">1. 실내 공간 디지털 지도화 및 스캔 맵핑</td>
+          <td style="padding: 0.8rem; text-align: right;" id="printTbodyArea">건물 총 연면적 약 4,033 ㎡</td>
+          <td style="padding: 0.8rem; text-align: right;" id="printPrice1">15,920,000 원</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #eeeeee;">
+          <td style="padding: 0.8rem;">2. 실내 목적지 POI 정합 및 메타데이터 구축</td>
+          <td style="padding: 0.8rem; text-align: right;" id="printTbodyPoi">최대 130개 목적지 연동</td>
+          <td style="padding: 0.8rem; text-align: right;" id="printPrice2">11,940,000 원</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #eeeeee;">
+          <td style="padding: 0.8rem;">3. 접근성 회피 실내 경로 모델 구축 및 테스트</td>
+          <td style="padding: 0.8rem; text-align: right;">이동약자 전용 최적 알고리즘</td>
+          <td style="padding: 0.8rem; text-align: right;" id="printPrice3">7,960,000 원</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #eeeeee;">
+          <td style="padding: 0.8rem;">4. 운영자 정보 관리 시스템 권한 배포 및 교육</td>
+          <td style="padding: 0.8rem; text-align: right;">교육 2회 및 메뉴얼 이관</td>
+          <td style="padding: 0.8rem; text-align: right;" id="printPrice4">3,980,000 원</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #eeeeee;">
+          <td style="padding: 0.8rem;">5. 연장 플랫폼 이용·운영비 (SaaS 라이선스)</td>
+          <td style="padding: 0.8rem; text-align: right;" id="printTbodyYears">1년 (무상 기간 포함)</td>
+          <td style="padding: 0.8rem; text-align: right;" id="printPrice5">0 원</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #eeeeee; font-weight: 700; color: #e02a2a;">
+          <td style="padding: 0.8rem; color: #e02a2a !important;">6. 장기 계약 결합 할인 적용</td>
+          <td style="padding: 0.8rem; text-align: right;" id="printTbodyDiscount">할인율 0%</td>
+          <td style="padding: 0.8rem; text-align: right;" id="printPrice6">0 원</td>
+        </tr>
+        <tr style="background: #fafafa; border-bottom: 2px solid #333333; font-weight: 800; color: #000000 !important;">
+          <td style="padding: 0.8rem;" colspan="2">합계 제안 공급가액 (VAT 별도)</td>
+          <td style="padding: 0.8rem; text-align: right;" id="printPriceTotal">39,800,000 원</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="font-size: 0.8rem; color: #555555; border-top: 1px solid #cccccc; padding-top: 1rem;">
+      <p style="margin: 0.2rem 0;">* 특기사항 1: 본 제안가는 공급가액 기준이며, 조달 요청 기관의 특수 보안 조건 또는 하드웨어 추가 설치 시 일부 변동될 수 있습니다.</p>
+      <p style="margin: 0.2rem 0;">* 특기사항 2: 당사는 지방자치단체를 당사자로 하는 계약에 관한 법률 시행령에 근거한 **청년창업기업**으로서, 공급가 기준 5,000만 원 이하의 경우 수의계약 조항에 따른 단독 1인 계약이 적법하게 가능합니다.</p>
+    </div>
+  </div>
+</div>
+
+<footer class="sales-footer">
+  <div class="sales-shell sales-footer-grid">
+    <div class="sales-footer-brand"><img src="/assets/iruvy-logo.svg" alt="Iruvy" width="1180" height="320"><p>사람·공간·사물의 상호작용을 데이터화해 이동 경험과 운영 의사결정을 개선합니다.</p></div>
+    <div class="sales-footer-column">
+      <strong>제품</strong>
+      <ul>
+        <li><a href="/go/">Iruvy Go</a></li>
+        <li><a href="/guide/">Iruvy Guide</a></li>
+        <li><a href="/flow/">Iruvy Flow</a></li>
+      </ul>
+    </div>
+    <div class="sales-footer-column">
+      <strong>검토 자료</strong>
+      <ul>
+        <li><a href="/cases/">실증·사례</a></li>
+        <li><a href="/technology/">기술</a></li>
+        <li><a href="/security/">보안</a></li>
+        <li><a href="/resources/">자료실</a></li>
+      </ul>
+    </div>
+    <div class="sales-footer-column">
+      <strong>연락</strong>
+      <ul>
+        <li><a href="/contact/">기관 도입 상담</a></li>
+        <li><a href="mailto:iruvy.official@gmail.com" data-event="email_click">이메일 문의</a></li>
+        <li><a href="/company/">회사소개</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="sales-shell sales-footer-bottom"><span>© <span data-year>2026</span> Iruvy</span><nav aria-label="법적 문서"><a href="/privacy/">개인정보 처리방침</a><a href="/terms/">이용약관</a><a href="/accessibility/">접근성</a></nav></div>
+</footer>
+
+<script>
+  // Interactive Simulator Script for Pricing Page
+  document.addEventListener('DOMContentLoaded', () => {
+    const poiRange = document.getElementById('poiRange');
+    const poiVal = document.getElementById('poiVal');
+    const scaleDetailVal = document.getElementById('scaleDetailVal');
+    const btnSelects = document.querySelectorAll('.btn-select');
+    
+    const supplyPriceEl = document.getElementById('supplyPrice');
+    const subtotalPriceEl = document.getElementById('subtotalPrice');
+    const extensionPriceEl = document.getElementById('extensionPrice');
+    const discountValEl = document.getElementById('discountVal');
+    const contractBadge = document.getElementById('contractBadge');
+    
+    // Print Area Elements
+    const btnPrintEstimate = document.getElementById('btnPrintEstimate');
+    const printDate = document.getElementById('printDate');
+    const printFinalPrice = document.getElementById('printFinalPrice');
+    const printPriceTotal = document.getElementById('printPriceTotal');
+    const printTbodyArea = document.getElementById('printTbodyArea');
+    const printTbodyPoi = document.getElementById('printTbodyPoi');
+    const printTbodyYears = document.getElementById('printTbodyYears');
+    const printTbodyDiscount = document.getElementById('printTbodyDiscount');
+    const printPrice1 = document.getElementById('printPrice1');
+    const printPrice2 = document.getElementById('printPrice2');
+    const printPrice3 = document.getElementById('printPrice3');
+    const printPrice4 = document.getElementById('printPrice4');
+    const printPrice5 = document.getElementById('printPrice5');
+    const printPrice6 = document.getElementById('printPrice6');
+
+    let currentYears = 1;
+
+    // Interactive Demo Console Elements (Sidebar elements)
+    const btnStatusNormal = document.getElementById('btnStatusNormal');
+    const btnStatusWarning = document.getElementById('btnStatusWarning');
+    const btnRouteNormal = document.getElementById('btnRouteNormal');
+    const btnRouteWheelchair = document.getElementById('btnRouteWheelchair');
+    
+    const mockWarning = document.getElementById('mockWarning');
+    const mockRoomTitle = document.getElementById('mockRoomTitle');
+    const mockRouteDesc = document.getElementById('mockRouteDesc');
+
+    // Dashboard Stats Elements
+    const dbStatPoi = document.getElementById('dbStatPoi');
+    const dbStatDetour = document.getElementById('dbStatDetour');
+    
+    // 3D Scene Controls & Pins
+    const floor3D = document.getElementById('floor3D');
+    const isoHydroPin = document.getElementById('isoHydroPin');
+    const isoArtPin = document.getElementById('isoArtPin');
+    const isoSensoryPin = document.getElementById('isoSensoryPin');
+    const isoPtPin = document.getElementById('isoPtPin');
+    const isoInfoPin = document.getElementById('isoInfoPin');
+    const isoLobbyPin = document.getElementById('isoLobbyPin');
+    const isoElevatorPin = document.getElementById('isoElevatorPin');
+    const isoCounselingPin = document.getElementById('isoCounselingPin');
+    const isoMachinePin = document.getElementById('isoMachinePin');
+    const isoOfficePin = document.getElementById('isoOfficePin');
+    const neonPathLine = document.getElementById('neonPathLine');
+
+    const isoHydroPinText = document.getElementById('isoHydroPinText');
+    const isoArtPinText = document.getElementById('isoArtPinText');
+    const isoSensoryPinText = document.getElementById('isoSensoryPinText');
+    const isoPtPinText = document.getElementById('isoPtPinText');
+    const isoInfoPinText = document.getElementById('isoInfoPinText');
+    const isoLobbyPinText = document.getElementById('isoLobbyPinText');
+    const isoElevatorPinText = document.getElementById('isoElevatorPinText');
+    const isoCounselingPinText = document.getElementById('isoCounselingPinText');
+    const isoMachinePinText = document.getElementById('isoMachinePinText');
+    const isoOfficePinText = document.getElementById('isoOfficePinText');
+    const hydroIndicator = document.getElementById('hydroIndicator');
+
+    // 3D Room Layers
+    const rooms1F = document.getElementById('layer1F');
+    const roomsB1F = document.getElementById('layerB1F');
+    const rooms2F = document.getElementById('layer2F');
+    const roomElements = document.querySelectorAll('.room-3d');
+
+    // Room Editor Popover
+    const roomEditorPop = document.getElementById('roomEditorPop');
+    const popRoomInput = document.getElementById('popRoomInput');
+    const btnPopSave = document.getElementById('btnPopSave');
+    const btnPopCancel = document.getElementById('btnPopCancel');
+    let activeEditingRoomKey = null;
+
+    // Floor Switcher Bindings (From Mini toolbar inside Map header)
+    const btnFloorPrev = document.getElementById('btnFloorPrev');
+    const btnFloorNext = document.getElementById('btnFloorNext');
+    const currentFloorText = document.getElementById('currentFloorText');
+
+    // Floor Data definition (3D layers per floor)
+    const floors = [
+      { name: "지하 1층 (B1F)", showLayer: 'layerB1F', showPins: ['isoMachinePin'], angle: 'rotateX(60deg) rotateZ(-30deg) scale3d(1.3, 1.3, 1.3)' },
+      { name: "지상 1층 (1F)", showLayer: 'layer1F', showPins: ['isoHydroPin', 'isoArtPin', 'isoSensoryPin', 'isoPtPin', 'isoInfoPin', 'isoLobbyPin', 'isoElevatorPin', 'isoCounselingPin'], angle: 'rotateX(60deg) rotateZ(-40deg) scale3d(1.3, 1.3, 1.3)' },
+      { name: "지상 2층 (2F)", showLayer: 'layer2F', showPins: ['isoOfficePin'], angle: 'rotateX(60deg) rotateZ(-50deg) scale3d(1.3, 1.3, 1.3)' }
+    ];
+    let activeFloorIndex = 1; // Start on 1F by default
+
+    // Set today's date dynamically for print estimate
+    const today = new Date();
+    printDate.textContent = `${today.getFullYear()}년 ${String(today.getMonth() + 1).padStart(2, '0')}월 ${String(today.getDate()).padStart(2, '0')}일`;
+
+    // Format KRW currency
+    function formatKRW(amount) {
+      return Math.round(amount).toLocaleString('ko-KR') + ' 원';
+    }
+
+    // Main calculation logic
+    function calculateQuote() {
+      const poiCount = parseInt(poiRange.value, 10);
+      
+      // Base Price Model Reset: 
+      // Seoul Welfare Center Spec (130 POI / 4,033 sqm) = exactly 39,800,000 KRW
+      const basePoi = 130;
+      const basePrice = 39800000;
+      const scaleRate = 100000;
+      
+      let calculatedBuild = basePrice + (poiCount - basePoi) * scaleRate;
+      
+      // Keep min price threshold for project feasibility
+      if (calculatedBuild < 25000000) calculatedBuild = 25000000;
+
+      // Update Area Scale (Matching exactly 4,033 sqm when POI is 130)
+      const estSqMeter = Math.round(poiCount * 31.023);
+      const estPyung = Math.round(estSqMeter * 0.3025);
+      scaleDetailVal.textContent = `건물 총 연면적: 약 ${estSqMeter.toLocaleString('ko-KR')} ㎡ (${estPyung.toLocaleString('ko-KR')}평)`;
+
+      // Annual Platform Subscription Fee (50% of the build cost)
+      const annualSubscriptionFee = calculatedBuild * 0.5;
+
+      let extensionFee = 0;
+      if (currentYears === 2) {
+        extensionFee = annualSubscriptionFee;
+      } else if (currentYears === 3) {
+        extensionFee = annualSubscriptionFee * 2;
+      }
+
+      // Pre-discount total supply price
+      let totalRawSupply = calculatedBuild + extensionFee;
+
+      // Apply Multi-year Discount Scenario
+      let discountRate = 0;
+      if (currentYears === 2) {
+        discountRate = 0.07;
+      } else if (currentYears === 3) {
+        discountRate = 0.15;
+      }
+
+      // Final Supply Price after discount
+      let finalSupply = totalRawSupply * (1 - discountRate);
+
+      // Average annual cost for audit validation
+      let annualAverageSupply = finalSupply / currentYears;
+
+      // Update UI elements
+      supplyPriceEl.textContent = formatKRW(finalSupply);
+      subtotalPriceEl.textContent = formatKRW(calculatedBuild);
+      extensionPriceEl.textContent = formatKRW(extensionFee);
+      discountValEl.textContent = Math.round(discountRate * 100) + '%';
+
+      // Sync POI count to admin dashboard live stat card!
+      if (dbStatPoi) {
+        dbStatPoi.textContent = poiCount + '개';
+      }
+
+      // Update Contract Badge
+      if (finalSupply <= 50000000) {
+        contractBadge.className = 'badge-contract-status success';
+        contractBadge.innerHTML = '<span>🟢</span> 즉시 1인 수의계약 검토 가능 대상 (청년기업 특례)';
+      } else if (annualAverageSupply <= 50000000) {
+        contractBadge.className = 'badge-contract-status success';
+        contractBadge.innerHTML = '<span>🟢</span> 연간 분할 계약 시 수의계약 검토 가능 (연평균 ' + formatKRW(annualAverageSupply) + ')';
+      } else {
+        contractBadge.className = 'badge-contract-status warning';
+        contractBadge.innerHTML = '<span>🟡</span> 일반 경쟁입찰 검토 대상 (조달 계약 절차 필요)';
+      }
+
+      // Synchronize Print Statement details
+      printFinalPrice.textContent = formatKRW(finalSupply);
+      printPriceTotal.textContent = formatKRW(finalSupply);
+      printTbodyArea.textContent = `건물 총 연면적 약 ${estSqMeter.toLocaleString('ko-KR')} ㎡`;
+      printTbodyPoi.textContent = `최대 ${poiCount}개 목적지 연동`;
+      
+      // Years display
+      if (currentYears === 1) {
+        printTbodyYears.textContent = "1년 (무상 기간 포함)";
+      } else {
+        printTbodyYears.textContent = `${currentYears}년 (1년 무상 + ${currentYears - 1}년 유상)`;
+      }
+
+      printTbodyDiscount.textContent = `할인율 ${Math.round(discountRate * 100)}%`;
+
+      // Breakdown calculations for statement rows
+      printPrice1.textContent = formatKRW(calculatedBuild * 0.4);
+      printPrice2.textContent = formatKRW(calculatedBuild * 0.3);
+      printPrice3.textContent = formatKRW(calculatedBuild * 0.2);
+      printPrice4.textContent = formatKRW(calculatedBuild * 0.1);
+      printPrice5.textContent = formatKRW(extensionFee);
+      
+      // Discount row
+      const discountAmount = totalRawSupply * discountRate;
+      printPrice6.textContent = discountAmount > 0 ? `-${formatKRW(discountAmount)}` : "0 원";
+    }
+
+    // Floor Switcher Update Logic
+    function updateFloorView() {
+      const floor = floors[activeFloorIndex];
+      currentFloorText.textContent = floor.name;
+      
+      // Rotate the 3D floor container dynamically for a hyper-realistic angle shift
+      floor3D.style.transform = floor.angle;
+
+      // Hide all layers and pins first
+      rooms1F.style.display = 'none';
+      roomsB1F.style.display = 'none';
+      rooms2F.style.display = 'none';
+
+      isoHydroPin.style.display = 'none';
+      isoArtPin.style.display = 'none';
+      isoSensoryPin.style.display = 'none';
+      isoPtPin.style.display = 'none';
+      isoInfoPin.style.display = 'none';
+      isoLobbyPin.style.display = 'none';
+      isoElevatorPin.style.display = 'none';
+      isoCounselingPin.style.display = 'none';
+      isoMachinePin.style.display = 'none';
+      isoOfficePin.style.display = 'none';
+
+      // Hide routing path svg if not on 1F
+      document.querySelector('.iso-path-svg-3d').style.display = (activeFloorIndex === 1) ? 'block' : 'none';
+
+      // Show selected floor layer
+      document.getElementById(floor.showLayer).style.display = 'block';
+
+      // Show pins corresponding to the active floor
+      floor.showPins.forEach(pinId => {
+        const pinElement = document.getElementById(pinId);
+        if (pinElement) pinElement.style.display = 'flex';
+      });
+
+      // Clear highlights
+      roomElements.forEach(r => r.classList.remove('selected'));
+      roomEditorPop.style.display = 'none';
+    }
+
+    btnFloorPrev.addEventListener('click', () => {
+      activeFloorIndex = (activeFloorIndex - 1 + floors.length) % floors.length;
+      updateFloorView();
+    });
+
+    btnFloorNext.addEventListener('click', () => {
+      activeFloorIndex = (activeFloorIndex + 1) % floors.length;
+      updateFloorView();
+    });
+
+    // 3D Room & Pin Clicks for Inline Tag/Name Editor (Supporting both rooms and billboard tags)
+    const clickableTargets = document.querySelectorAll('.room-3d, .pin-3d');
+    clickableTargets.forEach(target => {
+      target.addEventListener('click', (e) => {
+        e.stopPropagation();
+        
+        // Remove previous selected visual states
+        roomElements.forEach(r => r.classList.remove('selected'));
+
+        const roomKey = target.dataset.room;
+        if (!roomKey) return;
+
+        // Highlight corresponding room zone element visually
+        const roomEl = document.querySelector(`.room-3d[data-room="${roomKey}"]`);
+        if (roomEl) roomEl.classList.add('selected');
+
+        activeEditingRoomKey = roomKey;
+
+        // Retrieve current room label text
+        let currentLabel = "";
+        if (roomKey === 'hydro') currentLabel = isoHydroPinText.textContent;
+        else if (roomKey === 'art') currentLabel = isoArtPinText.textContent;
+        else if (roomKey === 'sensory') currentLabel = isoSensoryPinText.textContent;
+        else if (roomKey === 'pt') currentLabel = isoPtPinText.textContent;
+        else if (roomKey === 'info') currentLabel = isoInfoPinText.textContent;
+        else if (roomKey === 'lobby') currentLabel = isoLobbyPinText.textContent;
+        else if (roomKey === 'elevator') currentLabel = isoElevatorPinText.textContent;
+        else if (roomKey === 'counseling') currentLabel = isoCounselingPinText.textContent;
+        else if (roomKey === 'machinery') currentLabel = isoMachinePinText.textContent;
+        else if (roomKey === 'office') currentLabel = isoOfficePinText.textContent;
+        else currentLabel = roomKey;
+
+        popRoomInput.value = currentLabel;
+
+        // Position the popover right inside the map canvas area next to the clicked target
+        roomEditorPop.style.display = 'flex';
+        roomEditorPop.style.right = '20px';
+        roomEditorPop.style.bottom = '20px';
+        popRoomInput.focus();
+      });
+    });
+
+    btnPopCancel.addEventListener('click', (e) => {
+      e.stopPropagation();
+      roomEditorPop.style.display = 'none';
+      roomElements.forEach(r => r.classList.remove('selected'));
+    });
+
+    btnPopSave.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const val = popRoomInput.value.trim();
+      if (!val) return;
+
+      // Update 3D Pins in real time
+      if (activeEditingRoomKey === 'hydro') {
+        isoHydroPinText.textContent = val;
+      } else if (activeEditingRoomKey === 'art') {
+        isoArtPinText.textContent = val;
+        mockRoomTitle.textContent = val;
+      } else if (activeEditingRoomKey === 'sensory') {
+        isoSensoryPinText.textContent = val;
+      } else if (activeEditingRoomKey === 'pt') {
+        isoPtPinText.textContent = val;
+      } else if (activeEditingRoomKey === 'info') {
+        isoInfoPinText.textContent = val;
+      } else if (activeEditingRoomKey === 'lobby') {
+        isoLobbyPinText.textContent = val;
+      } else if (activeEditingRoomKey === 'elevator') {
+        isoElevatorPinText.textContent = val;
+      } else if (activeEditingRoomKey === 'counseling') {
+        isoCounselingPinText.textContent = val;
+      } else if (activeEditingRoomKey === 'machinery') {
+        isoMachinePinText.textContent = val;
+      } else if (activeEditingRoomKey === 'office') {
+        isoOfficePinText.textContent = val;
+      }
+
+      roomEditorPop.style.display = 'none';
+      roomElements.forEach(r => r.classList.remove('selected'));
+    });
+
+    // Close popover when clicking anywhere else inside the 3D container
+    document.getElementById('scene3DWrap').addEventListener('click', () => {
+      roomEditorPop.style.display = 'none';
+      roomElements.forEach(r => r.classList.remove('selected'));
+    });
+
+    // Interactive Demo Console Event Handlers
+    btnStatusNormal.addEventListener('click', () => {
+      btnStatusNormal.classList.add('active');
+      btnStatusWarning.classList.remove('active');
+      mockWarning.classList.remove('active');
+      
+      // Update 3D Map Pin State
+      hydroIndicator.textContent = "🟢";
+      isoHydroPin.style.borderColor = "#6548f5";
+      isoHydroPin.style.background = "rgba(17, 19, 26, 0.95)";
+    });
+
+    btnStatusWarning.addEventListener('click', () => {
+      btnStatusWarning.classList.add('active');
+      btnStatusNormal.classList.remove('active');
+      mockWarning.classList.add('active');
+      
+      // Update 3D Map Pin State (Warning Red)
+      hydroIndicator.textContent = "🔴";
+      isoHydroPin.style.borderColor = "#e02a2a";
+      isoHydroPin.style.background = "rgba(224, 42, 42, 0.15)";
+    });
+
+    btnRouteNormal.addEventListener('click', () => {
+      btnRouteNormal.classList.add('active');
+      btnRouteWheelchair.classList.remove('active');
+      mockRouteDesc.textContent = "본관 1층 통로 ➔ 미술치료실 연결 계단 진입 (도보 3분)";
+      
+      // Normal direct path inside 3D grid coord (Hydro -> Pt -> Art)
+      neonPathLine.setAttribute("d", "M 65 175 L 125 70 L 65 30");
+      neonPathLine.style.stroke = "#6548f5";
+      neonPathLine.style.filter = "drop-shadow(0 0 6px #6548f5)";
+
+      // Update Dashboard Live Stat
+      if (dbStatDetour) dbStatDetour.textContent = "0건";
+    });
+
+    btnRouteWheelchair.addEventListener('click', () => {
+      btnRouteWheelchair.classList.add('active');
+      btnRouteNormal.classList.remove('active');
+      mockRouteDesc.textContent = "♿ 본관 1층 수평 연결복도 ➔ 휠체어 전용 경사로 우회 ➔ 로비 복도 ➔ 미술치료실 도착 (휠체어 5분)";
+      
+      // Detour path routing around the 3D ramp, lobby, elevator hall and PT room inside isometric plane coordinates
+      neonPathLine.setAttribute("d", "M 65 175 L 65 240 L 240 120 L 205 205 L 125 70 L 65 30");
+      neonPathLine.style.stroke = "#18c775";
+      neonPathLine.style.filter = "drop-shadow(0 0 8px #18c775)";
+
+      // Update Dashboard Live Stat (Increment Detour Trigger)
+      if (dbStatDetour) dbStatDetour.textContent = "1건 (활성)";
+    });
+
+    // Event listener for Print Button - generate PDF download using html2pdf.js (fallback to print)
+    btnPrintEstimate.addEventListener('click', async () => {
+      // Ensure html2pdf library is loaded
+      if (!window.html2pdf) {
+        // Dynamically load html2pdf library from CDN
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+        script.onload = async () => {
+          await window.html2pdf().from(document.getElementById('printEstimateArea')).save('세부산출내역서.pdf');
+        };
+        document.head.appendChild(script);
+      } else {
+        await window.html2pdf().from(document.body).save('세부산출내역서.pdf');
+      }
+    });
+
+    // Event listener for POI range slider
+    poiRange.addEventListener('input', () => {
+      poiVal.textContent = poiRange.value + '개';
+      calculateQuote();
+    });
+
+    // Event listeners for year selection buttons
+    btnSelects.forEach(btn => {
+      btn.addEventListener('click', () => {
+        btnSelects.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentYears = parseInt(btn.dataset.years, 10);
+        calculateQuote();
+      });
+    });
+
+    // Initial run
+    calculateQuote();
+    updateFloorView(); // Initialize floor switcher view
+  });
+</script>
+</body></html>

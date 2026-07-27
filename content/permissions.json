@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "1.0",
+  "updatedAt": "2026-07-20",
+  "items": [
+    {
+      "id": "PERM-001",
+      "asset": "8개 기관·공간 경험의 집계 표현",
+      "institutionName": false,
+      "institutionLogo": false,
+      "photos": false,
+      "quotes": false,
+      "allowedUse": "기관 실명과 로고 없이 집계 수치와 관계 유형만 제한 공개",
+      "evidence": "IRUVY_GO.md 기관 원장 · 대표 확인",
+      "reviewAt": "2026-08-20"
+    },
+    {
+      "id": "PERM-002",
+      "asset": "Iruvy X SNU CampusTown HERO5 홍보영상",
+      "institutionName": true,
+      "institutionLogo": true,
+      "photos": true,
+      "quotes": false,
+      "allowedUse": "Iruvy 공식 YouTube 공개 영상 임베드와 장면별 텍스트 설명",
+      "evidence": "Iruvy.official 공개 영상 RpktEiPSRG0",
+      "reviewAt": "2026-08-20"
+    },
+    {
+      "id": "PERM-003",
+      "asset": "복합 실내 경로 2차 실증 기관 식별 정보",
+      "institutionName": false,
+      "institutionLogo": false,
+      "photos": false,
+      "quotes": false,
+      "allowedUse": "대학 복합시설이라는 공간 유형과 승인된 집계 결과만 공개",
+      "evidence": "content/cases.json",
+      "reviewAt": "2026-08-20"
+    }
+  ]
+}
