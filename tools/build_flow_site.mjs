@@ -7,12 +7,12 @@ const out = join(root, "dist");
 const today = "2026-07-27";
 
 const routes = [
-  ["", "Iruvy | 산업현장의 숨은 캐파를 실행 가능한 결정으로", "Iruvy Flow는 제조현장의 병목과 납기 위험을 실시간 감지하고, 관리자가 검토할 최적의 작업순서와 자원배치 대안을 제시합니다."],
+  ["", "Iruvy | 산업현장의 숨은 캐파를 실행 가능한 결정으로", "Iruvy Flow는 제조 현장의 병목과 납기 지연을 선제 감지하고 생산관리자가 승인할 작업순서 대안을 계산합니다."],
   ["flow", "Iruvy Flow | 제약공정 캐파 증폭 AI System", "ERP·MES·Excel 데이터 연결로 제약공정 병목을 풀고 납기를 지키는 최적 생산 대안을 계산하는 산업 자율운영 AI."],
-  ["how-it-works", "작동 방식 | Iruvy Flow (IDFM Engine)", "Sense에서 Proof까지, 운영 월드모델(IDFM)과 수리 최적화로 연결되는 지능형 의사결정 체계."],
-  ["capacity-lab", "Iruvy Capacity Lab | 현장 맞춤 적합성 진단", "최근 납기·병목 사건 데이터로 우리 공장의 숨은 캐파 증폭 가능성과 실효성을 검증하는 실무 프로그램."],
-  ["evidence", "Evidence & Trust | Iruvy", "과거 경험과 현재 제조 AI 검증을 분리하여 투명하고 정직하게 성과 기록을 공개합니다."],
-  ["company", "회사 소개 | Iruvy", "Iruvy는 복잡한 산업 현장의 운영 관계를 모델링하여 의사결정을 혁신하는 산업 자율운영 AI 기업입니다."],
+  ["how-it-works", "작동 방식 | Iruvy Flow (IDFM Engine)", "데이터 수집부터 제약 시뮬레이션, 생산관리자 승인 및 성과 기록까지의 기술 구조."],
+  ["capacity-lab", "Iruvy Capacity Lab | 공장 데이터 준비도 & 병목 진단", "최근 지연 사례 1건으로 우리 공장의 제약공정 캐파 증폭 가능성을 진단합니다."],
+  ["evidence", "Evidence & Trust | Iruvy", "모의 데모와 실제 유료 제조 파일럿 성과를 투명하게 구분하여 기록합니다."],
+  ["company", "회사 소개 | Iruvy", "제조 현장의 주문·공정·설비·시간 관계를 모델링하는 산업 자율운영 AI 기업."],
   ["privacy", "개인정보 처리방침 | Iruvy", "Iruvy 웹사이트의 개인정보 수집, 이용, 보관과 권리 행사 방법을 안내합니다."],
   ["terms", "이용약관 | Iruvy", "Iruvy 웹사이트의 정보 이용 범위와 책임 한계를 안내합니다."],
   ["accessibility", "웹 접근성 | Iruvy", "Iruvy 웹사이트가 지향하는 WCAG 2.2 AA 수준의 접근성 원칙과 피드백 방법을 안내합니다."]
@@ -48,7 +48,7 @@ const footer = `
     <div class="footer-grid">
       <div class="footer-brand">
         <a class="brand" href="/" aria-label="Iruvy 홈"><span class="brand-word" aria-hidden="true"><i>I</i>ruvy</span></a>
-        <p>제조·산업 현장의 멈춰있는 시간과 병목을 최적의 유효 생산 흐름(Capacity Amplification)으로 바꿉니다.</p>
+        <p>제조 현장의 멈춰있는 시간과 공정 병목을 수리 최적화 알고리즘으로 해결하는 산업 소프트웨어를 만듭니다.</p>
       </div>
       <div class="footer-col"><strong>SYSTEM</strong><a href="/flow/">Iruvy Flow</a><a href="/how-it-works/">IDFM Architecture</a></div>
       <div class="footer-col"><strong>GOVERNANCE</strong><a href="/evidence/">Evidence</a><a href="/evidence/#governance">Trust &amp; Security</a></div>
@@ -152,7 +152,7 @@ const home = `
     <div>
       <div class="sys-tag">SYS // INDUSTRIAL_AUTONOMY_AI</div>
       <h1>산업현장의 숨은 캐파를,<br><span class="highlight">실행 가능한 결정으로.</span></h1>
-      <p class="lede">Iruvy Flow는 ERP·MES·Excel에 흩어진 데이터를 실시간 연결하여 제약공정의 병목과 납기 지연 위험을 선제적으로 감지하고, 생산관리자가 확신을 갖고 선택할 수 있는 최적의 작업순서 대안을 제시합니다.</p>
+      <p class="lede">Iruvy Flow는 ERP·MES·Excel의 생산 데이터를 읽기 전용으로 연결하여 제약공정의 병목과 납기 지연을 선제적으로 감지하고, 생산관리자가 검토·승인할 최적 작업 대안을 제시합니다.</p>
       <div class="actions">
         <a class="button primary" href="/capacity-lab/#apply" data-event="hero_primary_cta_click">우리 공장 적합성 확인</a>
         <a class="button dark" href="#demo" data-event="hero_demo_open">Flow 관제 보기</a>
@@ -180,9 +180,9 @@ const home = `
 <section class="section references">
   <div class="shell">
     <div class="section-head">
-      <div class="sys-tag">GOVERNANCE // EVIDENCE &amp; TRUST</div>
-      <h2>검증된 현장 경험과 데이터로<br>신뢰할 수 있는 가치를 만듭니다.</h2>
-      <p>Iruvy는 과장이나 모호한 추측 대신 검증 가능한 실증 데이터만을 바탕으로 이야기합니다. 지난 현장 경험의 자산과 새롭게 증명할 제조 AI 성과를 성격별로 명확히 구분해 공개합니다.</p>
+      <div class="sys-tag">GOVERNANCE // EVIDENCE_AND_TRUST</div>
+      <h2>과장된 수치 대신,<br>검증 가능한 실증 데이터만 기록합니다.</h2>
+      <p>Iruvy는 추측이나 막연한 수치를 말하지 않습니다. 이전 실증 자산과 제조 AI 성과를 명확히 분리하여 성격별로 공개합니다.</p>
     </div>
     <div class="reference-grid">
       <article class="reference-card current-ref">
@@ -221,8 +221,8 @@ const home = `
   <div class="shell">
     <div class="section-head">
       <div class="sys-tag">ARCHITECTURE // IDFM_CLOSED_LOOP</div>
-      <h2>데이터 수집에서 현장 실행까지,<br>6단계 검증 프로세스로 연결합니다.</h2>
-      <p>Flow는 기존 ERP/MES를 전면 교체하지 않고 지능형 의사결정 레이어를 추가합니다. 'Semantic · Temporal · Physical · Economic Twin'이 결합된 운영 월드모델이 최적 대안을 도출합니다.</p>
+      <h2>데이터 수집부터 현장 실행까지,<br>6단계 검증 프로세스로 연결합니다.</h2>
+      <p>기존 ERP/MES를 교체하지 않고 지능형 의사결정 계층을 추가합니다. Semantic · Temporal · Physical · Economic Twin 기반의 운영 월드모델이 최적 대안을 계산합니다.</p>
     </div>
     <div class="arch-pipeline-container" aria-label="데이터 분석 파이프라인 시각화">
       <svg viewBox="0 0 800 120" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -231,7 +231,7 @@ const home = `
         <g transform="translate(80, 60)"><rect x="-55" y="-30" width="110" height="60" rx="6" fill="#0e1017" stroke="#735ff0" stroke-width="1.5" /><text x="0" y="-6" text-anchor="middle" font-size="10" font-weight="700" fill="#735ff0">01 · SENSE</text><text x="0" y="10" text-anchor="middle" font-size="12" font-weight="800" fill="#ffffff">ERP / MES</text><text x="0" y="22" text-anchor="middle" font-size="9" fill="#94a3b8">수집연동</text></g>
         <g transform="translate(220, 60)"><rect x="-55" y="-30" width="110" height="60" rx="6" fill="#0e1017" stroke="#735ff0" stroke-width="1.5" /><text x="0" y="-6" text-anchor="middle" font-size="10" font-weight="700" fill="#735ff0">02 · WORLD</text><text x="0" y="10" text-anchor="middle" font-size="12" font-weight="800" fill="#ffffff">운영 월드모델</text><text x="0" y="22" text-anchor="middle" font-size="9" fill="#94a3b8">4대 트윈</text></g>
         <g transform="translate(360, 60)"><rect x="-55" y="-30" width="110" height="60" rx="6" fill="#0e1017" stroke="#735ff0" stroke-width="1.5" /><text x="0" y="-6" text-anchor="middle" font-size="10" font-weight="700" fill="#735ff0">03 · DECIDE</text><text x="0" y="10" text-anchor="middle" font-size="12" font-weight="800" fill="#ffffff">최적 대안</text><text x="0" y="22" text-anchor="middle" font-size="9" fill="#94a3b8">수리 최적화</text></g>
-        <g transform="translate(500, 60)"><rect x="-55" y="-30" width="110" height="60" rx="6" fill="#141722" stroke="#735ff0" stroke-width="2" /><text x="0" y="-6" text-anchor="middle" font-size="10" font-weight="700" fill="#735ff0">04 · COMMAND</text><text x="0" y="10" text-anchor="middle" font-size="12" font-weight="800" fill="#ffffff">관리자 승인</text><text x="0" y="22" text-anchor="middle" font-size="9" font-weight="700" fill="#735ff0">최종 결정권</text></g>
+        <g transform="translate(500, 60)"><rect x="-55" y="-30" width="110" height="60" rx="6" fill="#141722" stroke="#735ff0" stroke-width="2" /><text x="0" y="-6" text-anchor="middle" font-size="10" font-weight="700" fill="#735ff0">04 · COMMAND</text><text x="0" y="10" text-anchor="middle" font-size="12" font-weight="800" fill="#ffffff">관리자 승인</text><text x="0" y="22" text-anchor="middle" font-size="9" fill="#735ff0">최종 결정권</text></g>
         <g transform="translate(640, 60)"><rect x="-55" y="-30" width="110" height="60" rx="6" fill="#050609" stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="3 3" /><text x="0" y="-6" text-anchor="middle" font-size="10" font-weight="700" fill="#64748b">05 · ACT</text><text x="0" y="10" text-anchor="middle" font-size="12" font-weight="700" fill="#94a3b8">계획 반영</text><text x="0" y="22" text-anchor="middle" font-size="9" fill="#64748b">섀도 모드</text></g>
       </svg>
     </div>
@@ -255,24 +255,24 @@ const home = `
   <div class="shell">
     <div class="section-head">
       <div class="sys-tag">PROBLEM // THE_PRODUCTION_GAP</div>
-      <h2>생산 데이터는 매일 쌓여도,<br>작업 일정은 왜 매일 다시 짤까요?</h2>
-      <p>긴급 주문 수주, 핵심 설비 정지, 외주 회수 지연은 순식간에 생산 일정을 꼬이게 만듭니다. 기존 ERP/MES는 결과를 사후에 보여줄 뿐, 여러 사건이 뒤얽힐 때 최선의 작업 순서를 빠르게 계산하지 못합니다.</p>
+      <h2>생산 데이터는 매일 쌓여도,<br>작업 일정은 왜 매일 수작업으로 바꿀까요?</h2>
+      <p>긴급 주문, 설비 정지, 외주 지연이 수시로 발생하기 때문입니다. 기존 ERP/MES는 사후 결과만 집계할 뿐, 여러 변수가 꼬였을 때 최선의 작업 순서를 즉시 계산하지 못합니다.</p>
     </div>
     <div class="grid-3">
       <article class="card">
         <span class="num">01 // LATENCY</span>
-        <h3>사건 발생 후에야 지연을 깨닫습니다</h3>
-        <p>납기 위험이 주문·공정·설비 데이터 사이에 분산되어 있어 사전 대응이 불가능합니다.</p>
+        <h3>사건 발생 후에야 지연을 압니다</h3>
+        <p>납기 위험이 주문·공정·설비 데이터 사이에 분산되어 사전 대응이 어렵습니다.</p>
       </article>
       <article class="card">
         <span class="num">02 // BOTTLENECK</span>
-        <h3>병목의 진짜 원인을 추적하기 어렵습니다</h3>
-        <p>설비 가동률은 집계되어도 특정 주문이 어떤 공정에서 지연되는지 파악하기 어렵습니다.</p>
+        <h3>병목의 진짜 원인을 놓칩니다</h3>
+        <p>설비 가동률만으로는 특정 주문이 어느 공정에서 막혔는지 추적하기 힘듭니다.</p>
       </article>
       <article class="card">
         <span class="num">03 // RECORD_LOSS</span>
-        <h3>판단의 이유와 결과 기록이 남지 않습니다</h3>
-        <p>매일 수작업으로 변경하는 생산 계획의 결정 근거가 데이터로 축적되지 않습니다.</p>
+        <h3>변경 이유와 결과 기록이 사라집니다</h3>
+        <p>수작업으로 변경한 생산 계획의 판단 근거가 데이터로 남지 않습니다.</p>
       </article>
     </div>
   </div>
@@ -282,8 +282,8 @@ const home = `
   <div class="shell">
     <div class="section-head">
       <div class="sys-tag">CONSOLE // INTERACTIVE_TELEMETRY</div>
-      <h2>단순한 경보 알림을 넘어,<br>관리자가 즉시 실행할 수 있는 대안을 제시합니다.</h2>
-      <p>실체 있는 데이터 콘솔 · 아래 탭을 클릭하여 시나리오별 관제 화면과 감사 기록을 확인하세요.</p>
+      <h2>알림만 띄우지 않고,<br>현장에서 승인할 작업 대안을 계산합니다.</h2>
+      <p>아래 탭을 클릭하여 시나리오별 관제 화면과 감사 기록을 확인하세요.</p>
     </div>
     <div class="product-console">
       <div class="console-tabs" role="tablist" aria-label="제품 화면 탭">
@@ -334,8 +334,8 @@ const home = `
     <div class="roi-calculator">
       <div class="calc-grid">
         <div class="calc-inputs">
-          <h3>현장 숨은 캐파 &amp; ROI 진단 시뮬레이터</h3>
-          <p style="font-size:14px;color:var(--steel-light);margin:0 0 10px;">우리 공장의 설비 대수와 월평균 지연 건수를 조절하여, Iruvy Flow 도입 시 회수 가능한 유효 생산시간을 계산하세요.</p>
+          <h3>공장 캐파 회수 시뮬레이터</h3>
+          <p style="font-size:14px;color:var(--steel-light);margin:0 0 10px;">우리 공장의 설비 수와 월평균 지연 건수를 설정하면, Flow 적용 시 회수 가능한 생산시간을 시뮬레이션합니다.</p>
           <div class="calc-field">
             <label>제약 공정 설비 수: <span class="calc-val" data-val-machines>5대</span></label>
             <input type="range" min="1" max="30" value="5" data-calc-machines>
@@ -361,16 +361,16 @@ const home = `
   <div class="shell">
     <div class="section-head">
       <div class="sys-tag">METRICS // OPERATIONAL_KPI</div>
-      <h2>성과는 대시보드 화면이 아니라<br>실제 생산 지표의 개선으로 측정합니다.</h2>
-      <p>파일럿 진단 단계에서 기준선(Baseline), 측정 방법 및 검증 기간을 고객사와 먼저 합의합니다. 아래 지표는 파일럿에서 측정·개선할 실효 KPI 항목입니다.</p>
+      <h2>대시보드 그래픽이 아닌,<br>실제 생산 지표 변화로 측정합니다.</h2>
+      <p>파일럿 사전 단계에서 기준선(Baseline), 측정 방법 및 검증 기간을 고객사와 함께 합의합니다.</p>
     </div>
     <div class="metric-grid">
       <div class="metric"><small>KPI 01</small><strong>납기 준수율 (OTD)</strong></div>
-      <div class="metric"><small>KPI 02</small><strong>지연 위험 조기 감지 시간</strong></div>
-      <div class="metric"><small>KPI 03</small><strong>생산 계획 수립 소요 시간</strong></div>
-      <div class="metric"><small>KPI 04</small><strong>일정 재수립 반복 횟수</strong></div>
-      <div class="metric"><small>KPI 05</small><strong>공정 간 대기 및 병목 시간</strong></div>
-      <div class="metric"><small>KPI 06</small><strong>돌발 잔업 및 긴급 외주 비용</strong></div>
+      <div class="metric"><small>KPI 02</small><strong>지연 위험 감지 시간</strong></div>
+      <div class="metric"><small>KPI 03</small><strong>생산 계획 작성 소요 시간</strong></div>
+      <div class="metric"><small>KPI 04</small><strong>일정 재수립 횟수</strong></div>
+      <div class="metric"><small>KPI 05</small><strong>공정 대기시간</strong></div>
+      <div class="metric"><small>KPI 06</small><strong>돌발 잔업 및 외주 비용</strong></div>
     </div>
   </div>
 </section>
@@ -379,8 +379,8 @@ const home = `
   <div class="shell scenario">
     <div>
       <div class="sys-tag">INTEGRATION // ZERO_INFRA_CHANGE</div>
-      <h2>기존 ERP/MES 시스템 교체 없이,<br>필요한 데이터부터 연동합니다.</h2>
-      <p>초기 검증은 기존 시스템의 수정 없이 읽기 전용(Read-only) 데이터 연동으로 안전하게 시작합니다. 데이터 보안과 보관 규칙은 사전 합의 후 적용됩니다.</p>
+      <h2>기존 ERP/MES 교체 없이,<br>읽기 전용 데이터부터 연결합니다.</h2>
+      <p>기존 DB를 수정하지 않는 안전한 읽기 전용 계정으로 수집합니다. 보안 규정 및 보관 규칙은 사전에 정한 지침을 따릅니다.</p>
       <div class="actions"><a class="button dark" href="/how-it-works/" data-event="technology_view">작동 방식 기술 보기</a></div>
     </div>
     <div class="data-line">
@@ -399,12 +399,12 @@ const home = `
   <div class="shell">
     <div class="section-head">
       <div class="sys-tag">LEDGER // TRANSPARENT_TRACKING</div>
-      <h2>단순 추천에 그치지 않고,<br>실제 결과까지 투명하게 추적합니다.</h2>
-      <p>기준 지표, 현장 제약, AI 추천 대안, 관리자의 승인 결정, 현장 실행 결과와 실제 경제적 가치를 하나의 통합 기록으로 검증합니다.</p>
+      <h2>추천에 그치지 않고,<br>실제 실행 결과까지 기록합니다.</h2>
+      <p>기준 지표, 현장 제약, AI 추천안, 관리자 승인 이력, 실제 작업 결과를 Outcome Ledger 단일 테이블로 보존합니다.</p>
     </div>
     <div class="ledger">
-      <div><span>BASELINE</span><strong>기준 생산성: 시간당 양품 18.4개</strong></div>
-      <div><span>CONSTRAINT</span><strong>CNC-04 셋업 전환 병목 제약</strong></div>
+      <div><span>BASELINE</span><strong>기준 생산성: 시간당 18.4개</strong></div>
+      <div><span>CONSTRAINT</span><strong>CNC-04 셋업 병목 제약</strong></div>
       <div><span>RECOMMENDATION</span><strong>작업순서 B안 최적화 제시</strong></div>
       <div><span>HUMAN DECISION</span><strong>생산관리자 검토 후 최종 승인</strong></div>
       <div><span>OBSERVED RESULT</span><strong>실제 결과 측정 및 검증 중</strong></div>
@@ -417,8 +417,8 @@ const home = `
   <div class="shell partner-panel">
     <div>
       <div class="sys-tag">PROGRAM // CAPACITY_LAB</div>
-      <h2>현장 데이터로 우리 공장의<br>숨은 캐파를 정밀 진단합니다.</h2>
-      <p class="lede">최근의 납기 지연이나 공정 병목 사례를 기반으로 제약 지도 작성, 데이터 준비도 진단, 의사결정 프로토타입과 KPI 검증 계획을 함께 도출합니다.</p>
+      <h2>현장 데이터로 우리 공장의<br>병목과 캐파를 진단합니다.</h2>
+      <p class="lede">최근 납기 지연 사례 1건을 바탕으로 제약 지도 작성, 데이터 준비도 평가, 의사결정 콘솔 시뮬레이션을 진행합니다.</p>
       <div class="actions"><a class="button primary" href="/capacity-lab/#apply" data-event="design_partner_view">우리 공장 적합성 확인</a></div>
     </div>
     <ul class="check-list">
@@ -435,14 +435,14 @@ const home = `
   <div class="shell scenario">
     <div>
       <div class="sys-tag">ABOUT // ENGINEERING_PRINCIPLES</div>
-      <h2>현장의 숙련된 판단을<br>계산 가능한 정밀 시스템으로.</h2>
+      <h2>베테랑의 작업 경험과<br>수리 최적화를 하나로 결합합니다.</h2>
     </div>
     <div>
-      <p>Iruvy는 복잡한 현실의 상태와 관계를 데이터 모델로 재구성해 온 기술력을 바탕으로, 제조 현장의 주문·공정·설비·자재·시간을 연결하는 지능형 운영 소프트웨어를 만듭니다.</p>
+      <p>Iruvy는 주문생산형 이산제조 현장의 주문·공정·설비·자재·시간 관계를 소프트웨어 모델로 풀어냅니다.</p>
       <div class="grid-3">
-        <article><h3>현장 중심 접근</h3><p>실제 현장의 핵심 병목 문제부터 시작합니다.</p></article>
-        <article><h3>명확한 책임 분리</h3><p>AI의 대안 제시와 사람의 최종 책임을 구분합니다.</p></article>
-        <article><h3>실효적 변화 측정</h3><p>화려한 기능보다 실제 지표의 변화를 검증합니다.</p></article>
+        <article><h3>현장 중심 접근</h3><p>실제 현장의 핵심 병목 문제부터 풀어냅니다.</p></article>
+        <article><h3>명확한 책임 분리</h3><p>AI는 대안과 근거를 제시하고 최종 결정은 사람이 합니다.</p></article>
+        <article><h3>지표 중심 검증</h3><p>화려한 기능보다 실제 수치의 변화를 검증합니다.</p></article>
       </div>
       <div class="actions" style="margin-top:24px;"><a class="button dark" href="/company/">회사 소개 및 경영 원칙</a></div>
     </div>
@@ -452,8 +452,8 @@ const home = `
 <section class="section">
   <div class="shell cta-panel">
     <div class="sys-tag">START // CAPACITY_DIAGNOSIS</div>
-    <h2>최근 3개월 안에 납기나 병목 문제가 있었다면,<br>그 사례 데이터부터 알려주세요.</h2>
-    <p>복잡한 원본 데이터 전송이나 긴 제안서 작성 없이 시작할 수 있습니다. 현재 데이터와 현장 상황을 바탕으로 Flow 적용 가능성을 먼저 진단해 드립니다.</p>
+    <h2>최근 발생한 지연 사건 1건으로<br>Flow 적합성을 진단해 드립니다.</h2>
+    <p>복잡한 원본 데이터나 길고 긴 제안서 없이 시작할 수 있습니다. 보유한 데이터 항목과 현장 상황을 바탕으로 가능 여부를 안내합니다.</p>
     <div class="actions">
       <a class="button primary" href="/capacity-lab/#apply">우리 공장 적합성 확인</a>
       <a class="button dark" href="mailto:contact@iruvy.com" data-event="email_link_click">이메일 한 줄 문의</a>
@@ -464,64 +464,64 @@ const home = `
 const pageHero = (eyebrow, title, lede, actions = "") => `<section class="page-hero"><div class="shell"><div class="sys-tag">${eyebrow}</div><h1>${title}</h1><p class="lede">${lede}</p>${actions ? `<div class="actions">${actions}</div>` : ""}</div></section>`;
 const pageLayout = (sections, links = []) => `<section class="page-body"><div class="shell page-grid"><aside class="page-aside" aria-label="페이지 목차">${links.map(([id,label]) => `<a href="#${id}">${label}</a>`).join("")}</aside><div class="prose">${sections}</div></div></section>`;
 
-// Flow Product Page (Palantir/Anduril Aesthetic Overhaul)
-const flow = pageHero("PRODUCT // IRUVY_FLOW_SYSTEM", "제약공정의 숨은 캐파를,<br>더 나은 결정으로 깨웁니다.", "주문·공정·설비·자재·역할과 시간을 운영 월드모델로 연결하고, 납기 위험과 캐파 손실의 원인을 찾아 실행 가능한 대안을 제시합니다.", `<a class="button dark" href="/#demo">Flow 관제 보기</a><a class="button primary" href="/capacity-lab/#apply">Capacity Lab 신청</a>`) + pageLayout(`
+// Flow Product Page
+const flow = pageHero("PRODUCT // IRUVY_FLOW", "제약공정의 멈춰있는 시간을,<br>유효 생산량으로 전환합니다.", "주문·공정·설비·자재 제약을 운영 모델로 다뤄, 돌발 고장이나 긴급 수주에도 납기를 지키는 작업 순서를 계산합니다.", `<a class="button dark" href="/#demo">Flow 관제 보기</a><a class="button primary" href="/capacity-lab/#apply">Capacity Lab 신청</a>`) + pageLayout(`
 <section id="structure">
-  <h2>한 가지 결정에 필요한 4대 결합 구조</h2>
+  <h2>한 가지 결정을 도출하는 4대 결합 구조</h2>
   <div class="grid-2">
     <article class="card">
       <span class="num">SYS // 01</span>
       <h3>Data Connect (읽기 전용 수집)</h3>
-      <p>ERP·MES·Excel의 주문·납기, 공정순서, 작업실적, 설비상태, 외주·자재 일정과 가용성을 수정 없이 안전하게 수집합니다.</p>
+      <p>ERP·MES·Excel의 주문·납기, 공정순서, 작업실적, 설비상태, 외주·자재 입고 일정을 기존 시스템 수정 없이 수집합니다.</p>
     </article>
     <article class="card">
       <span class="num">SYS // 02</span>
       <h3>Operational Twin (운영 관계 모델)</h3>
-      <p>주문이 어떤 공정을 거치고 어떤 설비와 역할이 필요하며 돌발 사건이 납기에 미치는 영향을 다차원 트윈 그래프로 잇습니다.</p>
+      <p>주문별 필요 공정과 대상 설비, 자재 수급과 돌발 사건 간의 연관 관계를 다차원 그래프로 구성합니다.</p>
     </article>
     <article class="card">
       <span class="num">SYS // 03</span>
       <h3>Decision Engine (최적 대안 계산)</h3>
-      <p>납기 위험과 병목을 실시간 계산하고 수리 최적화 및 시뮬레이션을 통해 현장 제약을 충족하는 작업순서 대안을 도출합니다.</p>
+      <p>수리 최적화 알고리즘과 시뮬레이터로 현장의 하드 제약을 100% 충족하는 최적 작업 순서를 도출합니다.</p>
     </article>
     <article class="card">
       <span class="num">SYS // 04</span>
       <h3>Human Control (관리자 최종 승인)</h3>
-      <p>추천 근거와 제약을 확인하고 생산관리자가 직접 승인·수정·거절하며, 예상과 실제 결과를 Outcome Ledger로 보존합니다.</p>
+      <p>추천 근거를 확인하고 생산관리자가 직접 승인·수정·거절하며, 판단 이력을 Outcome Ledger에 기록합니다.</p>
     </article>
   </div>
 </section>
 
 <section id="autonomy-spectrum">
   <h2>자율운영 스펙트럼 (Autonomy Spectrum)</h2>
-  <p>Iruvy Flow는 무책임한 자동 제어를 표방하지 않습니다. 현재 L1 Recommend 단계에서 사람의 명확한 책임을 보장합니다.</p>
+  <p>Iruvy Flow는 시스템의 독단적 자동 제어를 하지 않습니다. 현재 L1 Recommend 단계에서 사람의 명확한 판단과 책임을 보장합니다.</p>
   <div class="status-list">
     <div class="status-row">
       <span class="status-badge">CURRENT SCOPE</span>
       <div>
         <h3>L0 Observe → L1 Recommend (Human-in-the-loop)</h3>
-        <p>현장 데이터 연결 및 돌발 위험 감지. 생산관리자가 근거를 검토하고 대안을 최종 승인·수정·거절합니다.</p>
+        <p>현장 데이터 연결 및 위험 감지. 생산관리자가 근거를 검토하고 대안을 최종 승인·수정·거절합니다.</p>
       </div>
     </div>
     <div class="status-row">
       <span class="status-badge pilot">ROADMAP</span>
       <div>
         <h3>L2 Coordinate → L3 Bounded Autonomy (통제된 자율운영)</h3>
-        <p>합의된 하드 제약 조건 내에서 작업 순서 재배치를 안전하게 자동 조율하는 장기 비전 단계입니다.</p>
+        <p>사전 합의된 제약 조건 내에서 작업 순서 재배치를 안전하게 자동 조율하는 로드맵 단계입니다.</p>
       </div>
     </div>
     <div class="status-row">
       <span class="status-badge boundary">OUT OF SCOPE</span>
       <div>
         <h3>Direct Robot Control &amp; Worker Surveillance (제외 범위)</h3>
-        <p>설비/로봇 직접 제어, 근로자 개인 생산성 평가, 상시 CCTV 감시는 Iruvy Flow의 제품 범위가 아닙니다.</p>
+        <p>설비 직접 제어, 근로자 개인 생산성 평가, CCTV 감시는 제품 범위에 포함되지 않습니다.</p>
       </div>
     </div>
   </div>
 </section>
 
 <section id="boundary">
-  <h2>사용 경계 및 적합 현장</h2>
+  <h2>적합한 현장과 적용 대상</h2>
   <div class="grid-2">
     <article class="card">
       <h3>가장 효과적인 현장</h3>
@@ -529,16 +529,16 @@ const flow = pageHero("PRODUCT // IRUVY_FLOW_SYSTEM", "제약공정의 숨은 �
         <li>주문생산형 (MTO) 및 다품종 소량생산 제조</li>
         <li>정밀가공, 금속가공, 기계부품, 금형 공장</li>
         <li>긴급 주문, 설비 정지, 외주 지연이 자주 발생하는 현장</li>
-        <li>ERP/MES/Excel 데이터를 일정 기간 보유한 사업장</li>
+        <li>ERP/MES/Excel 데이터를 보유한 사업장</li>
       </ul>
     </article>
     <article class="card">
-      <h3>첫 사용에 적합하지 않은 프로젝트</h3>
+      <h3>첫 적용에 적합하지 않은 프로젝트</h3>
       <ul>
-        <li>ERP·MES 전체를 교체하는 초대형 IT 프로젝트</li>
-        <li>안전 중요 판단 및 방산 표적/발사 자동화 시스템</li>
-        <li>개인 작업자 감시 및 인사평가 목적</li>
-        <li>데이터와 현장 담당자 참여가 없는 무료 개발 요청</li>
+        <li>ERP·MES 전체를 교체하려는 시스템 구축 건</li>
+        <li>안전 제어 및 무인 로봇 직접 조작 시스템</li>
+        <li>작업자 개별 평가 및 감시 목적</li>
+        <li>현장 데이터와 담당자 참여가 없는 무료 개발 요청</li>
       </ul>
     </article>
   </div>
@@ -546,36 +546,36 @@ const flow = pageHero("PRODUCT // IRUVY_FLOW_SYSTEM", "제약공정의 숨은 �
 
 <section id="faq" class="faq">
   <h2>자주 묻는 질문</h2>
-  <details><summary>ERP나 MES를 바꿔야 하나요?</summary><p>아닙니다. 기존 시스템에서 필요한 데이터를 읽기 전용으로 연결하는 방식부터 검토합니다.</p></details>
-  <details><summary>데이터가 Excel뿐이어도 가능한가요?</summary><p>주문, 납기, 공정과 작업실적이 일정 기간 축적되어 있다면 가능성을 진단할 수 있습니다. 데이터 품질에 따라 첫 범위가 달라집니다.</p></details>
-  <details><summary>AI가 생산계획을 자동으로 바꾸나요?</summary><p>초기 범위에서는 자동 변경하지 않습니다. 가능한 대안과 근거를 제시하고 관리자가 승인·수정·거절합니다.</p></details>
-  <details><summary>어떤 데이터 기간이 필요한가요?</summary><p>가능하면 6~12개월의 주문·공정·실적을 권장합니다. 현장에 따라 더 짧은 기간으로 데이터 준비도 진단부터 시작할 수 있습니다.</p></details>
-</section>`, [["structure","4대 결합 구조"],["autonomy-spectrum","자율운영 스펙트럼"],["boundary","사용 경계"],["faq","FAQ"]]);
+  <details><summary>ERP나 MES를 바꾸어야 하나요?</summary><p>아닙니다. 기존 시스템에서 필요한 데이터를 읽기 전용으로 연결하여 사용합니다.</p></details>
+  <details><summary>Excel 데이터만 있어도 가능한가요?</summary><p>주문, 납기, 공정순서와 실적 기록이 있다면 준비도 진단부터 시작할 수 있습니다.</p></details>
+  <details><summary>AI가 생산계획을 자동으로 바꾸나요?</summary><p>자동으로 바꾸지 않습니다. 계산된 대안과 사유를 제시하고 관리자가 최종 승인합니다.</p></details>
+  <details><summary>필요한 최소 데이터 기간은 얼마인가요?</summary><p>6~12개월 축적 데이터를 권장하며, 데이터 준비도 진단을 통해 현재 수준을 먼저 평가해 드립니다.</p></details>
+</section>`, [["structure","4대 결합 구조"],["autonomy-spectrum","자율운영 스펙트럼"],["boundary","적합 현장"],["faq","FAQ"]]);
 
-// Technology Page (IDFM Engine)
-const technology = pageHero("ENGINE // IDFM_ARCHITECTURE", "Sense에서 Proof까지,<br>하나의 결정이 만들어지는 과정.", "Iruvy Flow는 단순 LLM 하나에 판단을 의존하지 않습니다. 수리 최적화, 제약 시뮬레이션, 운영 월드모델과 관리자 승인 체계로 구성됩니다.", `<a class="button primary" href="/capacity-lab/#apply" data-event="technology_view">우리 데이터로 검토하기</a>`) + pageLayout(`
+// Technology Page
+const technology = pageHero("ENGINE // IDFM_ARCHITECTURE", "데이터 연동부터 승인 기록까지,<br>의사결정이 이뤄지는 4단계 구조.", "추상적인 AI 텍스트 생성에 의존하지 않습니다. 수리 최적화 알고리즘과 제약 시뮬레이터가 하드 제약을 100% 검증합니다.", `<a class="button primary" href="/capacity-lab/#apply" data-event="technology_view">우리 데이터로 검토하기</a>`) + pageLayout(`
 <section id="architecture">
   <h2>Iruvy Decision Foundation Model (IDFM) 4-Layer 구조</h2>
   <div class="grid-2" style="margin-bottom:30px;">
     <article class="card">
       <span class="num">LAYER 01 // ENCODER</span>
       <h3>State Encoder &amp; Language Model</h3>
-      <p>ERP·MES·작업일지의 비정형 데이터와 실시간 사건(Event)을 구조화된 Decision Episode 상태로 인코딩합니다.</p>
+      <p>ERP·MES·작업일지의 비정형 데이터와 발생 사건을 규격화된 상태값으로 인코딩합니다.</p>
     </article>
     <article class="card">
       <span class="num">LAYER 02 // WORLD_MODEL</span>
       <h3>Operational World Model (4 Twins)</h3>
-      <p>Semantic(객체) · Temporal(시간선) · Physical(설비제약) · Economic(ROI) Twin이 현장 상태를 다차원 그래프로 유지합니다.</p>
+      <p>Semantic(객체) · Temporal(시간선) · Physical(설비제약) · Economic(ROI) 4개 트윈으로 현장을 모델링합니다.</p>
     </article>
     <article class="card">
       <span class="num">LAYER 03 // SOLVER</span>
       <h3>Strategy Policy &amp; Solver Engine</h3>
-      <p>하드 제약을 100% 준수하는 제약 최적화 및 시뮬레이션을 실행하여 최적의 작업순서와 자원배치 대안을 도출합니다.</p>
+      <p>하드 제약을 100% 만족하는 최적화 알고리즘으로 최적의 작업 순서와 설비 배치안을 도출합니다.</p>
     </article>
     <article class="card">
       <span class="num">LAYER 04 // VERIFIER</span>
       <h3>Outcome &amp; Value Verifier</h3>
-      <p>관리자의 승인·수정·거절 이력과 실제 실행 결과를 Outcome Ledger로 기록하고, 기권 조건 미충족 시 정직하게 판단을 기권합니다.</p>
+      <p>관리자의 승인/수정 이력과 실제 실행 결과를 Outcome Ledger로 보존하며, 조건 미충족 시 기권합니다.</p>
     </article>
   </div>
 </section>
@@ -587,64 +587,64 @@ const technology = pageHero("ENGINE // IDFM_ARCHITECTURE", "Sense에서 Proof까
       <h3>LLM이 담당하는 영역</h3>
       <ul>
         <li>비정형 작업일지 및 현장 텍스트 구조화</li>
-        <li>생산관리자의 자연어 질의응답 처리</li>
-        <li>추천 대안 A/B안의 선택 사유 및 차이점 설명</li>
-        <li>주간/월간 생산 보고서 보조 생성</li>
+        <li>생산관리자의 자연어 질의 처리</li>
+        <li>대안 A/B안의 선택 사유 및 차이점 설명</li>
+        <li>생산 보고서 보조 작성</li>
       </ul>
     </article>
     <article class="card">
-      <h3>수리 최적화·시뮬레이터가 담당하는 영역</h3>
+      <h3>수리 최적화 알고리즘이 담당하는 영역</h3>
       <ul>
-        <li>납기 및 제약 조건 100% 검증</li>
+        <li>납기 및 물리적 제약조건 100% 검증</li>
         <li>제약공정 최적 작업순서(Sequencing) 계산</li>
         <li>설비 고장 시 대체 경로 재배치 계산</li>
-        <li>기권 판단 및 regret 최저치 산출</li>
+        <li>기권 판단 및 최저 regret 산출</li>
       </ul>
     </article>
   </div>
 </section>
 
 <section id="learning">
-  <h2>자가학습 및 오프라인 안전 배포 통제</h2>
-  <p>Iruvy Flow는 관리자가 승인했다고 해서 모델이 즉시 위험하게 자가학습하지 않습니다. 모든 결정과 실제 성과는 안전 검증 게이트를 거칩니다.</p>
+  <h2>오프라인 안전 배포 통제</h2>
+  <p>Iruvy Flow는 승인 데이터가 즉시 위험하게 오프라인 모델을 변경하지 않으며, 철저한 안전 검증 게이트를 거칩니다.</p>
   <div class="status-list">
-    <div class="status-row"><span>01</span><div><h3>Decision Episode 기록</h3><p>상태, 제약, 대안, 관리자 승인 여부, 실제 결과와 외부 요인을 분리 저장합니다.</p></div></div>
-    <div class="status-row"><span>02</span><div><h3>FlowBench 검증</h3><p>시뮬레이션 환경에서 백테스트 및 하드 제약 준수율을 오프라인 평가합니다.</p></div></div>
-    <div class="status-row"><span>03</span><div><h3>Champion 승격 &amp; Rollback</h3><p>Shadow → Canary → Champion 승격 절차와 즉시 롤백 통제를 유지합니다.</p></div></div>
+    <div class="status-row"><span>01</span><div><h3>Decision Episode 기록</h3><p>상태, 제약, 대안, 승인 여부, 실제 결과를 독립 저장합니다.</p></div></div>
+    <div class="status-row"><span>02</span><div><h3>FlowBench 검증</h3><p>시뮬레이션 환경에서 백테스트 및 하드 제약 준수율을 검증합니다.</p></div></div>
+    <div class="status-row"><span>03</span><div><h3>Champion 승격 &amp; Rollback</h3><p>Shadow → Canary → Champion 배포 절차와 롤백 기능을 유지합니다.</p></div></div>
   </div>
 </section>`, [["architecture","IDFM 4-Layer"],["roles","기술 분리 경계"],["learning","안전 배포 통제"]]);
 
 const fitForm = (contact = false) => `
 <form class="fit-form" data-fit-form data-form-type="${contact ? "contact" : "fit"}" novalidate>
   <input type="hidden" name="inquiry" value="${contact ? "company" : "flow"}">
-  <div class="form-intro"><b>${contact ? "논의할 내용을 남겨주세요." : "약 3분 · 원본 데이터 업로드 없이 시작합니다."}</b><span>${contact ? "민감한 생산 데이터는 첨부하지 않아도 됩니다." : "담당자가 내용을 직접 읽고, 가능한 범위와 준비가 필요한 부분을 먼저 안내합니다."}</span></div>
+  <div class="form-intro"><b>${contact ? "문의 내용을 작성해 주세요." : "약 3분 소요 · 원본 데이터 업로드 없이 시작합니다."}</b><span>${contact ? "민감한 생산 데이터는 첨부하지 않으셔도 됩니다." : "담당자가 확인 후 적용 가능한 범위와 필요한 데이터 항목을 안내해 드립니다."}</span></div>
   <div class="form-progress" aria-label="진행 단계"><span class="active" data-progress></span><span data-progress></span><span data-progress></span></div>
   <div class="form-step" data-form-step>
-    <h2>${contact ? "문의 기본정보" : "담당자와 현장 기본정보"}</h2>
+    <h2>${contact ? "문의 기본정보" : "담당자 및 현장 정보"}</h2>
     <div class="fields">
       <div class="field"><label for="${contact ? "c-" : ""}name">이름 *</label><input id="${contact ? "c-" : ""}name" name="name" maxlength="80" required autocomplete="name"><div class="field-error"></div></div>
       <div class="field"><label for="${contact ? "c-" : ""}organization">회사·기관 *</label><input id="${contact ? "c-" : ""}organization" name="organization" maxlength="120" required autocomplete="organization"><div class="field-error"></div></div>
       <div class="field"><label for="${contact ? "c-" : ""}role">직책·역할 *</label><input id="${contact ? "c-" : ""}role" name="role" maxlength="120" required autocomplete="organization-title"><div class="field-error"></div></div>
       <div class="field"><label for="${contact ? "c-" : ""}email">회사 이메일 *</label><input id="${contact ? "c-" : ""}email" name="email" type="email" maxlength="254" required autocomplete="email"><div class="field-error"></div></div>
       <div class="field"><label for="${contact ? "c-" : ""}phone">연락처 <small>선택</small></label><input id="${contact ? "c-" : ""}phone" name="phone" type="tel" maxlength="40" autocomplete="tel"><div class="field-error"></div></div>
-      <div class="field"><label for="${contact ? "c-" : ""}environment">${contact ? "문의 분야" : "업종·현장 유형"} *</label><select id="${contact ? "c-" : ""}environment" name="environment" required><option value="">선택해 주세요</option>${contact ? '<option>제조 디자인 파트너</option><option>기술·데이터 연동</option><option>산업·공급 파트너십</option><option>투자</option><option>미디어</option><option>기타</option>' : '<option>정밀가공</option><option>금속가공</option><option>금형</option><option>기계·장비</option><option>전기장비</option><option>기타 이산제조</option>'}</select><div class="field-error"></div></div>
+      <div class="field"><label for="${contact ? "c-" : ""}environment">${contact ? "문의 분야" : "업종 유형"} *</label><select id="${contact ? "c-" : ""}environment" name="environment" required><option value="">선택해 주세요</option>${contact ? '<option>제조 디자인 파트너</option><option>기술·데이터 연동</option><option>산업·공급 파트너십</option><option>투자</option><option>미디어</option><option>기타</option>' : '<option>정밀가공</option><option>금속가공</option><option>금형</option><option>기계·장비</option><option>전기장비</option><option>기타 이산제조</option>'}</select><div class="field-error"></div></div>
     </div>
     <div class="form-actions"><span></span><button class="button dark" type="button" data-next>다음 · 현장 범위</button></div>
   </div>
   <div class="form-step" data-form-step hidden>
-    <h2>${contact ? "문의 범위" : "검증할 문제와 데이터"}</h2>
+    <h2>${contact ? "문의 범위" : "검증할 사건과 데이터"}</h2>
     <div class="fields">
-      <div class="field full"><label for="${contact ? "c-" : ""}scope">${contact ? "논의 범위" : "현재 데이터 준비 상태"} *</label>${contact ? '<textarea id="c-scope" name="scope" maxlength="240" required placeholder="예: 읽기 전용 ERP 데이터 연동 검토"></textarea>' : '<select id="scope" name="scope" required><option value="">가장 가까운 상태를 선택해 주세요</option><option>주문·납기·공정실적을 연결할 수 있음</option><option>ERP 주문과 Excel 계획·실적을 연결해야 함</option><option>납기와 최종 완료 데이터만 보유</option><option>과거 공정실적이 거의 없음</option><option>현재 상태를 잘 모름</option></select>'}<div class="field-error"></div></div>
-      <div class="field full"><label for="${contact ? "c-" : ""}challenge">${contact ? "문의 내용" : "최근 실제로 발생한 문제"} *</label><textarea id="${contact ? "c-" : ""}challenge" name="challenge" minlength="10" maxlength="5000" required placeholder="${contact ? "함께 논의하고 싶은 내용을 적어 주세요." : "납기 지연, 일정 재수립, 병목, 외주 지연 등 최근 실제 사례를 적어 주세요."}"></textarea><div class="field-error"></div></div>
-      <div class="field full"><label for="${contact ? "c-" : ""}constraints">데이터·보안·연동 제약</label><textarea id="${contact ? "c-" : ""}constraints" name="constraints" maxlength="1000" placeholder="예: 원본 데이터 외부 전송 불가, 읽기 전용만 가능"></textarea><div class="field-error"></div></div>
+      <div class="field full"><label for="${contact ? "c-" : ""}scope">${contact ? "논의 범위" : "현재 데이터 준비 상태"} *</label>${contact ? '<textarea id="c-scope" name="scope" maxlength="240" required placeholder="예: ERP 데이터 읽기 전동 연동 검토"></textarea>' : '<select id="scope" name="scope" required><option value="">가장 가까운 상태를 선택해 주세요</option><option>주문·납기·공정실적 데이터 보유</option><option>ERP 주문과 Excel 실적을 함께 사용</option><option>납기와 최종 완료 데이터만 보유</option><option>과거 실적 데이터가 부족함</option><option>현재 상태를 판단하기 어려움</option></select>'}<div class="field-error"></div></div>
+      <div class="field full"><label for="${contact ? "c-" : ""}challenge">${contact ? "문의 내용" : "최근 발생한 지연/병목 사건"} *</label><textarea id="${contact ? "c-" : ""}challenge" name="challenge" minlength="10" maxlength="5000" required placeholder="${contact ? "함께 논의하고 싶은 내용을 적어 주세요." : "최근 발생한 납기 지연, 병목, 설비 정지 사례를 적어 주세요."}"></textarea><div class="field-error"></div></div>
+      <div class="field full"><label for="${contact ? "c-" : ""}constraints">보안 및 연동 제약조건</label><textarea id="${contact ? "c-" : ""}constraints" name="constraints" maxlength="1000" placeholder="예: 원본 데이터 외부 반출 불가, 읽기 전용 계정만 허용"></textarea><div class="field-error"></div></div>
     </div>
-    <div class="form-actions"><button class="button" type="button" data-prev>이전</button><button class="button dark" type="button" data-next>다음 · 일정과 동의</button></div>
+    <div class="form-actions"><button class="button" type="button" data-prev>이전</button><button class="button dark" type="button" data-next>다음 · 일정 및 동의</button></div>
   </div>
   <div class="form-step" data-form-step hidden>
-    <h2>검토 일정과 개인정보 동의</h2>
+    <h2>검토 일정 및 개인정보 동의</h2>
     <div class="fields">
-      <div class="field full"><label for="${contact ? "c-" : ""}timeline">검토 희망 시점 *</label><select id="${contact ? "c-" : ""}timeline" name="timeline" required><option value="">선택해 주세요</option><option>1개월 이내</option><option>3개월 이내</option><option>6개월 이내</option><option>12개월 이내</option><option>정보 수집 중</option></select><div class="field-error"></div></div>
-      <div class="field full"><label class="check-field"><input type="checkbox" name="privacy" value="agreed" required><span><a href="/privacy/" target="_blank">개인정보 처리방침</a>을 확인했으며 문의 처리에 동의합니다. *</span></label><div class="field-error"></div></div>
+      <div class="field full"><label for="${contact ? "c-" : ""}timeline">희망 검토 시점 *</label><select id="${contact ? "c-" : ""}timeline" name="timeline" required><option value="">선택해 주세요</option><option>1개월 이내</option><option>3개월 이내</option><option>6개월 이내</option><option>12개월 이내</option><option>정보 수집 중</option></select><div class="field-error"></div></div>
+      <div class="field full"><label class="check-field"><input type="checkbox" name="privacy" value="agreed" required><span><a href="/privacy/" target="_blank">개인정보 처리방침</a>에 동의합니다. *</span></label><div class="field-error"></div></div>
       <div class="field honeypot" aria-hidden="true"><label for="${contact ? "c-" : ""}website">웹사이트</label><input id="${contact ? "c-" : ""}website" name="website" tabindex="-1" autocomplete="off"></div>
     </div>
     <div class="form-actions"><button class="button" type="button" data-prev>이전</button><button class="button primary" type="submit">${contact ? "문의 접수" : "적합성 검토 요청"}</button></div>
@@ -653,87 +653,87 @@ const fitForm = (contact = false) => `
 </form>`;
 
 // Capacity Lab Page
-const partners = pageHero("PROGRAM // CAPACITY_LAB", "최근 사건 하나로,<br>숨은 캐파를 찾을 수 있는지 확인합니다.", "최근 납기·병목 사건과 현재 보유 데이터를 바탕으로 제약공정, 데이터 준비도, 실행 대안과 검증 계획을 정의하는 실무 프로그램입니다.", `<a class="button primary" href="#apply">우리 공장 적합성 확인</a>`) + pageLayout(`
+const partners = pageHero("PROGRAM // CAPACITY_LAB", "최근 지연 사례 1건으로,<br>캐파 회수 가능성을 진단합니다.", "최근 발생한 지연 사건과 보유 데이터 항목만으로 제약 지도, 데이터 준비도, 작업 대안 시뮬레이션을 정의하는 3분 진단입니다.", `<a class="button primary" href="#apply">우리 공장 적합성 확인</a>`) + pageLayout(`
 <section id="start">
   <div class="reassurance-grid">
-    <article><b>첫 문의</b><strong>원본 데이터 불필요</strong><p>최근 사건과 보유 데이터 종류만 알려주세요.</p></article>
-    <article><b>첫 답변</b><strong>적합성부터 판단</strong><p>가능·준비 필요·현재 부적합을 구분합니다.</p></article>
-    <article><b>다음 단계</b><strong>합의 후에만 진행</strong><p>데이터·KPI·범위·비용을 문서로 정한 뒤 시작합니다.</p></article>
+    <article><b>첫 문의</b><strong>원본 데이터 불필요</strong><p>발생한 사건과 데이터 종류만 알려주세요.</p></article>
+    <article><b>첫 답변</b><strong>적합성부터 판단</strong><p>가능·준비 필요·부적합 여부를 투명하게 판단합니다.</p></article>
+    <article><b>다음 단계</b><strong>사전 합의 후 진행</strong><p>범위와 보안 지침을 문서화한 후 진행합니다.</p></article>
   </div>
 </section>
 
 <section id="outputs">
-  <h2>4대 핵심 도출 산출물</h2>
+  <h2>4대 핵심 진단 산출물</h2>
   <div class="grid-2">
     <article class="card">
       <span class="num">DELIVERABLE // 01</span>
       <h3>Constraint Map (제약 지도)</h3>
-      <p>주문·공정·설비·자재 사이에서 발생하는 캐파 손실과 병목 지점을 시각화합니다.</p>
+      <p>주문·공정·설비·자재 간 병목 지점과 시간 손실 원인을 정리합니다.</p>
     </article>
     <article class="card">
       <span class="num">DELIVERABLE // 02</span>
       <h3>Data Readiness Grade (A~D 진단)</h3>
-      <p>현재 보유한 ERP/MES/Excel 데이터의 정합성과 연동 가능성을 4단계 등급으로 평가합니다.</p>
+      <p>보유 중인 ERP/MES/Excel 데이터의 연동 가능성을 4단계 등급으로 평가합니다.</p>
     </article>
     <article class="card">
       <span class="num">DELIVERABLE // 03</span>
       <h3>Decision Prototype (관제 콘솔)</h3>
-      <p>실제 사건 시나리오를 바탕으로 공장장 및 관리자가 검토할 의사결정 프로토타입을 만듭니다.</p>
+      <p>실제 지연 시나리오를 바탕으로 생산관리자가 검토할 작업 대안 화면을 구현합니다.</p>
     </article>
     <article class="card">
       <span class="num">DELIVERABLE // 04</span>
       <h3>KPI &amp; M&amp;V Plan (측정 계획)</h3>
-      <p>기준선(Baseline), 측정 기간, 외부 요인 분리 및 실효 ROI 검증 계획을 합의합니다.</p>
+      <p>기준선(Baseline)과 검증 기간, ROI 측정 기준을 합의합니다.</p>
     </article>
   </div>
 </section>
 
 <section id="process">
-  <h2>4단계 실무 진행 로드맵</h2>
+  <h2>4단계 진단 진행 절차</h2>
   <div class="status-list">
-    <div class="status-row"><span class="status-badge">STEP 01</span><div><h3>Problem Review</h3><p>최근 3개월 내 발생한 납기 지연 및 설비 병목 사건과 핵심 지표를 정의합니다.</p></div></div>
-    <div class="status-row"><span class="status-badge">STEP 02</span><div><h3>Data Mapping</h3><p>주문, 공정, 설비, 작업실적 데이터의 결측치 및 식별자 연동 상태를 확인합니다.</p></div></div>
-    <div class="status-row"><span class="status-badge">STEP 03</span><div><h3>Constraint Workshop</h3><p>하나의 제약공정에 대한 최적 작업순서 변경안과 관리자 검토 프로토타입을 시뮬레이션합니다.</p></div></div>
-    <div class="status-row"><span class="status-badge pilot">STEP 04</span><div><h3>Executive Review &amp; Pilot Proposal</h3><p>Capacity Audit 및 8~12주 유료 섀도 파일럿 Sprint 진행 여부를 확정합니다.</p></div></div>
+    <div class="status-row"><span class="status-badge">STEP 01</span><div><h3>Problem Review</h3><p>최근 발생한 납기 지연 및 설비 병목 사건과 핵심 지표를 정리합니다.</p></div></div>
+    <div class="status-row"><span class="status-badge">STEP 02</span><div><h3>Data Mapping</h3><p>주문, 공정, 설비 데이터의 연결 상태와 결측치를 확인합니다.</p></div></div>
+    <div class="status-row"><span class="status-badge">STEP 03</span><div><h3>Constraint Workshop</h3><p>제약공정의 작업 순서 변경안과 승인 콘솔 화면을 시뮬레이션합니다.</p></div></div>
+    <div class="status-row"><span class="status-badge pilot">STEP 04</span><div><h3>Executive Review &amp; Proposal</h3><p>Capacity Audit 및 8~12주 유료 섀도 파일럿 진행 여부를 결정합니다.</p></div></div>
   </div>
 </section>
 
 <section id="questions" class="faq">
   <h2>신청 전에 가장 많이 확인하는 것</h2>
-  <details><summary>MES가 있는데도 필요한가요?</summary><p>MES를 교체하지 않습니다. MES·ERP·Excel의 기록 위에서 납기 위험과 제약공정, 변경 대안을 검토하는 의사결정 계층으로 시작합니다.</p></details>
-  <details><summary>Excel 데이터만 있어도 검토할 수 있나요?</summary><p>주문번호, 납기, 공정순서와 작업실적을 연결할 수 있다면 준비도를 진단할 수 있습니다. 부족한 데이터는 먼저 무엇을 쌓아야 하는지 안내합니다.</p></details>
-  <details><summary>첫 문의부터 생산 데이터를 보내야 하나요?</summary><p>아닙니다. 최근 발생한 사건과 보유 데이터 종류만 적어주세요. 원본 데이터는 범위·권한·보안 조건을 합의한 뒤 별도로 검토합니다.</p></details>
+  <details><summary>MES가 설치되어 있어도 필요한가요?</summary><p>MES를 교체하지 않고, 기존 기록 위에서 최적 작업 순서를 계산하는 분석 레이어로 사용합니다.</p></details>
+  <details><summary>Excel 데이터로도 검토가 가능한가요?</summary><p>주문번호, 납기, 공정순서 기록이 있다면 데이터 준비도 진단을 진행할 수 있습니다.</p></details>
+  <details><summary>첫 문의에 원본 생산 데이터를 전달해야 하나요?</summary><p>아닙니다. 최근 발생한 사건과 데이터 항목만 작성해 주시면 됩니다.</p></details>
 </section>
 
 <section id="apply">
   <div class="sys-tag">APPLY // FIT_REVIEW</div>
-  <h2>최근 문제와 현재 데이터만 알려주세요.</h2>
-  <p>민감한 도면, 상세 생산수치와 원본 데이터는 첫 문의에 보내지 않아도 됩니다.</p>
+  <h2>최근 문제와 보유 데이터 항목만 알려주세요.</h2>
+  <p>도면이나 민감 생산 수치 등 원본 데이터는 첫 문의에 제출하지 않으셔도 됩니다.</p>
   ${fitForm(false)}
-  <p class="direct-contact" style="margin-top:20px;">폼보다 이메일이 편하다면 <a href="mailto:contact@iruvy.com?subject=Capacity%20Lab%20적합성%20문의" data-event="email_link_click">contact@iruvy.com</a>으로 최근 문제를 한 줄만 보내주세요.</p>
-</section>`, [["start","시작 방식"],["outputs","4대 산출물"],["process","진행 로드맵"],["questions","FAQ"],["apply","적합성 확인"]]);
+  <p class="direct-contact" style="margin-top:20px;">이메일 문의: <a href="mailto:contact@iruvy.com?subject=Capacity%20Lab%20적합성%20문의" data-event="email_link_click">contact@iruvy.com</a> (최근 발생한 지연 사건 1건 제출)</p>
+</section>`, [["start","시작 방식"],["outputs","4대 산출물"],["process","진행 절차"],["questions","FAQ"],["apply","적합성 확인"]]);
 
 // Evidence Page
-const evidence = pageHero("GOVERNANCE // EVIDENCE_AND_TRUST", "주장이 아니라,<br>검증 가능한 결과를 쌓습니다.", "Iruvy는 참가, 협력, 유료 실증, 실제 운영과 검증된 성과를 구분합니다. Outcome Ledger는 기준선부터 실제 경제가치까지 같은 구조로 기록합니다.", `<a class="button primary" href="/capacity-lab/#apply">검증 시작하기</a>`) + pageLayout(`
+const evidence = pageHero("GOVERNANCE // EVIDENCE_AND_TRUST", "과장된 수치 대신,<br>검증 가능한 실증 데이터만 남깁니다.", "Iruvy는 모의 테스트, 진단 단계, 유료 파일럿, 실제 운영 데이터를 명확히 구분하여 공개합니다.", `<a class="button primary" href="/capacity-lab/#apply">검증 시작하기</a>`) + pageLayout(`
 <section id="standard">
-  <h2>증거 인정 5대 성격 기준</h2>
+  <h2>증거 인정 5대 기준</h2>
   <div class="evidence-grid">
-    <article><span>01</span><h3>실제 현장 데이터</h3><p>고객사와 사전 합의한 현장 범위와 기준 기간의 실데이터</p></article>
-    <article><span>02</span><h3>실행 가능 대안</h3><p>현장의 하드 제약을 100% 충족하고 비교 가능한 최적안</p></article>
-    <article><span>03</span><h3>사람의 승인 결정</h3><p>생산관리자의 검토·수정·승인·거절 이력 및 판단 사유</p></article>
-    <article><span>04</span><h3>실제 변경 실행</h3><p>언제 무엇을 어느 공정 범위에서 실행에 반영했는지 기록</p></article>
-    <article><span>05</span><h3>측정된 ROI 결과</h3><p>외부 요인을 분리 분석한 유효 캐파 증폭 지표 및 경제가치</p></article>
+    <article><span>01</span><h3>실제 현장 데이터</h3><p>사전 합의된 현장 범위와 기준 기간의 실제 생산 데이터</p></article>
+    <article><span>02</span><h3>실행 가능 대안</h3><p>현장의 물리적 제약을 100% 충족하는 검증된 작업 대안</p></article>
+    <article><span>03</span><h3>사람의 승인 결정</h3><p>생산관리자의 검토, 수정, 승인 이력 및 결정 사유</p></article>
+    <article><span>04</span><h3>실제 변경 실행</h3><p>실제 현장 생산 계획에 반영된 변경 기록</p></article>
+    <article><span>05</span><h3>측정된 ROI 결과</h3><p>외부 변수를 분리하여 검증한 캐파 회수 지표</p></article>
   </div>
 </section>
 
 <section id="levels">
   <h2>증거 단계 (Evidence Classification Scale)</h2>
   <div class="status-list">
-    <div class="status-row"><span class="status-badge">EXPLORATION</span><div><h3>샘플 및 합성 데이터 (Synthetic Scenario)</h3><p>제품 시나리오 및 디지털 트윈 관제 콘솔 기능을 관제·탐색하는 초기 단계입니다.</p></div></div>
-    <div class="status-row"><span class="status-badge pilot">VALIDATION</span><div><h3>실제 데이터 적합성 진단 (Capacity Lab)</h3><p>한 공정과 한 의사결정 범위에서 보유 데이터의 연결성과 제약 조건 정합성을 진단합니다.</p></div></div>
-    <div class="status-row"><span class="status-badge pilot">PAID PILOT</span><div><h3>유료 섀도 파일럿 (8~12주 Sprint)</h3><p>기준선과 성공 KPI를 합의하고 기존 생산 방식과 AI 추천 대안의 성과를 섀도 모드에서 비교합니다.</p></div></div>
-    <div class="status-row"><span class="status-badge">PRODUCTION</span><div><h3>실제 운영 환경 (Governed Production)</h3><p>고객사의 일상적인 생산 의사결정 워크플로에 포함되어 반복 사용하는 단계입니다.</p></div></div>
-    <div class="status-row"><span class="status-badge">VERIFIED IMPACT</span><div><h3>검증된 경제 성과 (Outcome Ledger)</h3><p>합의된 측정 기준(M&amp;V)으로 회수된 캐파 및 경제 가치를 상호 확인한 최종 단계입니다.</p></div></div>
+    <div class="status-row"><span class="status-badge">EXPLORATION</span><div><h3>합성 데이터 및 시나리오 (Synthetic Scenario)</h3><p>제품 기능과 관제 콘솔 시뮬레이션을 탐색하는 단계입니다.</p></div></div>
+    <div class="status-row"><span class="status-badge pilot">VALIDATION</span><div><h3>데이터 준비도 진단 (Capacity Lab)</h3><p>단일 공정 범위에서 보유 데이터의 정합성과 연결성을 진단합니다.</p></div></div>
+    <div class="status-row"><span class="status-badge pilot">PAID PILOT</span><div><h3>유료 섀도 파일럿 (8~12주 Sprint)</h3><p>기준선과 KPI를 정하고 기존 방식과 AI 추천안의 성과를 섀도 모드로 비교합니다.</p></div></div>
+    <div class="status-row"><span class="status-badge">PRODUCTION</span><div><h3>실제 운영 환경 (Governed Production)</h3><p>일상적인 생산 의사결정 워크플로에 포함되어 사용하는 단계입니다.</p></div></div>
+    <div class="status-row"><span class="status-badge">VERIFIED IMPACT</span><div><h3>검증된 경제 성과 (Outcome Ledger)</h3><p>상호 합의된 측정 기준(M&amp;V)으로 캐파 회수 효과를 입증한 단계입니다.</p></div></div>
   </div>
 </section>
 
@@ -747,75 +747,75 @@ const evidence = pageHero("GOVERNANCE // EVIDENCE_AND_TRUST", "주장이 아니�
     <div>Execution · 현장 계획 반영 및 실행</div><i>↓</i>
     <div>Result &amp; ROI · 회수된 캐파 및 경제 성과</div>
   </div>
-  <p class="notice">Iruvy Flow는 외부 공개 가능한 제조 성과 수치를 아직 검증 완료 전으로 표기합니다. 목표치나 모의 데이터 수치를 고객 성과처럼 과장하지 않습니다.</p>
+  <p class="notice">Iruvy Flow는 제조 분야의 실제 성과 수치를 실증 완료 전으로 투명하게 표시합니다.</p>
 </section>
 
 <section id="governance">
-  <h2>데이터 및 운영 거버넌스 원칙</h2>
+  <h2>데이터 보안 및 운영 지침</h2>
   <div class="grid-2">
-    <article class="card"><h3>읽기 전용 수집</h3><p>고객사의 원본 ERP/MES DB를 직접 수정하지 않는 읽기 전용 계정으로 연결합니다.</p></article>
-    <article class="card"><h3>사람의 승인 권한</h3><p>생산 계획의 최종 변경 권한은 생산관리자에게 있으며 자동 실행을 강제하지 않습니다.</p></article>
-    <article class="card"><h3>고객 데이터 격리</h3><p>명시적 동의 없이 고객사의 민감 생산 데이터를 타사 모델 학습에 공유하지 않습니다.</p></article>
-    <article class="card"><h3>작업자 감시 제외</h3><p>개인 생산성 순위 매기기, 근로자 상시 감시 및 인사 처벌 목적으로 사용하지 않습니다.</p></article>
+    <article class="card"><h3>읽기 전용 수집</h3><p>고객사 원본 DB를 직접 변경하지 않는 읽기 전용 계정으로 수집합니다.</p></article>
+    <article class="card"><h3>사람의 승인 권한</h3><p>생산 계획 최종 변경 권한은 생산관리자에게 있으며 자동 변경을 강제하지 않습니다.</p></article>
+    <article class="card"><h3>고객 데이터 격리</h3><p>사전 동의 없이 고객 데이터가 타사 모델 학습에 공유되지 않습니다.</p></article>
+    <article class="card"><h3>작업자 감시 제외</h3><p>작업자 개별 생산성 평가나 인사 처벌 목적의 사용을 차단합니다.</p></article>
   </div>
-</section>`, [["standard","5대 성격 기준"],["levels","증거 단계 Scale"],["ledger","Outcome Ledger"],["governance","거버넌스 원칙"]]);
+</section>`, [["standard","5대 인정 기준"],["levels","증거 단계 Scale"],["ledger","Outcome Ledger"],["governance","운영 지침"]]);
 
 // Company Page
-const company = pageHero("COMPANY // MISSION_AND_PRINCIPLES", "현실의 운영을 이해하고,<br>더 나은 결정을 가능하게 합니다.", "Iruvy는 물리적 현장에서 발생하는 설비, 작업, 공간과 시간의 관계를 데이터로 연결해 운영 의사결정에 사용하는 지능형 소프트웨어를 만듭니다.") + pageLayout(`
+const company = pageHero("COMPANY // MISSION_AND_PRINCIPLES", "현장의 숙련된 경험과<br>수리 최적화를 하나로 연결합니다.", "Iruvy는 주문생산형 이산제조 현장의 주문·공정·설비·시간 관계를 고도화된 소프트웨어로 다룹니다.") + pageLayout(`
 <section id="mission">
-  <h2>기업 미션 &amp; 카테고리 정의</h2>
-  <p>Iruvy의 카테고리는 <b>산업 자율운영 AI (Industrial Autonomy AI)</b>입니다. 복잡한 산업 현장의 사람·설비·자재·작업·공간·시간 관계를 운영 월드모델로 연결하고, 제약공정의 유효 생산능력(Capacity Amplification)을 실행으로 깨우는 회사를 지향합니다.</p>
+  <h2>기업 미션 및 사업 영역</h2>
+  <p>Iruvy의 사업 영역은 <b>산업 자율운영 AI (Industrial Autonomy AI)</b>입니다. 복잡한 산업 현장의 사람·설비·자재·작업·공간·시간 관계를 운영 모델로 잇고, 제약공정의 캐파 손실을 최적화 알고리즘으로 해결합니다.</p>
 </section>
 
 <section id="origin">
-  <h2>공간 모델링 기술에서 제조 자율운영으로의 진화</h2>
-  <p>Iruvy는 복잡한 실내 공간과 이동 데이터를 모델링하던 기술적 깊이에서 시작되었습니다. 물리적 현실의 상태를 소프트웨어가 이해하기 위해서는 단순 좌표가 아닌 목적, 제약, 사건, 다음 행동의 연결이 필수적임을 깨달았습니다.</p>
-  <p>이 고도의 데이터 모델링 경험을 바탕으로, 주문생산형 제조 현장의 주문·공정·설비·시간 관계를 푸는 Iruvy Flow 시스템을 완성해 나가고 있습니다.</p>
+  <h2>공간 데이터 기술에서 제조 자율운영으로의 확장</h2>
+  <p>Iruvy는 복잡한 실내 공간과 이동 데이터를 정밀하게 모델링하던 엔지니어링 기술에서 출발했습니다. 물리적 현장을 소프트웨어가 이해하기 위해서는 단편적인 수치가 아닌 제약, 사건, 목적 간의 상관관계를 다루어야 한다는 점을 배웠습니다.</p>
+  <p>이 모델링 기술을 바탕으로 주문생산형 제조 현장의 병목과 납기 지연을 풀어내는 Iruvy Flow 시스템을 구축하고 있습니다.</p>
 </section>
 
 <section id="principles">
-  <h2>Iruvy의 4대 제품 개발 원칙</h2>
+  <h2>4대 제품 개발 원칙</h2>
   <div class="grid-2">
     <article class="card">
       <span class="num">PRINCIPLE // 01</span>
-      <h3>Field before claim (현장 우선)</h3>
-      <p>실제 현장에서 반복 입증된 실체 있는 문제만을 제품의 핵심 기능 범위로 정의합니다.</p>
+      <h3>Field before claim (현장 실증 우선)</h3>
+      <p>현장에서 반복 입증된 실체 있는 문제만을 제품 기능으로 정의합니다.</p>
     </article>
     <article class="card">
       <span class="num">PRINCIPLE // 02</span>
-      <h3>Human accountable (인간 중심 책임)</h3>
-      <p>AI는 최고의 대안과 근거를 제공하며, 최종 의사결정 권한과 책임은 현장의 전문가가 가집니다.</p>
+      <h3>Human accountable (인간 책임 분리)</h3>
+      <p>AI는 최적 대안과 사유를 제공하고, 최종 결정과 책임은 전문가가 갖습니다.</p>
     </article>
     <article class="card">
       <span class="num">PRINCIPLE // 03</span>
       <h3>Measurable change (지표 중심 검증)</h3>
-      <p>기능의 화려함보다 납기 준수율(OTD), 지연 시간 감축 등 측정 가능한 운영 지표 개선을 최우선합니다.</p>
+      <p>기능의 수식어보다 납기 준수율(OTD) 등 실제 수치의 개선을 우선합니다.</p>
     </article>
     <article class="card">
       <span class="num">PRINCIPLE // 04</span>
-      <h3>Reusable system (모듈화 구조)</h3>
-      <p>단발성 custom 코드가 아닌 Kernel + Domain Pack 구조로 재사용 가능한 표준 엔터프라이즈 제품을 만듭니다.</p>
+      <h3>Reusable system (표준 모듈 구조)</h3>
+      <p>단발성 custom 개발이 아닌 모듈화된 엔터프라이즈 표준 제품을 구축합니다.</p>
     </article>
   </div>
 </section>
 
 <section id="vision">
-  <h2>로드맵 및 비전</h2>
-  <p>한 공장의 제약공정 캐파 증폭 사례에서 출발하여, 방산·조선 공급망, MRO/정비/군수, 고신뢰 부분 자율운영으로 단계적 확장을 추진합니다.</p>
+  <h2>기술 확장 로드맵</h2>
+  <p>제약공정 캐파 회수 사례를 시작으로 방산·조선 공급망, MRO 정비 분야로 고신뢰 부분 자율운영 기술을 확장해 나갑니다.</p>
   <div class="vision-steps">
     <div><small>PHASE 01 (NOW)</small><strong>Observe → Recommend (L1)</strong></div>
     <div><small>PHASE 02 (NEXT)</small><strong>Approve → Execute Integration (L2)</strong></div>
     <div><small>PHASE 03 (LONG-TERM)</small><strong>Governed Industrial Autonomy (L3~L4)</strong></div>
   </div>
   <div class="actions" style="margin-top:28px;"><a class="button primary" href="/capacity-lab/">Capacity Lab 프로그램 보기</a></div>
-</section>`, [["mission","미션 & 카테고리"],["origin","기술 진화 기원"],["principles","4대 개발 원칙"],["vision","로드맵 비전"]]);
+</section>`, [["mission","미션 및 사업 영역"],["origin","기술 기원"],["principles","4대 개발 원칙"],["vision","확장 로드맵"]]);
 
-const contact = pageHero("CONTACT // INQUIRY", "한 가지 문제부터<br>함께 검토합니다.", "제조 디자인 파트너, 기술·데이터 연동, 산업 파트너십, 투자와 미디어 문의를 남겨 주세요.") + pageLayout(`<section id="contact-form">${fitForm(true)}</section><section id="email"><h2>이메일로 직접 문의</h2><p>일반 문의 · <a href="mailto:contact@iruvy.com" data-event="email_link_click">contact@iruvy.com</a><br>파트너십 · <a href="mailto:partners@iruvy.com" data-event="email_link_click">partners@iruvy.com</a><br>보안 · <a href="mailto:security@iruvy.com" data-event="email_link_click">security@iruvy.com</a></p><p class="notice">민감한 도면, 상세 생산수치와 원본 데이터는 첫 문의에 첨부하지 마세요.</p></section>`, [["contact-form","문의 접수"],["email","이메일"]]);
+const contact = pageHero("CONTACT // INQUIRY", "현장의 발생 문제부터<br>검토를 시작합니다.", "제조 디자인 파트너, 기술 연동, 산업 파트너십, 투자 및 미디어 문의를 남겨 주세요.") + pageLayout(`<section id="contact-form">${fitForm(true)}</section><section id="email"><h2>이메일 직접 문의</h2><p>일반 문의 · <a href="mailto:contact@iruvy.com" data-event="email_link_click">contact@iruvy.com</a><br>파트너십 · <a href="mailto:partners@iruvy.com" data-event="email_link_click">partners@iruvy.com</a><br>보안 · <a href="mailto:security@iruvy.com" data-event="email_link_click">security@iruvy.com</a></p><p class="notice">도면이나 민감 수치 등 원본 데이터는 첫 문의에 제출하지 않으셔도 됩니다.</p></section>`, [["contact-form","문의 접수"],["email","이메일"]]);
 
 const legalPage = (eyebrow, title, lede, sections) => pageHero(eyebrow, title, lede) + pageLayout(sections);
-const privacy = legalPage("LEGAL // PRIVACY", "개인정보 처리방침", "문의 처리에 필요한 정보만 수집하고 목적과 기간을 분명히 합니다.", `<section><h2>1. 수집 항목과 목적</h2><p>이름, 회사·기관, 직책·역할, 회사 이메일, 연락처, 문의 분야, 현장 범위, 문의 내용과 검토 희망 시점을 수집합니다. 문의 확인, 적합성 검토, 후속 연락과 접수 기록을 위해 사용합니다.</p></section><section><h2>2. 보관과 삭제</h2><p>관계 법령 또는 분쟁 대응에 필요한 기간을 제외하고 문의 목적이 끝난 정보는 내부 정책에 따라 삭제합니다. 세부 보관기간은 실제 운영체계 확정 후 이 방침에 반영합니다.</p></section><section><h2>3. 분석 정보</h2><p>사이트 개선을 위해 페이지와 CTA 이벤트를 기록할 수 있으나 분석 이벤트에 이름, 이메일, 전화번호, 회사명과 문의본문을 넣지 않습니다.</p></section><section><h2>4. 권리와 문의</h2><p>개인정보 열람, 정정과 삭제 요청은 <a href="mailto:contact@iruvy.com">contact@iruvy.com</a>으로 보내 주세요.</p><p>시행일 · 2026년 7월 24일</p></section>`);
-const terms = legalPage("LEGAL // TERMS", "이용약관", "웹사이트의 정보 범위와 책임 한계를 안내합니다.", `<section><h2>1. 정보 제공 목적</h2><p>이 사이트는 Iruvy와 Iruvy Flow의 현재 제품 방향, 파일럿 범위와 협력 절차를 설명합니다.</p></section><section><h2>2. 제품 범위</h2><p>합성 데이터 데모와 파일럿 설명은 특정 고객의 성과를 보증하지 않습니다. 실제 기능, 연동, 보안, 일정과 비용은 별도 계약에서 합의합니다.</p></section><section><h2>3. 지식재산권</h2><p>사이트의 브랜드, 문구, 디자인과 소프트웨어 자료는 관련 법령의 보호를 받습니다. 사전 동의 없는 상업적 복제와 재배포를 금합니다.</p></section><section><h2>4. 문의</h2><p>이용 관련 문의는 <a href="mailto:contact@iruvy.com">contact@iruvy.com</a>으로 보내 주세요.</p><p>시행일 · 2026년 7월 24일</p></section>`);
-const accessibility = legalPage("LEGAL // ACCESSIBILITY", "웹 접근성", "Iruvy는 제품뿐 아니라 정보를 전달하는 방식에서도 사람의 통제와 접근성을 중요하게 봅니다.", `<section><h2>접근성 목표</h2><p>WCAG 2.2 AA를 목표로 의미 있는 제목 구조, 키보드 접근, 명확한 초점 표시, 충분한 색상 대비, 모션 감소 설정과 폼 오류 연결을 구현합니다.</p></section><section><h2>지원하는 방식</h2><ul><li>본문 바로가기 링크와 의미 있는 랜드마크</li><li>키보드로 조작 가능한 메뉴, 탭과 폼</li><li>색상 외 텍스트로 제공하는 위험·상태 정보</li><li>합성 데이터 차트의 표와 텍스트 대안</li><li>작은 화면에서 가로 스크롤을 줄이는 카드형 레이아웃</li></ul></section><section><h2>피드백</h2><p>접근이 어려운 콘텐츠나 기능을 발견하면 사용한 기기, 브라우저와 페이지 주소를 <a href="mailto:contact@iruvy.com">contact@iruvy.com</a>으로 알려 주세요.</p></section>`);
+const privacy = legalPage("LEGAL // PRIVACY", "개인정보 처리방침", "문의 처리에 필요한 필수 정보만 수집하며 목적 외 용도로 사용하지 않습니다.", `<section><h2>1. 수집 항목과 목적</h2><p>이름, 회사·기관, 직책·역할, 이메일, 연락처, 문의 내용 및 희망 시점을 수집하며, 적합성 검토 및 후속 문의 응대를 위해 사용합니다.</p></section><section><h2>2. 보관 및 파기</h2><p>목적 달성 후 관련 법령에 명시된 기간 동안 보관하며, 보관 기간이 경과하면 파기합니다.</p></section><section><h2>3. 분석 정보</h2><p>사이트 성능 및 접근성 개선을 위해 익명화된 페이지 이용 이벤트를 수집할 수 있으며, 이메일/전화번호 등 개인 식별 정보는 포함하지 않습니다.</p></section><section><h2>4. 정보주체의 권리</h2><p>개인정보 열람, 정정, 파기 요청은 <a href="mailto:contact@iruvy.com">contact@iruvy.com</a>으로 연락해 주시기 바랍니다.</p><p>시행일 · 2026년 7월 24일</p></section>`);
+const terms = legalPage("LEGAL // TERMS", "이용약관", "Iruvy 웹사이트 사용 범위와 책임 한계를 안내합니다.", `<section><h2>1. 목적 및 정보 범위</h2><p>본 웹사이트는 Iruvy 제품과 기술 아키텍처, 진단 프로그램의 안내 목적으로 제공됩니다.</p></section><section><h2>2. 실증 및 시뮬레이션 성격</h2><p>웹사이트 상의 모의 데모 및 성과 예시는 특정 공장의 결과치를 보증하지 않으며, 실제 계약 및 조건은 별도 문서로 정합니다.</p></section><section><h2>3. 지적재산권</h2><p>본 사이트의 상표, 문구, 디자인 요소는 지적재산권 관련 법령의 보호를 받습니다.</p></section><section><h2>4. 문의처</h2><p>이용 관련 문의: <a href="mailto:contact@iruvy.com">contact@iruvy.com</a></p><p>시행일 · 2026년 7월 24일</p></section>`);
+const accessibility = legalPage("LEGAL // ACCESSIBILITY", "웹 접근성 지침", "모든 사용자가 명확하게 정보에 접근할 수 있도록 웹 접근성 원칙을 준수합니다.", `<section><h2>접근성 원칙</h2><p>WCAG 2.2 AA 기준을 목표로 명확한 타이포그래피 계층 structure, 키보드 포커스, 텍스트 명암비 및 폼 접근성을 구현했습니다.</p></section><section><h2>주요 구현 사항</h2><ul><li>본문 바로가기 링크 제공</li><li>키보드 탐색 지원 (메뉴, 탭, 폼)</li><li>색상 외 테두리 및 텍스트 상태 정보 제공</li><li>스크린 리더 대안 텍스트 및 접근성 구조화</li></ul></section><section><h2>피드백</h2><p>불편 사항이 있으신 경우 <a href="mailto:contact@iruvy.com">contact@iruvy.com</a>으로 알려주시면 개선하겠습니다.</p></section>`);
 
 const pages = new Map([
   ["", home], ["flow", flow], ["how-it-works", technology], ["capacity-lab", partners],
@@ -865,4 +865,4 @@ writeFileSync(join(root, "index.html"), readFileSync(join(out, "index.html")));
 writeFileSync(join(root, "styles", "sales.css"), readFileSync(join(root, "site-src", "styles.css")));
 writeFileSync(join(root, "scripts", "site.js"), readFileSync(join(root, "site-src", "site.js")));
 
-console.log(`Built Iruvy Flow site: ${routes.length + 1} pages and synced root files`);
+console.log(`Built Iruvy Flow site with refined human engineering copy: ${routes.length + 1} pages and synced root files`);
