@@ -18,28 +18,27 @@
 }
 
 :root {
-  /* Ultra-Luxurious Deep Charcoal Obsidian & Ambient Palette */
+  /* Ultra-Clean Deep Charcoal Obsidian Base */
   --bg: #040508;
   --bg-subtle: #080a0f;
-  --bg-surface: rgba(14, 16, 25, 0.75);
-  --bg-surface-elevated: rgba(22, 25, 38, 0.85);
-  --bg-surface-hover: rgba(28, 32, 50, 0.95);
-  --bg-glass: rgba(10, 12, 18, 0.85);
+  --bg-surface: rgba(14, 16, 25, 0.85);
+  --bg-surface-elevated: rgba(22, 25, 38, 0.95);
 
-  --ink: #f8fafc;
-  --ink-2: #e2e8f0;
+  --ink: #ffffff;
+  --ink-2: #f1f5f9;
   --steel: #94a3b8;
   --steel-light: #cbd5e1;
   --mist: #64748b;
   --mono-code: "JetBrains Mono", "SF Mono", "Fira Code", monospace;
 
-  /* Official Brand Tokens (IRUVY_DESIGN_LANGUAGE.md) */
-  --iruvy-orbit-500: #735ff0;
-  --iruvy-orbit-450: #7966ef;
-  --iruvy-tag-400: #7e6bf0;
+  /* Official Brand Tokens (Iruvy Violet #7968ff / #735ff0) */
+  --iruvy-brand: #7968ff;
+  --iruvy-brand-dark: #503bd7;
+  --iruvy-brand-hover: #6753f8;
+  --iruvy-orbit-500: #7968ff;
+  --iruvy-orbit-450: #6753f8;
   --iruvy-text-lavender: #d8d1ff;
-  --iruvy-line: #bfb5ff;
-  --iruvy-accent-strong: #8a78f3;
+  --iruvy-line: #c4b5fd;
 
   /* Telemetry Status Colors */
   --lime: #10b981;
@@ -49,20 +48,16 @@
   --red: #ef4444;
   --red-bg: rgba(239, 68, 68, 0.14);
 
-  /* Hairline Borders & Glassmorphic Highlights */
+  /* Hairline Borders */
   --border: rgba(255, 255, 255, 0.08);
   --border-subtle: rgba(255, 255, 255, 0.04);
-  --border-active: rgba(115, 95, 240, 0.5);
-  --border-focus: var(--iruvy-orbit-500);
+  --border-active: rgba(121, 104, 255, 0.5);
 
   --radius-sm: 8px;
   --radius: 14px;
   --radius-lg: 20px;
 
-  --shadow-card: 0 24px 48px -12px rgba(0, 0, 0, 0.8), 0 0 1px 1px rgba(255, 255, 255, 0.08);
-  --shadow-glow: 0 0 40px rgba(115, 95, 240, 0.25);
-  --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.1);
-
+  --shadow-card: 0 24px 48px -12px rgba(0, 0, 0, 0.8);
   --shell: min(1280px, calc(100% - 48px));
 }
 
@@ -91,7 +86,7 @@ body.nav-open {
 a {
   color: inherit;
   text-decoration: none;
-  transition: color 0.2s ease, border-color 0.2s ease;
+  transition: color 0.2s ease;
 }
 button, input, select, textarea {
   font: inherit;
@@ -109,7 +104,7 @@ img, svg {
   left: 16px;
   top: 12px;
   padding: 10px 18px;
-  background: var(--iruvy-orbit-500);
+  background: var(--iruvy-brand);
   color: #fff;
   transform: translateY(-180%);
   border-radius: var(--radius-sm);
@@ -121,7 +116,7 @@ img, svg {
   transform: translateY(0);
 }
 :focus-visible {
-  outline: 2px solid var(--iruvy-orbit-500);
+  outline: 2px solid var(--iruvy-brand);
   outline-offset: 3px;
 }
 
@@ -130,20 +125,20 @@ img, svg {
   margin-inline: auto;
 }
 
-/* Header Navigation (Glassmorphic Hairline Header) */
+/* Header Navigation */
 .site-header {
   position: fixed;
   z-index: 50;
   inset: 0 0 auto;
   height: 72px;
-  background: rgba(4, 5, 8, 0.75);
+  background: rgba(4, 5, 8, 0.85);
   border-bottom: 1px solid var(--border);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   transition: all 0.25s ease;
 }
 .site-header.scrolled {
-  background: rgba(4, 5, 8, 0.92);
+  background: rgba(4, 5, 8, 0.95);
   border-bottom-color: rgba(255, 255, 255, 0.12);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.9);
 }
@@ -165,19 +160,19 @@ img, svg {
   letter-spacing: -0.04em;
 }
 .brand-word i {
-  color: var(--iruvy-orbit-500);
+  color: var(--iruvy-brand);
   font-style: normal;
 }
 .brand-system-tag {
   font-family: var(--mono-code);
   font-size: 10px;
   font-weight: 700;
-  color: var(--iruvy-text-lavender);
+  color: var(--iruvy-brand);
   letter-spacing: 0.08em;
   padding: 3px 8px;
   border-radius: 4px;
-  background: rgba(115, 95, 240, 0.1);
-  border: 1px solid rgba(115, 95, 240, 0.3);
+  background: rgba(121, 104, 255, 0.1);
+  border: 1px solid rgba(121, 104, 255, 0.3);
 }
 
 .site-nav {
@@ -215,7 +210,7 @@ img, svg {
   cursor: pointer;
 }
 
-/* Button System (Glass & Glow Micro-Interactions) */
+/* Button System (Solid Official Brand Colors, No Distracting Gradient Overlays) */
 .button {
   display: inline-flex;
   align-items: center;
@@ -225,40 +220,33 @@ img, svg {
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   background: var(--bg-surface);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   color: var(--ink);
   font-weight: 700;
   font-size: 14px;
   line-height: 1.2;
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: var(--shadow-inset);
-  position: relative;
-  overflow: hidden;
+  transition: all 0.18s ease;
 }
 .button:hover {
   border-color: rgba(255, 255, 255, 0.25);
   background: var(--bg-surface-elevated);
-  transform: translateY(-1px);
 }
 .button.primary {
-  background: linear-gradient(135deg, var(--iruvy-orbit-500), #5e4bd6);
-  border-color: rgba(255, 255, 255, 0.2);
+  background: var(--iruvy-brand);
+  border-color: var(--iruvy-brand);
   color: #ffffff;
-  box-shadow: 0 4px 20px rgba(115, 95, 240, 0.4), var(--shadow-inset);
 }
 .button.primary:hover {
-  background: linear-gradient(135deg, var(--iruvy-orbit-450), #6a56e8);
-  box-shadow: 0 6px 28px rgba(115, 95, 240, 0.6), var(--shadow-inset);
+  background: var(--iruvy-brand-hover);
+  border-color: var(--iruvy-brand-hover);
 }
 .button.dark {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.05);
   border-color: var(--border);
   color: var(--ink-2);
 }
 .button.dark:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.1);
   border-color: var(--steel);
 }
 .site-nav .button {
@@ -267,7 +255,7 @@ img, svg {
   font-size: 13px;
 }
 
-/* Tactical Systems Header Tag */
+/* Tactical Systems Tag */
 .sys-tag {
   display: inline-flex;
   align-items: center;
@@ -275,7 +263,7 @@ img, svg {
   font-family: var(--mono-code);
   font-size: 11px;
   font-weight: 700;
-  color: var(--iruvy-text-lavender);
+  color: var(--iruvy-brand);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   margin-bottom: 18px;
@@ -284,39 +272,17 @@ img, svg {
   content: "";
   width: 5px;
   height: 12px;
-  background: var(--iruvy-orbit-500);
+  background: var(--iruvy-brand);
   border-radius: 1px;
-  box-shadow: 0 0 8px var(--iruvy-orbit-500);
 }
 
-/* Hero Section (Ambient Spotlight & Grid Overlay) */
+/* Hero Section (Clean, Solid High-Contrast Typography, NO Strange Gradient Highlight Masks) */
 .hero {
   position: relative;
   padding: 160px 0 100px;
   background: var(--bg);
   border-bottom: 1px solid var(--border);
   overflow: hidden;
-}
-.hero::before {
-  content: "";
-  position: absolute;
-  top: -100px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 900px;
-  height: 600px;
-  background: radial-gradient(ellipse at center, rgba(115, 95, 240, 0.16), transparent 70%);
-  pointer-events: none;
-}
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-  background-size: 48px 48px;
-  pointer-events: none;
 }
 .hero-grid {
   position: relative;
@@ -329,16 +295,17 @@ img, svg {
 .hero h1 {
   font-size: clamp(34px, 4.2vw, 54px);
   font-weight: 800;
-  line-height: 1.15;
+  line-height: 1.2;
   letter-spacing: -0.038em;
   color: var(--ink);
   margin: 0 0 22px;
 }
+/* Solid Clean Highlight using Official Brand Color - No Weird Text Mask Clippings */
 .hero h1 span.highlight {
-  color: var(--iruvy-text-lavender);
-  background: linear-gradient(135deg, #ffffff 40%, var(--iruvy-text-lavender));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--iruvy-brand);
+  background: none;
+  -webkit-background-clip: initial;
+  -webkit-text-fill-color: initial;
 }
 .hero .lede {
   font-size: 16px;
@@ -369,7 +336,7 @@ img, svg {
 }
 .trust-line span::before {
   content: "•";
-  color: var(--iruvy-orbit-500);
+  color: var(--iruvy-brand);
   font-weight: 800;
 }
 .stage-note {
@@ -382,30 +349,23 @@ img, svg {
   padding: 6px 12px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
-  backdrop-filter: blur(8px);
 }
 
-/* Tactical HUD Console (Glass & Live SVG Telemetry) */
+/* Console Demonstrator */
 .operation-demo {
   background: var(--bg-surface);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
   overflow: hidden;
   position: relative;
-  transition: border-color 0.3s ease;
-}
-.operation-demo:hover {
-  border-color: rgba(115, 95, 240, 0.35);
 }
 .demo-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 12px 20px;
-  background: rgba(8, 10, 15, 0.9);
+  background: rgba(8, 10, 15, 0.95);
   border-bottom: 1px solid var(--border);
   font-family: var(--mono-code);
 }
@@ -428,10 +388,10 @@ img, svg {
   border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
-/* SVG Digital Twin Canvas with CSS Animations */
+/* SVG Digital Twin Canvas */
 .digital-twin-canvas {
   padding: 24px 20px 10px;
-  background: rgba(4, 5, 8, 0.95);
+  background: rgba(4, 5, 8, 0.98);
   border-bottom: 1px solid var(--border);
   position: relative;
 }
@@ -453,16 +413,10 @@ img, svg {
   stroke: var(--mist);
   stroke-width: 1.5;
   stroke-dasharray: 4 4;
-  animation: dash-flow 20s linear infinite;
 }
 .svg-line.active {
-  stroke: var(--iruvy-orbit-500);
+  stroke: var(--iruvy-brand);
   stroke-width: 2.2;
-  stroke-dasharray: 6 4;
-  animation: dash-flow 8s linear infinite;
-}
-@keyframes dash-flow {
-  to { stroke-dashoffset: -100; }
 }
 
 /* Console Machine Telemetry Grid */
@@ -483,7 +437,6 @@ img, svg {
   font-size: 11px;
   color: var(--steel);
   font-family: var(--mono-code);
-  transition: all 0.2s ease;
 }
 .machine b {
   display: block;
@@ -542,7 +495,7 @@ img, svg {
   top: 2px;
   bottom: 2px;
   border-radius: 2px;
-  background: var(--iruvy-orbit-500);
+  background: var(--iruvy-brand);
 }
 .timeline-track .job.warn { background: var(--amber); }
 .timeline-track .job.risk { background: var(--red); }
@@ -597,21 +550,16 @@ img, svg {
   font-size: 12px;
   color: var(--steel-light);
   cursor: pointer;
-  transition: all 0.18s ease;
-}
-.alt:hover {
-  border-color: rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.03);
 }
 .alt.selected {
-  background: rgba(115, 95, 240, 0.14);
-  border-color: var(--iruvy-orbit-500);
+  background: rgba(121, 104, 255, 0.14);
+  border-color: var(--iruvy-brand);
   color: var(--ink);
 }
 .alt b {
   font-family: var(--mono-code);
   font-size: 10px;
-  color: var(--iruvy-text-lavender);
+  color: var(--iruvy-brand);
 }
 
 /* Console Control Steps */
@@ -630,15 +578,10 @@ img, svg {
   font-size: 11px;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.2s ease;
   text-align: center;
 }
-.demo-step:hover {
-  background: var(--bg-surface);
-  color: var(--ink);
-}
 .demo-step.active {
-  background: var(--iruvy-orbit-500);
+  background: var(--iruvy-brand);
   color: #ffffff;
 }
 
@@ -656,14 +599,9 @@ img, svg {
 .trust-item {
   padding: 20px;
   background: var(--bg-surface);
-  backdrop-filter: blur(12px);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   text-align: center;
-  transition: border-color 0.2s ease;
-}
-.trust-item:hover {
-  border-color: rgba(255, 255, 255, 0.16);
 }
 .trust-item small {
   display: block;
@@ -712,7 +650,7 @@ img, svg {
   margin: 0;
 }
 
-/* Reference Cards Grid (Evidence) */
+/* Reference Cards Grid */
 .reference-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -722,23 +660,15 @@ img, svg {
 .reference-card {
   padding: 28px;
   background: var(--bg-surface);
-  backdrop-filter: blur(16px);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   display: flex;
   flex-direction: column;
   gap: 12px;
-  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.reference-card:hover {
-  border-color: rgba(255, 255, 255, 0.2);
-  transform: translateY(-3px);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
 }
 .reference-card.current-ref {
-  border-color: var(--iruvy-orbit-500);
-  background: rgba(115, 95, 240, 0.06);
-  box-shadow: 0 0 30px rgba(115, 95, 240, 0.15);
+  border-color: var(--iruvy-brand);
+  background: rgba(121, 104, 255, 0.06);
 }
 .reference-top {
   display: flex;
@@ -747,12 +677,12 @@ img, svg {
   font-family: var(--mono-code);
   font-size: 10px;
   font-weight: 800;
-  color: var(--iruvy-text-lavender);
+  color: var(--iruvy-brand);
   letter-spacing: 0.06em;
 }
 .reference-top b {
   padding: 2px 8px;
-  background: rgba(115, 95, 240, 0.2);
+  background: rgba(121, 104, 255, 0.2);
   border-radius: 4px;
   color: #ffffff;
 }
@@ -796,7 +726,6 @@ img, svg {
   text-align: left;
   padding: 30px;
   background: var(--bg-surface);
-  backdrop-filter: blur(16px);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   display: flex;
@@ -810,11 +739,10 @@ img, svg {
   margin: 0;
 }
 
-/* Architecture Pipeline Visualization */
+/* Architecture Pipeline */
 .arch-pipeline-container {
   padding: 36px 24px;
   background: var(--bg-surface);
-  backdrop-filter: blur(16px);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   margin-bottom: 36px;
@@ -831,18 +759,17 @@ img, svg {
   background: var(--bg-surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  transition: all 0.2s ease;
 }
 .workflow-rail article.current {
-  border-color: rgba(115, 95, 240, 0.45);
-  background: rgba(115, 95, 240, 0.07);
+  border-color: var(--iruvy-brand);
+  background: rgba(121, 104, 255, 0.08);
 }
 .workflow-rail article span {
   display: block;
   font-family: var(--mono-code);
   font-size: 10px;
   font-weight: 800;
-  color: var(--iruvy-text-lavender);
+  color: var(--iruvy-brand);
   margin-bottom: 4px;
 }
 .workflow-rail article h3 {
@@ -870,10 +797,10 @@ img, svg {
   font-family: var(--mono-code);
 }
 .architecture-boundary b {
-  color: var(--iruvy-text-lavender);
+  color: var(--iruvy-brand);
 }
 
-/* Technical Data Table & Cards */
+/* Cards Grid */
 .grid-2 {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -887,21 +814,15 @@ img, svg {
 .card {
   padding: 30px;
   background: var(--bg-surface);
-  backdrop-filter: blur(16px);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  transition: all 0.22s ease;
-}
-.card:hover {
-  border-color: rgba(255, 255, 255, 0.2);
-  transform: translateY(-2px);
 }
 .card .num {
   display: inline-block;
   font-family: var(--mono-code);
   font-size: 11px;
   font-weight: 800;
-  color: var(--iruvy-orbit-500);
+  color: var(--iruvy-brand);
   margin-bottom: 12px;
 }
 .card h3 {
@@ -917,7 +838,7 @@ img, svg {
   line-height: 1.65;
 }
 
-/* Real-world Scenario Section */
+/* Scenario */
 .scenario {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -928,16 +849,15 @@ img, svg {
   font-size: 12px;
   color: var(--steel-light);
   background: var(--bg-subtle);
-  border-left: 3px solid var(--iruvy-orbit-500);
+  border-left: 3px solid var(--iruvy-brand);
   padding: 12px 16px;
   margin: 18px 0;
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
 }
 
-/* Console Data Table Panel */
+/* Product Console */
 .product-console {
   background: var(--bg-surface);
-  backdrop-filter: blur(20px);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
@@ -960,15 +880,14 @@ img, svg {
   font-weight: 700;
   cursor: pointer;
   white-space: nowrap;
-  transition: all 0.2s ease;
 }
 .console-tab:hover {
   color: var(--ink);
 }
 .console-tab[aria-selected="true"] {
   color: var(--ink);
-  border-bottom-color: var(--iruvy-orbit-500);
-  background: rgba(115, 95, 240, 0.1);
+  border-bottom-color: var(--iruvy-brand);
+  background: rgba(121, 104, 255, 0.1);
 }
 .console-panel {
   display: none;
@@ -1006,7 +925,7 @@ img, svg {
   font-family: var(--mono-code);
 }
 
-/* Metric Telemetry Cards */
+/* Metric Cards */
 .metric-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1018,17 +937,13 @@ img, svg {
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   text-align: left;
-  transition: border-color 0.2s ease;
-}
-.metric:hover {
-  border-color: rgba(255, 255, 255, 0.16);
 }
 .metric small {
   display: block;
   font-family: var(--mono-code);
   font-size: 10px;
   font-weight: 800;
-  color: var(--iruvy-orbit-500);
+  color: var(--iruvy-brand);
   margin-bottom: 6px;
 }
 .metric strong {
@@ -1036,10 +951,9 @@ img, svg {
   color: var(--ink);
 }
 
-/* Interactive ROI & Capacity Calculator */
+/* ROI Calculator */
 .roi-calculator {
   background: var(--bg-surface);
-  backdrop-filter: blur(20px);
   border: 1px solid var(--border-active);
   border-radius: var(--radius);
   padding: 36px;
@@ -1071,21 +985,20 @@ img, svg {
   height: 6px;
   border-radius: 3px;
   background: rgba(255, 255, 255, 0.1);
-  accent-color: var(--iruvy-orbit-500);
+  accent-color: var(--iruvy-brand);
 }
 .calc-val {
   font-family: var(--mono-code);
   font-size: 13px;
-  color: var(--iruvy-text-lavender);
+  color: var(--iruvy-brand);
   font-weight: 700;
 }
 .calc-results {
   padding: 28px;
-  background: rgba(115, 95, 240, 0.08);
-  border: 1px solid var(--iruvy-orbit-500);
+  background: rgba(121, 104, 255, 0.08);
+  border: 1px solid var(--iruvy-brand);
   border-radius: var(--radius-sm);
   text-align: center;
-  box-shadow: 0 0 30px rgba(115, 95, 240, 0.15);
 }
 .calc-results small {
   display: block;
@@ -1100,7 +1013,7 @@ img, svg {
   display: block;
   font-size: 36px;
   font-weight: 800;
-  color: var(--iruvy-text-lavender);
+  color: var(--iruvy-brand);
   margin-bottom: 12px;
   font-variant-numeric: tabular-nums;
   font-family: var(--mono-code);
@@ -1111,7 +1024,7 @@ img, svg {
   margin: 0;
 }
 
-/* Integration Data Chips */
+/* Data Chips */
 .data-line {
   display: flex;
   flex-wrap: wrap;
@@ -1125,13 +1038,9 @@ img, svg {
   font-size: 13px;
   font-weight: 600;
   color: var(--ink-2);
-  transition: border-color 0.2s ease;
-}
-.data-chip:hover {
-  border-color: rgba(255, 255, 255, 0.2);
 }
 
-/* Outcome Ledger Pipeline */
+/* Ledger Pipeline */
 .ledger {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -1149,7 +1058,7 @@ img, svg {
   font-family: var(--mono-code);
   font-size: 10px;
   font-weight: 800;
-  color: var(--iruvy-text-lavender);
+  color: var(--iruvy-brand);
   margin-bottom: 4px;
 }
 .ledger div strong {
@@ -1184,14 +1093,13 @@ img, svg {
   position: absolute;
   left: 0;
   top: 0;
-  color: var(--iruvy-orbit-500);
+  color: var(--iruvy-brand);
   font-size: 10px;
 }
 
 /* Fit Review Interactive Form */
 .fit-form {
   background: var(--bg-surface);
-  backdrop-filter: blur(20px);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 36px;
@@ -1217,10 +1125,9 @@ img, svg {
   height: 3px;
   background: var(--border);
   border-radius: 2px;
-  transition: background 0.3s ease;
 }
 .form-progress span.active {
-  background: var(--iruvy-orbit-500);
+  background: var(--iruvy-brand);
 }
 .form-step h2 {
   font-size: 19px;
@@ -1252,12 +1159,11 @@ img, svg {
   border-radius: var(--radius-sm);
   color: var(--ink);
   font-size: 14px;
-  transition: border-color 0.2s ease;
 }
 .field input:focus, .field select:focus, .field textarea:focus {
-  border-color: var(--iruvy-orbit-500);
+  border-color: var(--iruvy-brand);
   outline: none;
-  box-shadow: 0 0 0 3px rgba(115, 95, 240, 0.2);
+  box-shadow: 0 0 0 3px rgba(121, 104, 255, 0.2);
 }
 .field-error {
   font-size: 11px;
@@ -1276,19 +1182,6 @@ img, svg {
   padding: 140px 0 80px;
   background: var(--bg-subtle);
   border-bottom: 1px solid var(--border);
-  position: relative;
-  overflow: hidden;
-}
-.page-hero::before {
-  content: "";
-  position: absolute;
-  top: -80px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 700px;
-  height: 400px;
-  background: radial-gradient(ellipse at center, rgba(115, 95, 240, 0.12), transparent 70%);
-  pointer-events: none;
 }
 .page-hero h1 {
   font-size: clamp(32px, 3.6vw, 46px);
@@ -1327,11 +1220,10 @@ img, svg {
   color: var(--mist);
   padding: 6px 12px;
   border-left: 2px solid transparent;
-  transition: all 0.2s ease;
 }
 .page-aside a:hover {
   color: var(--ink);
-  border-left-color: var(--iruvy-orbit-500);
+  border-left-color: var(--iruvy-brand);
 }
 .prose section {
   margin-bottom: 80px;
@@ -1364,7 +1256,7 @@ img, svg {
   display: block;
   font-family: var(--mono-code);
   font-size: 11px;
-  color: var(--iruvy-text-lavender);
+  color: var(--iruvy-brand);
   margin-bottom: 4px;
 }
 .reassurance-grid strong {
@@ -1392,10 +1284,6 @@ img, svg {
   background: var(--bg-surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  transition: border-color 0.2s ease;
-}
-.status-row:hover {
-  border-color: rgba(255, 255, 255, 0.16);
 }
 .status-badge {
   padding: 4px 10px;
@@ -1403,8 +1291,8 @@ img, svg {
   font-family: var(--mono-code);
   font-size: 10px;
   font-weight: 800;
-  background: rgba(115, 95, 240, 0.15);
-  color: var(--iruvy-text-lavender);
+  background: rgba(121, 104, 255, 0.15);
+  color: var(--iruvy-brand);
   white-space: nowrap;
 }
 .status-badge.pilot {
@@ -1433,10 +1321,6 @@ img, svg {
   border-radius: var(--radius-sm);
   margin-bottom: 12px;
   padding: 18px 22px;
-  transition: border-color 0.2s ease;
-}
-.faq details:hover {
-  border-color: rgba(255, 255, 255, 0.18);
 }
 .faq summary {
   font-size: 15px;
@@ -1450,7 +1334,7 @@ img, svg {
   color: var(--steel-light);
 }
 
-/* Footer (Anduril Minimal Footer) */
+/* Footer */
 .site-footer {
   padding: 80px 0 40px;
   background: var(--bg-subtle);
@@ -1498,7 +1382,7 @@ img, svg {
 
 /* Responsive Breakpoints */
 @media (max-width: 1024px) {
-  .hero-grid, .scenario, .partner-panel, .calc-grid, .tech-asym-grid {
+  .hero-grid, .scenario, .partner-panel, .calc-grid {
     grid-template-columns: 1fr;
   }
   .workflow-rail {
