@@ -4,7 +4,8 @@ import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const out = join(root, "dist");
-const today = "2026-07-27";
+const vTag = `20260728-v5-${Date.now()}`;
+const today = "2026-07-28";
 
 const routes = [
   ["", "Iruvy | 산업현장의 숨은 캐파를 실행 가능한 결정으로", "Iruvy Flow는 제조 현장의 병목과 납기 지연을 선제 감지하고 생산관리자가 승인할 작업순서 대안을 계산합니다."],
@@ -81,8 +82,8 @@ const document = ({ route = "", title, description, content, schema = "" }) => `
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://iruvy.com/assets/og.png">
   <link rel="icon" href="/favicon.ico">
-  <link rel="stylesheet" href="/assets/site.css?v=${today}">
-  <script src="/assets/site.js?v=${today}" defer></script>
+  <link rel="stylesheet" href="/assets/site.css?v=${vTag}">
+  <script src="/assets/site.js?v=${vTag}" defer></script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Iruvy","url":"https://iruvy.com/","email":"contact@iruvy.com","logo":"https://iruvy.com/assets/iruvy-logo.svg"}</script>
   ${schema}
 </head>
@@ -865,4 +866,4 @@ writeFileSync(join(root, "index.html"), readFileSync(join(out, "index.html")));
 writeFileSync(join(root, "styles", "sales.css"), readFileSync(join(root, "site-src", "styles.css")));
 writeFileSync(join(root, "scripts", "site.js"), readFileSync(join(root, "site-src", "site.js")));
 
-console.log(`Built Iruvy Flow site with refined human engineering copy: ${routes.length + 1} pages and synced root files`);
+console.log(`Built Iruvy Flow site with cache-busting tag ${vTag}`);
