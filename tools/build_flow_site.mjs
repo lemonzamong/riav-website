@@ -12,10 +12,10 @@ mkdirSync(join(out, "assets"), { recursive: true });
 cpSync(join(root, "site-src", "styles.css"), join(out, "assets", "site.css"));
 cpSync(join(root, "site-src", "site.js"), join(out, "assets", "site.js"));
 cpSync(join(root, "assets", "iruvy-logo.svg"), join(out, "assets", "iruvy-logo.svg"));
-cpSync(join(root, "assets", "og.png"), join(out, "assets", "og.png"));
-cpSync(join(root, "assets", "hero-spatial-decision.png"), join(out, "assets", "hero-spatial-decision.png"));
-cpSync(join(root, "assets", "guide-exhibition.png"), join(out, "assets", "guide-exhibition.png"));
-cpSync(join(root, "assets", "flow-factory.png"), join(out, "assets", "flow-factory.png"));
+cpSync(join(root, "assets", "og.jpg"), join(out, "assets", "og.jpg"));
+cpSync(join(root, "assets", "hero-spatial-decision.jpg"), join(out, "assets", "hero-spatial-decision.jpg"));
+cpSync(join(root, "assets", "guide-exhibition.jpg"), join(out, "assets", "guide-exhibition.jpg"));
+cpSync(join(root, "assets", "flow-factory.jpg"), join(out, "assets", "flow-factory.jpg"));
 cpSync(join(root, "assets", "fonts-web", "Pretendard-Regular.woff2"), join(out, "assets", "Pretendard-Regular.woff2"));
 cpSync(join(root, "assets", "fonts-web", "Pretendard-SemiBold.woff2"), join(out, "assets", "Pretendard-SemiBold.woff2"));
 cpSync(join(root, "favicon.ico"), join(out, "favicon.ico"));
@@ -47,7 +47,7 @@ const header = `
 <a class="skip-link" href="#main">본문으로 이동</a>
 <header class="site-header" data-header>
   <div class="shell header-inner">
-    <a class="brand" href="/" aria-label="Iruvy 홈"><img src="/assets/iruvy-logo.svg" alt="Iruvy" width="113" height="34"></a>
+    <a class="brand" href="/" aria-label="이루비 Iruvy 홈"><img src="/assets/iruvy-logo.svg" alt="이루비 Iruvy" width="113" height="34"></a>
     ${nav}
   </div>
 </header>`;
@@ -56,7 +56,7 @@ const footer = `
 <footer class="site-footer">
   <div class="shell footer-grid">
     <div class="footer-lead">
-      <a class="brand invert" href="/"><img src="/assets/iruvy-logo.svg" alt="Iruvy" width="113" height="34"></a>
+      <a class="brand invert" href="/" aria-label="이루비 Iruvy 홈"><img src="/assets/iruvy-logo.svg" alt="이루비 Iruvy" width="113" height="34"></a>
       <p>공간과 상황을 이해해 다음 최적 행동을 결정하는 Spatial Decision AI를 개발합니다.</p>
     </div>
     <div><strong>솔루션</strong><a href="/guide/">Iruvy Guide</a><a href="/flow/">Iruvy Flow</a></div>
@@ -64,12 +64,199 @@ const footer = `
     <div><strong>회사</strong><a href="/company/">회사 소개</a><a href="/resources/">인사이트</a><a href="/contact/">도입 상담</a></div>
   </div>
   <div class="shell footer-bottom">
-    <span>© 2026 IRUVY INC.</span>
+    <span>© 2026 IRUVY INC. <time datetime="2026-07-30">사이트 업데이트 2026.07.30</time></span>
     <span><a href="mailto:contact@iruvy.com">contact@iruvy.com</a> · <a href="/privacy/">개인정보 처리방침</a> · <a href="/terms/">이용약관</a></span>
   </div>
 </footer>`;
 
-const page = ({ route = "", title, description, body, robots = "index,follow" }) => `<!doctype html>
+const siteOrigin = "https://iruvy.com";
+const lastModified = "2026-07-30";
+const pageLabels = {
+  "": "Iruvy",
+  guide: "Iruvy Guide",
+  flow: "Iruvy Flow",
+  evidence: "성과와 Evidence",
+  technology: "기술과 신뢰",
+  company: "회사 소개",
+  resources: "인사이트와 자료실",
+  "capacity-lab": "Capacity Audit",
+  contact: "도입 상담",
+  privacy: "개인정보 처리방침",
+  terms: "이용약관",
+  accessibility: "웹 접근성",
+};
+
+const pageUrl = (route = "") => `${siteOrigin}/${route ? `${route}/` : ""}`;
+const imageUrl = (file) => `${siteOrigin}/assets/${file}`;
+
+const organizationSchema = {
+  "@type": "Organization",
+  "@id": `${siteOrigin}/#organization`,
+  name: "Iruvy",
+  alternateName: "이루비",
+  legalName: "주식회사 이루비",
+  url: `${siteOrigin}/`,
+  logo: {
+    "@type": "ImageObject",
+    url: imageUrl("iruvy-logo.svg"),
+  },
+  image: imageUrl("og.jpg"),
+  description: "공간과 상황을 이해해 다음 최적 행동을 결정하는 Spatial Decision AI를 개발하는 기업",
+  email: "contact@iruvy.com",
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "sales and customer support",
+    email: "contact@iruvy.com",
+    availableLanguage: "Korean",
+  },
+  knowsAbout: [
+    "Spatial Decision AI",
+    "Spatial Intelligence",
+    "Decision Intelligence",
+    "Visitor Decision Platform",
+    "Manufacturing capacity optimization",
+  ],
+};
+
+const websiteSchema = {
+  "@type": "WebSite",
+  "@id": `${siteOrigin}/#website`,
+  url: `${siteOrigin}/`,
+  name: "Iruvy",
+  alternateName: "이루비",
+  description: "Iruvy Spatial Decision AI 공식 웹사이트",
+  inLanguage: "ko-KR",
+  publisher: { "@id": `${siteOrigin}/#organization` },
+};
+
+const entitySchema = (route) => {
+  if (route === "guide") {
+    return {
+      "@type": "SoftwareApplication",
+      "@id": `${pageUrl(route)}#software`,
+      name: "Iruvy Guide",
+      url: pageUrl(route),
+      image: imageUrl("guide-exhibition.jpg"),
+      applicationCategory: "BusinessApplication",
+      operatingSystem: "Web",
+      description: "방문자의 관심과 위치를 이해해 다음 부스·콘텐츠·동선을 추천하는 전시회 AI 에이전트",
+      provider: { "@id": `${siteOrigin}/#organization` },
+      audience: [
+        { "@type": "BusinessAudience", audienceType: "산업·기업 전시회 주최사와 전시장" },
+        { "@type": "Audience", audienceType: "전시회 방문자와 참가기업" },
+      ],
+      featureList: [
+        "앱 설치가 필요 없는 QR 웹",
+        "지도와 검색",
+        "승인된 원문 기반 콘텐츠",
+        "개인화 추천과 동선",
+        "저장과 상담 연결",
+      ],
+    };
+  }
+  if (route === "flow") {
+    return {
+      "@type": "SoftwareApplication",
+      "@id": `${pageUrl(route)}#software`,
+      name: "Iruvy Flow",
+      alternateName: "Iruvy Flow — Industrial Autonomy and Capacity Amplification System",
+      url: pageUrl(route),
+      image: imageUrl("flow-factory.jpg"),
+      applicationCategory: "BusinessApplication",
+      operatingSystem: "Web",
+      description: "산업현장의 사람·설비·자재·로봇을 최적화하는 산업현장 자율운영 및 유효 생산능력 증폭 AI 시스템",
+      provider: { "@id": `${siteOrigin}/#organization` },
+      audience: {
+        "@type": "BusinessAudience",
+        audienceType: "주문생산형·다품종 소량생산 중소·중견 이산제조 사업장",
+      },
+      featureList: [
+        "납기 위험과 병목 조기 발견",
+        "작업순서와 자원배치 대안 비교",
+        "읽기 중심 데이터 연결",
+        "생산관리자 승인형 추천",
+        "결정과 실제 결과 기록",
+      ],
+    };
+  }
+  if (route === "capacity-lab") {
+    return {
+      "@type": "Service",
+      "@id": `${pageUrl(route)}#service`,
+      name: "Iruvy Flow Capacity Audit",
+      url: pageUrl(route),
+      serviceType: "제조현장 납기·병목·데이터 준비도 진단",
+      description: "최근 납기 지연 사건 한 건에서 핵심 제약공정, 경제 KPI, 데이터 준비도와 검증 조건을 확인하는 진단",
+      provider: { "@id": `${siteOrigin}/#organization` },
+      audience: {
+        "@type": "BusinessAudience",
+        audienceType: "생산관리자·공장장·제조 경영진",
+      },
+    };
+  }
+  return null;
+};
+
+const makeSchema = ({ route = "", title, description, pageType = "WebPage" }) => {
+  const url = pageUrl(route);
+  const breadcrumb = route ? {
+    "@type": "BreadcrumbList",
+    "@id": `${url}#breadcrumb`,
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Iruvy", item: `${siteOrigin}/` },
+      { "@type": "ListItem", position: 2, name: pageLabels[route], item: url },
+    ],
+  } : null;
+  const entity = entitySchema(route);
+  const webPage = {
+    "@type": pageType,
+    "@id": `${url}#webpage`,
+    url,
+    name: title,
+    description,
+    inLanguage: "ko-KR",
+    isPartOf: { "@id": `${siteOrigin}/#website` },
+    about: { "@id": `${siteOrigin}/#organization` },
+    publisher: { "@id": `${siteOrigin}/#organization` },
+    dateModified: lastModified,
+    primaryImageOfPage: {
+      "@type": "ImageObject",
+      url: imageUrl(route === "guide" ? "guide-exhibition.jpg" : route === "flow" ? "flow-factory.jpg" : "og.jpg"),
+    },
+    ...(breadcrumb ? { breadcrumb: { "@id": breadcrumb["@id"] } } : {}),
+    ...(entity ? { mainEntity: { "@id": entity["@id"] } } : {}),
+  };
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      organizationSchema,
+      websiteSchema,
+      ...(breadcrumb ? [breadcrumb] : []),
+      ...(entity ? [entity] : []),
+      webPage,
+    ],
+  };
+};
+
+const page = ({
+  route = "",
+  title,
+  description,
+  body,
+  pageType = "WebPage",
+  robots = "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1",
+}) => {
+  const canonical = pageUrl(route);
+  const socialImage = route === "guide" ? "guide-exhibition.jpg" : route === "flow" ? "flow-factory.jpg" : "og.jpg";
+  const socialImageWidth = route === "guide" || route === "flow" ? 1448 : 1731;
+  const socialImageHeight = route === "guide" || route === "flow" ? 1086 : 909;
+  const socialImageAlt = route === "guide"
+    ? "산업 전시회 방문자의 이동 경로를 표현한 Iruvy Guide 이미지"
+    : route === "flow"
+      ? "정밀 제조 현장의 병목 경로를 표현한 Iruvy Flow 이미지"
+      : "현장의 다음 최적 행동을 계산하는 Iruvy Spatial Decision AI";
+  const schema = makeSchema({ route, title, description, pageType });
+  return `<!doctype html>
 <html lang="ko">
 <head>
   <meta charset="utf-8">
@@ -77,28 +264,45 @@ const page = ({ route = "", title, description, body, robots = "index,follow" })
   <title>${title}</title>
   <meta name="description" content="${description}">
   <meta name="robots" content="${robots}">
-  <link rel="canonical" href="https://iruvy.com/${route ? `${route}/` : ""}">
+  <meta name="author" content="Iruvy">
+  <meta name="application-name" content="Iruvy">
+  <link rel="canonical" href="${canonical}">
+  <link rel="alternate" hreflang="ko" href="${canonical}">
+  <link rel="alternate" hreflang="x-default" href="${canonical}">
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="Iruvy AI context">
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Iruvy">
+  <meta property="og:locale" content="ko_KR">
   <meta property="og:title" content="${title}">
   <meta property="og:description" content="${description}">
-  <meta property="og:url" content="https://iruvy.com/${route ? `${route}/` : ""}">
-  <meta property="og:image" content="https://iruvy.com/assets/og.png">
+  <meta property="og:url" content="${canonical}">
+  <meta property="og:image" content="${imageUrl(socialImage)}">
+  <meta property="og:image:secure_url" content="${imageUrl(socialImage)}">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="${socialImageWidth}">
+  <meta property="og:image:height" content="${socialImageHeight}">
+  <meta property="og:image:alt" content="${socialImageAlt}">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="${title}">
+  <meta name="twitter:description" content="${description}">
+  <meta name="twitter:image" content="${imageUrl(socialImage)}">
+  <meta name="twitter:image:alt" content="${socialImageAlt}">
   <meta name="theme-color" content="#0c0a12">
-  ${route === "" ? '<link rel="preload" as="image" href="/assets/hero-spatial-decision.png">' : route === "guide" ? '<link rel="preload" as="image" href="/assets/guide-exhibition.png">' : route === "flow" ? '<link rel="preload" as="image" href="/assets/flow-factory.png">' : ""}
+  ${route === "" ? '<link rel="preload" as="image" href="/assets/hero-spatial-decision.jpg">' : route === "guide" ? '<link rel="preload" as="image" href="/assets/guide-exhibition.jpg">' : route === "flow" ? '<link rel="preload" as="image" href="/assets/flow-factory.jpg">' : ""}
   <link rel="icon" href="/favicon.ico">
   <link rel="stylesheet" href="/assets/site.css?v=${version}">
   <script src="/assets/site.js?v=${version}" defer></script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Iruvy","url":"https://iruvy.com/","description":"Spatial Decision AI 기업","email":"contact@iruvy.com"}</script>
+  <script type="application/ld+json">${JSON.stringify(schema).replaceAll("<", "\\u003c")}</script>
 </head>
 <body>${header}<main id="main">${body}</main>${footer}</body>
 </html>`;
+};
 
 const statusPill = (label, tone = "") => `<span class="status ${tone}">${label}</span>`;
 
 const home = `
 <section class="hero hero-cinematic">
-  <img class="hero-media" src="/assets/hero-spatial-decision.png" alt="산업 전시 공간과 정밀 제조 현장을 하나의 선택 경로로 연결한 장면" width="1586" height="992" fetchpriority="high">
+  <img class="hero-media" src="/assets/hero-spatial-decision.jpg" alt="산업 전시 공간과 정밀 제조 현장을 하나의 선택 경로로 연결한 장면" width="1586" height="992" fetchpriority="high">
   <div class="hero-scrim" aria-hidden="true"></div>
   <div class="shell hero-content" data-reveal>
     <p class="eyebrow">SPATIAL DECISION AI</p>
@@ -151,7 +355,7 @@ const home = `
   <div class="shell">
     <div class="section-head"><h2>하나의 질문.<br>서로 다른 두 현장.</h2><p>공통 기술은 공유하고 고객, 원본 데이터와 학습권은 분리합니다.</p></div>
     <article class="world world-guide" data-reveal>
-      <div class="world-media"><img src="/assets/guide-exhibition.png" alt="산업 전시회에서 모바일 가이드를 확인하며 이동하는 방문자" width="1448" height="1086" loading="lazy"></div>
+      <div class="world-media"><img src="/assets/guide-exhibition.jpg" alt="산업 전시회에서 모바일 가이드를 확인하며 이동하는 방문자" width="1448" height="1086" loading="lazy"></div>
       <div class="world-copy">
         <span>IRUVY GUIDE</span>
         <h3>관심에서<br>다음 방문으로</h3>
@@ -166,7 +370,7 @@ const home = `
         <p>설비, 작업, 자재와 납기 제약을 연결해 생산관리자가 검토할 복구 대안을 계산합니다.</p>
         <a href="/flow/">Flow 살펴보기</a>
       </div>
-      <div class="world-media"><img src="/assets/flow-factory.png" alt="정밀 제조 현장에서 생산 일정을 검토하는 관리자와 엔지니어" width="1448" height="1086" loading="lazy"></div>
+      <div class="world-media"><img src="/assets/flow-factory.jpg" alt="정밀 제조 현장에서 생산 일정을 검토하는 관리자와 엔지니어" width="1448" height="1086" loading="lazy"></div>
     </article>
   </div>
 </section>
@@ -207,7 +411,7 @@ const home = `
 
 const guide = `
 <section class="product-hero product-hero-guide">
-  <img src="/assets/guide-exhibition.png" alt="산업 전시회에서 모바일 가이드를 확인하며 이동하는 방문자" width="1448" height="1086" fetchpriority="high">
+  <img src="/assets/guide-exhibition.jpg" alt="산업 전시회에서 모바일 가이드를 확인하며 이동하는 방문자" width="1448" height="1086" fetchpriority="high">
   <div class="product-hero-scrim"></div>
   <div class="shell product-hero-content" data-reveal>
     <p class="eyebrow">IRUVY GUIDE</p>
@@ -284,7 +488,7 @@ const guide = `
 
 const flow = `
 <section class="product-hero product-hero-flow">
-  <img src="/assets/flow-factory.png" alt="정밀 제조 현장에서 생산 일정을 검토하는 관리자와 엔지니어" width="1448" height="1086" fetchpriority="high">
+  <img src="/assets/flow-factory.jpg" alt="정밀 제조 현장에서 생산 일정을 검토하는 관리자와 엔지니어" width="1448" height="1086" fetchpriority="high">
   <div class="product-hero-scrim"></div>
   <div class="shell product-hero-content" data-reveal>
     <p class="eyebrow">IRUVY FLOW</p>
@@ -390,24 +594,84 @@ const legal = (kind) => kind === "privacy" ? `
 <section class="simple-hero compact"><div class="shell"><p class="eyebrow">ACCESSIBILITY</p><h1>웹 접근성 원칙</h1><p>다양한 사용자가 키보드·화면낭독기·고대비 환경에서 정보를 이용할 수 있도록 개선합니다.</p></div></section><section class="section"><div class="shell prose"><h2>목표</h2><p>WCAG 2.2 AA를 실무 기준으로 삼아 명확한 제목 구조, 키보드 탐색, 포커스 표시, 충분한 대비와 큰 터치 영역을 유지합니다.</p><h2>모션</h2><p>운영 흐름의 모션은 장식이 아니라 관계 이해를 돕는 범위로 제한하며, 동작 줄이기 환경설정을 존중합니다.</p><h2>피드백</h2><p>이용이 어려운 부분은 contact@iruvy.com으로 알려주세요.</p></div></section>`;
 
 const pages = new Map([
-  ["", ["Iruvy | Spatial Decision AI", "공간과 상황을 이해해 다음 최적 행동을 결정하는 Spatial Decision AI 기업. Iruvy Guide와 Iruvy Flow를 소개합니다.", home]],
-  ["guide", ["Iruvy Guide | 전시회 AI 에이전트", "방문자의 관심과 위치를 이해해 다음 부스·콘텐츠·동선을 추천하는 전시회 AI 에이전트.", guide]],
-  ["flow", ["Iruvy Flow | 산업현장 자율운영 및 유효 생산능력 증폭 AI", "산업현장의 사람·설비·자재·로봇을 최적화하는 고부가가치 제품 Iruvy Flow.", flow]],
-  ["evidence", ["성과와 Evidence | Iruvy", "Iruvy의 실측, 현장 PoC, 고객 데이터 Replay, 유료 검증과 라이브 성과를 투명하게 구분합니다.", evidence]],
-  ["technology", ["Iruvy Core | 기술과 신뢰", "현재 상태, 목표, 제약조건을 연결해 실행 가능한 대안을 계산하는 Spatial Decision AI 기술과 신뢰 원칙.", technology]],
-  ["company", ["회사 소개 | Iruvy", "공간과 상황을 이해해 다음 최적 행동을 결정하는 Spatial Decision AI를 개발하는 기업 Iruvy.", company]],
-  ["resources", ["인사이트와 자료실 | Iruvy", "전시 방문 경험, 제조 병목, 의사결정 AI의 경계와 검증 방법을 설명하는 Iruvy 자료실.", resources]],
-  ["capacity-lab", ["Capacity Audit | Iruvy Flow", "최근 납기 지연 사건 한 건으로 제조 현장의 Iruvy Flow 적합성과 데이터 준비도를 진단합니다.", capacityLab]],
-  ["contact", ["도입 상담 | Iruvy", "Iruvy Guide 행사 적합성 진단, Iruvy Flow Capacity Audit, 미디어와 파트너십 문의.", contact]],
-  ["privacy", ["개인정보 처리방침 | Iruvy", "Iruvy 웹사이트 문의와 제품 데이터의 개인정보 처리 원칙을 안내합니다.", legal("privacy")]],
-  ["terms", ["이용약관 | Iruvy", "Iruvy 웹사이트 정보의 이용 범위와 책임 한계를 안내합니다.", legal("terms")]],
-  ["accessibility", ["웹 접근성 | Iruvy", "Iruvy 웹사이트의 WCAG 2.2 AA 접근성 원칙과 피드백 방법을 안내합니다.", legal("accessibility")]],
+  ["", {
+    title: "이루비(Iruvy) | 공간 의사결정 AI",
+    description: "이루비(Iruvy)는 공간과 상황을 이해해 다음 최적 행동을 결정하는 Spatial Decision AI 기업입니다. Iruvy Guide와 Iruvy Flow를 소개합니다.",
+    body: home,
+    pageType: "WebPage",
+  }],
+  ["guide", {
+    title: "전시회 AI 에이전트 | Iruvy Guide · 이루비",
+    description: "이루비의 Iruvy Guide는 방문자의 관심과 위치를 이해해 다음 부스·콘텐츠·동선을 추천하는 전시회 AI 에이전트이자 Visitor Decision Platform입니다.",
+    body: guide,
+    pageType: "WebPage",
+  }],
+  ["flow", {
+    title: "제조 생산계획·제약공정 최적화 AI | Iruvy Flow",
+    description: "이루비의 Iruvy Flow는 제조 현장의 납기 위험과 병목을 찾고 작업순서·자원배치 대안을 비교하는 산업현장 자율운영 및 유효 생산능력 증폭 AI 시스템입니다.",
+    body: flow,
+    pageType: "WebPage",
+  }],
+  ["evidence", {
+    title: "AI 성과 검증과 Evidence 기준 | 이루비 Iruvy",
+    description: "이루비는 실측, 현장 PoC, 고객 데이터 Replay, 유료 검증, 라이브 운영과 검증된 경제성과를 서로 다른 Evidence 단계로 투명하게 구분합니다.",
+    body: evidence,
+    pageType: "CollectionPage",
+  }],
+  ["technology", {
+    title: "공간 의사결정 AI 기술과 신뢰 | 이루비 Iruvy Core",
+    description: "이루비 Iruvy Core는 현재 상태·목표·제약조건을 연결해 실행 가능한 대안을 계산합니다. Spatial Intelligence와 Decision Intelligence의 구조와 신뢰 원칙을 설명합니다.",
+    body: technology,
+    pageType: "WebPage",
+  }],
+  ["company", {
+    title: "Spatial Decision AI 기업 | 이루비(Iruvy) 소개",
+    description: "주식회사 이루비(Iruvy)는 공간과 상황을 이해해 다음 최적 행동을 결정하는 Spatial Decision AI를 개발하며 Iruvy Guide와 Iruvy Flow를 만듭니다.",
+    body: company,
+    pageType: "AboutPage",
+  }],
+  ["resources", {
+    title: "공간·제조 의사결정 AI 인사이트 | 이루비",
+    description: "이루비가 전시 방문 경험, 제조 병목, 공간 의사결정 AI의 경계와 성과 검증 방법을 실무 관점에서 설명하는 인사이트와 자료실입니다.",
+    body: resources,
+    pageType: "CollectionPage",
+  }],
+  ["capacity-lab", {
+    title: "제조 납기·병목 진단 | Iruvy Flow Capacity Audit",
+    description: "최근 납기 지연 사건 한 건을 기준으로 제조 현장의 핵심 제약공정, 경제 KPI, ERP·MES·Excel 데이터 준비도와 Iruvy Flow 적합성을 진단합니다.",
+    body: capacityLab,
+    pageType: "WebPage",
+  }],
+  ["contact", {
+    title: "이루비 Iruvy 도입 상담 | Guide·Flow",
+    description: "Iruvy Guide 전시회 행사 적합성 진단, Iruvy Flow 제조 Capacity Audit, 이루비 미디어·파트너십 문의를 시작하세요.",
+    body: contact,
+    pageType: "ContactPage",
+  }],
+  ["privacy", {
+    title: "개인정보 처리방침 | 이루비 Iruvy",
+    description: "이루비 Iruvy 웹사이트 문의와 Guide·Flow 제품 데이터의 개인정보 수집, 이용, 보관, 삭제 및 제품 간 원본 데이터 분리 원칙을 안내합니다.",
+    body: legal("privacy"),
+    pageType: "WebPage",
+  }],
+  ["terms", {
+    title: "이용약관 | 이루비 Iruvy",
+    description: "이루비 Iruvy 웹사이트가 제공하는 회사·제품 정보의 이용 범위, 지식재산권과 책임 한계를 안내합니다.",
+    body: legal("terms"),
+    pageType: "WebPage",
+  }],
+  ["accessibility", {
+    title: "웹 접근성 원칙 | 이루비 Iruvy",
+    description: "이루비 Iruvy 웹사이트의 WCAG 2.2 AA 기준, 키보드 탐색, 화면낭독기, 대비, 터치 영역과 동작 줄이기 지원 원칙을 안내합니다.",
+    body: legal("accessibility"),
+    pageType: "WebPage",
+  }],
 ]);
 
-for (const [route, [title, description, body]] of pages) {
+for (const [route, { title, description, body, pageType }] of pages) {
   const dir = route ? join(out, route) : out;
   mkdirSync(dir, { recursive: true });
-  writeFileSync(join(dir, "index.html"), page({ route, title, description, body }));
+  writeFileSync(join(dir, "index.html"), page({ route, title, description, body, pageType }));
 }
 
 const redirect = (from, to, label) => {
@@ -418,9 +682,148 @@ const redirect = (from, to, label) => {
 redirect("go", "/guide/", "Iruvy Guide로 이동");
 redirect("pricing", "/contact/", "도입 범위 상담으로 이동");
 
-const urls = [...pages.keys()].map((route) => `  <url><loc>https://iruvy.com/${route ? `${route}/` : ""}</loc></url>`).join("\n");
-writeFileSync(join(out, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>`);
-writeFileSync(join(out, "robots.txt"), "User-agent: *\nAllow: /\nDisallow: /pricing/\nSitemap: https://iruvy.com/sitemap.xml\n");
+const sitemapPriority = {
+  "": "1.0",
+  guide: "0.9",
+  flow: "0.9",
+  evidence: "0.8",
+  technology: "0.8",
+  company: "0.8",
+  resources: "0.7",
+  "capacity-lab": "0.7",
+  contact: "0.7",
+  privacy: "0.3",
+  terms: "0.3",
+  accessibility: "0.3",
+};
+const urls = [...pages.keys()].map((route) => `  <url>
+    <loc>${pageUrl(route)}</loc>
+    <lastmod>${lastModified}</lastmod>
+    <changefreq>${route === "" || route === "guide" || route === "flow" ? "weekly" : "monthly"}</changefreq>
+    <priority>${sitemapPriority[route]}</priority>
+  </url>`).join("\n");
+writeFileSync(join(out, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls}
+</urlset>
+`);
+
+const aiCrawlers = ["GPTBot", "ChatGPT-User", "PerplexityBot", "ClaudeBot", "anthropic-ai", "Google-Extended", "bingbot"];
+const robots = [
+  "User-agent: *",
+  "Allow: /",
+  "",
+  ...aiCrawlers.flatMap((crawler) => [`User-agent: ${crawler}`, "Allow: /", ""]),
+  "Host: iruvy.com",
+  "Sitemap: https://iruvy.com/sitemap.xml",
+  "",
+].join("\n");
+writeFileSync(join(out, "robots.txt"), robots);
+
+const llms = `# Iruvy (이루비)
+
+> 이루비(Iruvy)는 공간과 상황을 이해해 다음 최적 행동을 결정하는 Spatial Decision AI를 개발하는 기업입니다.
+
+- Official name: Iruvy
+- Korean name: 이루비
+- Legal name: 주식회사 이루비
+- Category: Spatial Decision AI (공간 의사결정 AI)
+- Core technology: Spatial Intelligence × Decision Intelligence
+- Website: https://iruvy.com/
+- Last updated: ${lastModified}
+
+## Company and products
+
+- [Iruvy home](https://iruvy.com/): 회사 정의와 Iruvy Guide, Iruvy Flow의 공식 제품 구조
+- [Iruvy Guide](https://iruvy.com/guide/): 방문자의 관심과 위치를 이해해 다음 부스·콘텐츠·동선을 추천하는 전시회 AI 에이전트
+- [Iruvy Flow](https://iruvy.com/flow/): 산업현장의 사람·설비·자재·로봇을 최적화하는 산업현장 자율운영 및 유효 생산능력 증폭 AI 시스템
+- [Company](https://iruvy.com/company/): 주식회사 이루비의 미션, 제품 전선과 운영 원칙
+
+## Technology, evidence, and insights
+
+- [Technology and trust](https://iruvy.com/technology/): Spatial Decision Core, 계산 계층, 데이터와 사람의 통제 원칙
+- [Evidence](https://iruvy.com/evidence/): 실측, PoC, Replay, 유료 검증, 라이브 운영과 검증된 경제성과의 구분
+- [Insights and resources](https://iruvy.com/resources/): 전시 방문 경험, 제조 병목과 의사결정 AI의 경계
+- [Capacity Audit](https://iruvy.com/capacity-lab/): 최근 납기 지연 사건에서 제조 현장 적합성과 데이터 준비도를 확인하는 진단
+
+## Contact and policies
+
+- [Contact](https://iruvy.com/contact/): Guide 행사 적합성, Flow Capacity Audit, 미디어와 파트너십 문의
+- [Privacy](https://iruvy.com/privacy/): 문의 정보와 제품 데이터 처리 원칙
+- [Terms](https://iruvy.com/terms/): 웹사이트 정보 이용 범위와 책임 한계
+- [Accessibility](https://iruvy.com/accessibility/): WCAG 2.2 AA를 기준으로 한 웹 접근성 원칙
+
+## Scope boundaries
+
+- Guide와 Flow는 공통 Spatial Decision Core를 공유하도록 설계하지만 고객, 원본 데이터, 핵심 도메인 모델과 학습권은 분리합니다.
+- Iruvy Flow는 ERP·MES를 교체하지 않으며 현재 외부 단계는 L0 Observe에서 L1 Recommend입니다.
+- 관리자 승인 없는 설비 직접제어와 완전 자율운영은 현재 제품 성과로 주장하지 않습니다.
+- 제품별 외부 공개 성과는 근거, 범위와 승인 상태가 확인된 항목만 공개합니다.
+
+## Contact
+
+- Email: contact@iruvy.com
+- Canonical domain: https://iruvy.com/
+`;
+writeFileSync(join(out, "llms.txt"), llms);
+
+const llmsFull = `# Iruvy (이루비) official knowledge file
+
+Last updated: ${lastModified}
+Canonical source: https://iruvy.com/
+
+## Official entity definition
+
+Iruvy의 한국어 이름은 이루비이며 법인명은 주식회사 이루비입니다. 이루비(Iruvy)의 회사 카테고리는 Spatial Decision AI, 한국어로 공간 의사결정 AI입니다. 공식 기업 소개는 "공간과 상황을 이해해 다음 최적 행동을 결정하는 Spatial Decision AI를 개발하는 기업"입니다. 핵심 기술 표현은 Spatial Intelligence × Decision Intelligence입니다.
+
+## Product portfolio
+
+### Iruvy Guide
+
+Canonical page: https://iruvy.com/guide/
+
+Iruvy Guide는 방문자(일반인, 교통약자 등)의 경험과 이동을 최적화하는 상용화 제품입니다. 첫 시장인 산업·기업 전시회에서는 방문자의 관심, 위치와 남은 시간을 이해해 다음 부스, 콘텐츠와 동선을 추천하는 전시회 AI 에이전트이자 Visitor Decision Platform입니다. 첫 제품 범위는 앱 설치가 필요 없는 QR 웹, 지도와 검색, 승인된 원문 기반 콘텐츠, 개인화 추천과 동선, 저장과 상담, 운영자 대시보드입니다. 정밀 실시간 위치, AR와 전용 하드웨어는 가치가 검증된 뒤 선택적으로 추가합니다.
+
+### Iruvy Flow
+
+Canonical page: https://iruvy.com/flow/
+
+Iruvy Flow의 공식 아이템명은 "Iruvy Flow — 산업현장 자율운영 및 유효 생산능력 증폭 AI 시스템"이며 영문은 "Iruvy Flow — Industrial Autonomy and Capacity Amplification System"입니다. 산업현장의 사람, 설비, 자재와 로봇을 최적화하는 고부가가치 제품입니다. 첫 고객 가설은 주문생산형·다품종 소량생산 중소·중견 이산제조 사업장입니다. 첫 문제는 핵심 제약공정의 시간당 양품 산출량을 높이는 것이며, 납기 위험과 병목을 찾고 실제 제약을 반영한 작업순서와 자원배치 대안을 생산관리자가 검토하도록 설계합니다.
+
+Iruvy Flow는 ERP, MES와 APS를 교체하지 않습니다. 초기에는 CSV, Excel과 읽기 중심 연동으로 시작하고 시스템은 추천하며 생산관리자가 수정, 승인 또는 거절합니다. 현재 외부 단계는 L0 Observe에서 L1 Recommend입니다. 관리자 승인 없는 설비와 로봇 직접제어, 폐루프 완전 자율실행과 검증 전 성과 수치는 현재 제공 범위가 아닙니다.
+
+## Spatial Decision Core
+
+Canonical page: https://iruvy.com/technology/
+
+Spatial Decision Core는 현실의 객체와 관계를 표현하는 Reality Graph, 현재 상태와 사건을 추적하는 Context Engine, 목표와 제약 안에서 가능한 행동을 비교하는 Strategy Simulation, 승인과 실행 결과를 기록하는 Outcome Loop로 설명합니다. 언어 AI는 승인된 문서의 구조화, 질의와 근거 설명에 사용할 수 있습니다. 납기 위험, 하드 제약, 작업순서와 자원배치는 규칙, 통계, 수리최적화와 시뮬레이션 등 검증 가능한 계산 계층이 담당합니다.
+
+Guide와 Flow는 공간·지식·의사결정 인터페이스의 공통 기술 후보를 공유하지만 고객, 원본 데이터, 도메인 모델과 학습권은 분리합니다. Guide 방문자 원본 데이터를 Flow 학습에 사용하지 않습니다.
+
+## Evidence policy
+
+Canonical page: https://iruvy.com/evidence/
+
+이루비는 실측, 현장 PoC, 고객 데이터 Replay, 유료 검증, 라이브 운영과 검증된 경제성과를 서로 다른 증거 단계로 구분합니다. 외부 공개 성과에는 지표 정의, 측정 기간과 표본, 기준선, 데이터 출처, 측정 방법, 한계, 승인 책임자와 마지막 검토일이 필요합니다. Guide와 Flow의 성과를 하나의 숫자로 섞지 않으며 근거 정합성과 승인 상태가 확인된 항목만 공개합니다.
+
+## Capacity Audit
+
+Canonical page: https://iruvy.com/capacity-lab/
+
+Iruvy Flow Capacity Audit은 최근 발생한 납기 지연 또는 병목 사건 한 건에서 시작합니다. 첫 미팅에서는 사건, 핵심 제약공정과 경제 KPI, ERP·MES·Excel 데이터 준비도, 담당자·검수·구매 조건을 확인합니다. 민감한 생산 원본 데이터는 첫 문의에 받지 않습니다.
+
+## Company, resources, contact, and policies
+
+- Company: https://iruvy.com/company/
+- Insights and resources: https://iruvy.com/resources/
+- Contact: https://iruvy.com/contact/
+- Privacy: https://iruvy.com/privacy/
+- Terms: https://iruvy.com/terms/
+- Accessibility: https://iruvy.com/accessibility/
+
+공식 문의 이메일은 contact@iruvy.com입니다. 도입 범위, 가격, 성과와 SLA는 개별 제안과 계약에서 확정합니다.
+`;
+writeFileSync(join(out, "llms-full.txt"), llmsFull);
 writeFileSync(join(out, "404.html"), page({ route: "404", title: "페이지를 찾을 수 없습니다 | Iruvy", description: "요청한 페이지를 찾을 수 없습니다. Iruvy 홈에서 원하는 정보를 확인해 주세요.", robots: "noindex", body: `<section class="simple-hero compact"><div class="shell"><p class="eyebrow">404</p><h1>페이지를 찾을 수 없습니다</h1><p>주소가 바뀌었거나 더 이상 제공하지 않는 페이지입니다.</p><a class="button" href="/">Iruvy 홈으로</a></div></section>` }));
 
 mkdirSync(join(out, "server"), { recursive: true });
