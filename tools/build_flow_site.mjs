@@ -1,867 +1,270 @@
-import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { cpSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const out = join(root, "dist");
-const vTag = `20260728-v8-${Date.now()}`;
-const today = "2026-07-28";
+const version = `20260730-${Date.now()}`;
+
+rmSync(out, { recursive: true, force: true });
+mkdirSync(out, { recursive: true });
+mkdirSync(join(out, "assets"), { recursive: true });
+cpSync(join(root, "site-src", "styles.css"), join(out, "assets", "site.css"));
+cpSync(join(root, "site-src", "site.js"), join(out, "assets", "site.js"));
+cpSync(join(root, "assets", "iruvy-logo.svg"), join(out, "assets", "iruvy-logo.svg"));
+cpSync(join(root, "assets", "og.png"), join(out, "assets", "og.png"));
+cpSync(join(root, "assets", "fonts-web", "Pretendard-Regular.woff2"), join(out, "assets", "Pretendard-Regular.woff2"));
+cpSync(join(root, "assets", "fonts-web", "Pretendard-SemiBold.woff2"), join(out, "assets", "Pretendard-SemiBold.woff2"));
+cpSync(join(root, "favicon.ico"), join(out, "favicon.ico"));
 
 const routes = [
-  ["", "Iruvy | 설비 정지와 납기 지연 시 최적 작업 순서를 계산하는 제조 AI", "Iruvy Flow는 ERP·MES 데이터를 읽기 전용으로 연결하여 제약공정 병목을 풀고 최선의 작업 순서를 계산합니다."],
-  ["flow", "Iruvy Flow | 제약공정 캐파 증폭 AI System", "ERP·MES·Excel 데이터 연결로 제약공정 병목을 풀고 납기를 지키는 최적 생산 대안을 계산하는 산업 자율운영 AI."],
-  ["how-it-works", "작동 방식 | Iruvy Flow (IDFM Engine)", "데이터 수집부터 제약 시뮬레이션, 생산관리자 승인 및 성과 기록까지의 기술 구조."],
-  ["capacity-lab", "Iruvy Capacity Lab | 공장 데이터 준비도 & 병목 진단", "최근 지연 사례 1건으로 우리 공장의 제약공정 캐파 증폭 가능성을 진단합니다."],
-  ["evidence", "Evidence & Trust | Iruvy", "모의 데모와 실제 유료 제조 파일럿 성과를 투명하게 구분하여 기록합니다."],
-  ["company", "회사 소개 | Iruvy", "제조 현장의 주문·공정·설비·시간 관계를 모델링하는 산업 자율운영 AI 기업."],
-  ["privacy", "개인정보 처리방침 | Iruvy", "Iruvy 웹사이트의 개인정보 수집, 이용, 보관과 권리 행사 방법을 안내합니다."],
-  ["terms", "이용약관 | Iruvy", "Iruvy 웹사이트의 정보 이용 범위와 책임 한계를 안내합니다."],
-  ["accessibility", "웹 접근성 | Iruvy", "Iruvy 웹사이트가 지향하는 WCAG 2.2 AA 수준의 접근성 원칙과 피드백 방법을 안내합니다."]
+  ["", "홈"], ["guide", "Iruvy Guide"], ["flow", "Iruvy Flow"],
+  ["evidence", "성과"], ["technology", "기술·신뢰"], ["resources", "인사이트"],
+  ["company", "회사"], ["contact", "도입 상담"],
 ];
 
-const nav = [
-  ["/flow/", "Iruvy Flow"],
-  ["/how-it-works/", "작동 방식"],
-  ["/capacity-lab/", "Capacity Lab"],
-  ["/evidence/", "Evidence"],
-  ["/company/", "회사"]
-];
+const nav = `
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav" data-nav-toggle>메뉴</button>
+  <nav class="nav" id="nav" aria-label="주요 메뉴" data-nav>
+    <div class="nav-products">
+      <button class="nav-product-trigger" type="button" aria-expanded="false" data-product-toggle>솔루션 <span aria-hidden="true">⌄</span></button>
+      <div class="nav-product-menu" data-product-menu>
+        <a href="/guide/"><b>Iruvy Guide</b><span>방문자 경험과 이동 최적화</span></a>
+        <a href="/flow/"><b>Iruvy Flow</b><span>산업현장 운영 의사결정 최적화</span></a>
+      </div>
+    </div>
+    <a href="/evidence/">성과</a>
+    <a href="/technology/">기술·신뢰</a>
+    <a href="/resources/">인사이트</a>
+    <a href="/company/">회사</a>
+    <a class="button button-small" href="/contact/">도입 상담</a>
+  </nav>`;
 
-const header = (route = "") => `
+const header = `
 <a class="skip-link" href="#main">본문으로 이동</a>
 <header class="site-header" data-header>
   <div class="shell header-inner">
-    <a class="brand" href="/" aria-label="Iruvy 홈">
-      <span class="brand-word" aria-hidden="true"><i>I</i>ruvy</span>
-    </a>
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>메뉴</button>
-    <nav class="site-nav" id="site-nav" aria-label="주요 메뉴" data-nav>
-      ${nav.map(([href, label]) => `<a href="${href}"${route && href.includes(`/${route.split("/")[0]}/`) ? ' aria-current="page"' : ""}>${label}</a>`).join("")}
-      <a class="button primary" href="/capacity-lab/#apply" data-event="nav_primary_cta_click">우리 공장 적합성 확인</a>
-    </nav>
+    <a class="brand" href="/" aria-label="Iruvy 홈"><img src="/assets/iruvy-logo.svg" alt="Iruvy" width="113" height="34"></a>
+    ${nav}
   </div>
 </header>`;
 
 const footer = `
 <footer class="site-footer">
-  <div class="shell">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <a class="brand" href="/" aria-label="Iruvy 홈"><span class="brand-word" aria-hidden="true"><i>I</i>ruvy</span></a>
-        <p>제조 현장의 멈춰있는 시간과 공정 병목을 수리 최적화 알고리즘으로 해결하는 산업 소프트웨어를 만듭니다.</p>
-      </div>
-      <div class="footer-col"><strong>SYSTEM</strong><a href="/flow/">Iruvy Flow</a><a href="/how-it-works/">IDFM Architecture</a></div>
-      <div class="footer-col"><strong>GOVERNANCE</strong><a href="/evidence/">Evidence</a><a href="/evidence/#governance">Trust &amp; Security</a></div>
-      <div class="footer-col"><strong>PROGRAM</strong><a href="/capacity-lab/">Capacity Lab</a><a href="/capacity-lab/#apply">적합성 진단 신청</a></div>
-      <div class="footer-col"><strong>COMPANY</strong><a href="/company/">회사 소개</a><a href="/privacy/">개인정보 처리방침</a><a href="/terms/">이용약관</a><a href="/accessibility/">접근성</a></div>
+  <div class="shell footer-grid">
+    <div class="footer-lead">
+      <a class="brand invert" href="/"><img src="/assets/iruvy-logo.svg" alt="Iruvy" width="113" height="34"></a>
+      <p>공간과 상황을 이해해 다음 최적 행동을 결정하는 Spatial Decision AI를 개발합니다.</p>
     </div>
-    <div class="footer-bottom">
-      <span>© 2026 IRUVY INC. ALL RIGHTS RESERVED.</span>
-      <span><a href="mailto:contact@iruvy.com" data-event="email_link_click">contact@iruvy.com</a> · <a href="mailto:security@iruvy.com" data-event="email_link_click">security@iruvy.com</a></span>
-    </div>
+    <div><strong>솔루션</strong><a href="/guide/">Iruvy Guide</a><a href="/flow/">Iruvy Flow</a></div>
+    <div><strong>검증</strong><a href="/evidence/">Evidence</a><a href="/technology/">기술·신뢰</a><a href="/accessibility/">웹 접근성</a></div>
+    <div><strong>회사</strong><a href="/company/">회사 소개</a><a href="/resources/">인사이트</a><a href="/contact/">도입 상담</a></div>
+  </div>
+  <div class="shell footer-bottom">
+    <span>© 2026 IRUVY INC.</span>
+    <span><a href="mailto:contact@iruvy.com">contact@iruvy.com</a> · <a href="/privacy/">개인정보 처리방침</a> · <a href="/terms/">이용약관</a></span>
   </div>
 </footer>`;
 
-const document = ({ route = "", title, description, content, schema = "" }) => `<!doctype html>
+const page = ({ route = "", title, description, body, robots = "index,follow" }) => `<!doctype html>
 <html lang="ko">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>${title}</title>
   <meta name="description" content="${description}">
+  <meta name="robots" content="${robots}">
   <link rel="canonical" href="https://iruvy.com/${route ? `${route}/` : ""}">
   <meta property="og:type" content="website">
   <meta property="og:title" content="${title}">
   <meta property="og:description" content="${description}">
   <meta property="og:url" content="https://iruvy.com/${route ? `${route}/` : ""}">
   <meta property="og:image" content="https://iruvy.com/assets/og.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Iruvy Flow 산업 자율운영 AI System">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://iruvy.com/assets/og.png">
+  <meta name="theme-color" content="#0a1020">
   <link rel="icon" href="/favicon.ico">
-  <link rel="stylesheet" href="/assets/site.css?v=${vTag}">
-  <script src="/assets/site.js?v=${vTag}" defer></script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Iruvy","url":"https://iruvy.com/","email":"contact@iruvy.com","logo":"https://iruvy.com/assets/iruvy-logo.svg"}</script>
-  ${schema}
+  <link rel="stylesheet" href="/assets/site.css?v=${version}">
+  <script src="/assets/site.js?v=${version}" defer></script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Iruvy","url":"https://iruvy.com/","description":"Spatial Decision AI 기업","email":"contact@iruvy.com"}</script>
 </head>
-<body>
-  ${header(route)}
-  <main id="main">${content}</main>
-  ${footer}
-</body>
+<body>${header}<main id="main">${body}</main>${footer}</body>
 </html>`;
 
-const demo = `
-<div class="operation-demo" data-demo data-stage="0" aria-label="산업 현장 실시간 관제 및 의사결정 콘솔">
-  <div class="demo-top">
-    <span class="window-title">Iruvy Flow 실시간 관제 콘솔</span>
-    <span class="demo-status" data-demo-state aria-live="polite">01 ERP/MES 데이터 연동 중</span>
-  </div>
-  <div class="digital-twin-canvas" aria-label="공정 실시간 현황">
-    <svg class="svg-flow-node" viewBox="0 0 540 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M 60 40 L 160 40 L 260 40 L 360 40 L 460 40" class="svg-line active" />
-      <path d="M 160 40 L 260 85 L 360 85 L 460 40" class="svg-line" />
-      <g transform="translate(60, 40)"><circle r="18" fill="#ffffff" stroke="#503bd7" stroke-width="2" /><circle r="6" fill="#059669" /><text x="0" y="32" text-anchor="middle" class="svg-node-title">절단공정</text><text x="0" y="44" text-anchor="middle" class="svg-node-text">가동률 98%</text></g>
-      <g transform="translate(160, 40)"><circle r="18" fill="#ffffff" stroke="#503bd7" stroke-width="2" /><circle r="6" fill="#059669" /><text x="0" y="32" text-anchor="middle" class="svg-node-title">밀링 1호기</text><text x="0" y="44" text-anchor="middle" class="svg-node-text">가동률 94%</text></g>
-      <g transform="translate(260, 40)"><circle r="22" fill="#fef2f2" stroke="#dc2626" stroke-width="2" /><circle r="7" fill="#dc2626" /><text x="0" y="34" text-anchor="middle" class="svg-node-title" fill="#dc2626">밀링 4호기</text><text x="0" y="46" text-anchor="middle" class="svg-node-text alert">설비 정지 (병목)</text></g>
-      <g transform="translate(260, 85)"><circle r="16" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5" /><circle r="5" fill="#d97706" /><text x="0" y="28" text-anchor="middle" class="svg-node-title">연삭공정</text></g>
-      <g transform="translate(360, 40)"><circle r="18" fill="#ffffff" stroke="#503bd7" stroke-width="2" /><circle r="6" fill="#059669" /><text x="0" y="32" text-anchor="middle" class="svg-node-title">조립공정</text><text x="0" y="44" text-anchor="middle" class="svg-node-text">대안 A안 대기</text></g>
-      <g transform="translate(460, 40)"><circle r="18" fill="#ffffff" stroke="#059669" stroke-width="2" /><path d="M-5 -2 L0 4 L8 -4" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" /><text x="0" y="32" text-anchor="middle" class="svg-node-title">출하검사</text><text x="0" y="44" text-anchor="middle" class="svg-node-text">목표 18:00</text></g>
-    </svg>
-  </div>
-  <div class="demo-body">
-    <div class="machine-row">
-      <div class="machine"><b>절단 1호기</b>가동률 98.4%</div>
-      <div class="machine"><b>밀링 1호기</b>가동률 94.1%</div>
-      <div class="machine"><b>연삭 2호기</b>자원대기 0.4h</div>
-      <div class="machine down"><b>밀링 4호기</b>설비정지 (STOP)</div>
-    </div>
-    <div class="timeline">
-      <div class="timeline-head"><span>주요 주문 진행 현황</span><span>약속 납기선 → 오늘 18:00</span></div>
-      <div class="timeline-row"><span>O-4821</span><div class="timeline-track"><i class="job warn" style="left:4%;width:42%"></i><i class="job risk" style="left:49%;width:32%"></i></div></div>
-      <div class="timeline-row"><span>O-4822</span><div class="timeline-track"><i class="job" style="left:12%;width:56%"></i></div></div>
-      <div class="timeline-row"><span>O-4824</span><div class="timeline-track"><i class="job risk" style="left:34%;width:48%"></i></div></div>
-    </div>
-    <div class="decision-grid">
-      <div class="risk-card">
-        <span>감지된 납기 위험</span>
-        <strong data-risk-count>1건</strong>
-        <span>4호기 정지로 인한 주문 O-4824 지연</span>
-      </div>
-      <div class="alternatives">
-        <small>최적 작업순서 추천안</small>
-        <div class="alt selected"><span>A안 · 제약공정 작업순서 재배치</span><b>추천안</b></div>
-        <div class="alt"><span>B안 · 2호기 대체 설비 이동</span><b>비교안</b></div>
-        <div class="alt"><span>C안 · 외주 입고 일정 조정</span><b>비교안</b></div>
-      </div>
-    </div>
-  </div>
-  <div class="demo-controls" aria-label="데모 단계 선택">
-    <button class="demo-step active" type="button" data-demo-step="connect">01 데이터 연동</button>
-    <button class="demo-step" type="button" data-demo-step="risk">02 병목 감지</button>
-    <button class="demo-step" type="button" data-demo-step="alternatives">03 대안 계산</button>
-    <button class="demo-step" type="button" data-demo-step="approve">04 관리자 승인</button>
+const decisionVisual = `
+<div class="decision-visual" aria-label="현재 상태와 목표, 제약조건을 계산해 다음 최적 행동을 선택하는 과정">
+  <div class="visual-head"><span>DECISION FIELD</span><span class="live-dot">LIVE CONTEXT</span></div>
+  <div class="decision-stage">
+    <div class="source-node"><i></i><span>현재 상태</span></div>
+    <div class="branch branch-a"><i></i><span>행동 A</span></div>
+    <div class="branch branch-b"><i></i><span>행동 B</span></div>
+    <div class="branch branch-c"><i></i><span>행동 C</span></div>
+    <div class="constraint-card"><small>GOAL + CONSTRAINTS</small><b>목표·제약조건 계산</b><span>시간 · 공간 · 운영 · 안전</span></div>
+    <div class="selected-node"><i></i><small>NEXT BEST ACTION</small><b>행동 B</b></div>
+    <div class="path p1"></div><div class="path p2"></div><div class="path p3"></div><div class="path p4"></div>
   </div>
 </div>`;
+
+const statusPill = (label, tone = "") => `<span class="status ${tone}">${label}</span>`;
 
 const home = `
 <section class="hero">
   <div class="shell hero-grid">
-    <div>
-      <div class="sys-tag">제조 공정 자율운영 AI</div>
-      <h1>설비가 멈추고 납기가 밀릴 때,<br><span class="highlight">최선의 작업 순서를 계산합니다.</span></h1>
-      <p class="lede">Iruvy Flow는 ERP·MES·Excel의 생산 데이터를 읽기 전용으로 연결하여 제약공정의 병목과 납기 지연을 선제적으로 감지하고, 생산관리자가 검토·승인할 최적 작업 대안을 제시합니다.</p>
-      <div class="actions">
-        <a class="button primary" href="/capacity-lab/#apply" data-event="hero_primary_cta_click">우리 공장 적합성 확인</a>
-        <a class="button dark" href="#demo" data-event="hero_demo_open">Flow 관제 보기</a>
-      </div>
-      <div class="trust-line">
-        <span>첫 문의에 원본 데이터 불필요</span>
-        <span>기존 ERP/MES 시스템 교체 없음</span>
-        <span>8~12주 유료 섀도 파일럿 검증</span>
-      </div>
-      <p class="stage-note">관리자 승인 기반의 의사결정 지원 시스템 (Human-in-the-loop)</p>
+    <div class="hero-copy">
+      <p class="eyebrow">SPATIAL DECISION AI</p>
+      <h1>현장의 다음<br><span>최적 행동</span>을 계산합니다</h1>
+      <p class="lede">Iruvy는 공간과 운영 데이터를 목표·제약조건과 연결해 방문자의 다음 경험과 산업 현장의 다음 운영 결정을 제안합니다.</p>
+      <div class="actions"><a class="button" href="/guide/">전시·공간 솔루션</a><a class="button ghost" href="/flow/">제조 현장 솔루션</a></div>
     </div>
-    ${demo}
+    ${decisionVisual}
+  </div>
+  <div class="shell proof-rail" aria-label="현재 검증 상태">
+    <div><small>GUIDE</small><b>산업 전시회</b><span>첫 상용화 시장</span></div>
+    <div><small>FLOW</small><b>L0 → L1</b><span>관찰·추천 단계</span></div>
+    <div><small>CORE</small><b>State → Action</b><span>공통 의사결정 구조</span></div>
+    <div><small>GOVERNANCE</small><b>Human approved</b><span>사람이 최종 결정</span></div>
   </div>
 </section>
 
-<section class="trust-strip" aria-label="제품 핵심 가치">
-  <div class="shell trust-grid">
-    <div class="trust-item"><small>주요 적용 대상</small><strong>주문생산형 이산제조</strong></div>
-    <div class="trust-item"><small>핵심 지표</small><strong>제약공정 캐파 회수</strong></div>
-    <div class="trust-item"><small>검증 프로그램</small><strong>8~12주 유료 섀도 Sprint</strong></div>
-    <div class="trust-item"><small>의사결정 주체</small><strong>생산관리자 최종 승인</strong></div>
+<section class="section intro">
+  <div class="shell two-col">
+    <div><p class="eyebrow dark">THE DECISION GAP</p><h2>데이터는 쌓이지만,<br>다음 결정은 여전히<br>처음부터 다시 합니다</h2></div>
+    <div class="comparison">
+      <article><small>기존 시스템</small><p>무엇이 기록됐는가</p><p>현재 상태 조회</p><p>이상 알림</p><p>결과 집계</p></article>
+      <article class="active"><small>IRUVY DECISION LAYER</small><p>지금 무엇을 해야 하는가</p><p>가능한 행동 비교</p><p>실행 대안 제안</p><p>결과와 근거 기록</p></article>
+    </div>
   </div>
 </section>
 
-<section class="section references">
+<section class="section products">
   <div class="shell">
-    <div class="section-head">
-      <div class="sys-tag">신뢰 및 투명성</div>
-      <h2>과장된 수치 대신,<br>검증 가능한 실증 데이터만 기록합니다.</h2>
-      <p>Iruvy는 추측이나 막연한 수치를 말하지 않습니다. 이전 실증 자산과 제조 AI 성과를 명확히 분리하여 성격별로 공개합니다.</p>
-    </div>
-    <div class="reference-grid">
-      <article class="reference-card current-ref">
-        <div class="reference-top"><span>제조 FLOW</span><b>검증 진행 중</b></div>
-        <strong>첫 유료 제조 파일럿 검증 준비 중</strong>
-        <p>단 하나의 제약공정, 핵심 KPI에 집중하여 8~12주간 현장 섀도 Sprint를 진행할 제조 파트너를 모집합니다.</p>
-        <small>현재 제조 분야의 고객 성과 수치는 실증 완료 전입니다.</small>
+    <div class="section-head"><p class="eyebrow dark">TWO PRODUCTS, ONE CORE</p><h2>같은 질문을, 서로 다른 현장에서 풉니다</h2><p>공간과 산업이라는 서로 다른 시장에 하나의 Spatial Decision 구조를 적용합니다. 고객과 원본 데이터, 핵심 도메인 모델은 제품별로 분리합니다.</p></div>
+    <div class="product-grid">
+      <article class="product-card guide-card">
+        <div class="product-index">01 / VISITOR</div>
+        <h3>Iruvy Guide</h3>
+        <p class="product-claim">관람객마다 다른 최적 동선과 콘텐츠를 제안합니다.</p>
+        <ul><li>전시 주최사·전시장·행사대행사</li><li>앱 설치 없는 QR 웹</li><li>추천 → 방문 → 상담 연결</li></ul>
+        <a href="/guide/">Guide 살펴보기 <span>↗</span></a>
       </article>
-      <article class="reference-card">
-        <div class="reference-top"><span>이전 현장 실증</span><b>8개 현장</b></div>
-        <strong>8개 현장 공간 실증 체계 구축</strong>
-        <p>이전 공간·이동 데이터 인프라를 실제 환경에 구축해 자율 운영 구조를 적용했던 현장 경험입니다.</p>
-        <small>B2C/공공 실증 경험이며 제조 Flow의 직접적 매출/계약 건수가 아닙니다.</small>
-      </article>
-      <article class="reference-card">
-        <div class="reference-top"><span>내부 실증 테스트</span><b>87 / 90</b></div>
-        <strong>약 300m 복합 경로 내부 실증 완료</strong>
-        <p>2차 내부 실증 테스트에서 참여자 90명 중 87명이 복잡한 실내 경로를 완주하는 성과를 얻었습니다.</p>
-        <small>특정 환경 테스트 결과이며 제조 Flow의 성과 수치와 구분됩니다.</small>
-      </article>
-    </div>
-    <div class="program-line" aria-label="육성 프로그램 지원 기관">
-      <span>2026 예비창업패키지</span>
-      <span>KIST 홍릉강소특구 육성기업</span>
-      <span>서울대학교 캠퍼스타운</span>
-      <span>SNU × EO Launchpad</span>
-    </div>
-    <div class="reference-action">
-      <p>귀사의 최근 납기·병목 문제도 Flow로 해결 가능한지 데이터로 먼저 검증하세요.</p>
-      <a class="button primary" href="/capacity-lab/#apply">우리 공장 적합성 확인</a>
-    </div>
-  </div>
-</section>
-
-<section class="section architecture-section">
-  <div class="shell">
-    <div class="section-head">
-      <div class="sys-tag">시스템 아키텍처</div>
-      <h2>데이터 수집부터 현장 실행까지,<br>6단계 검증 프로세스로 연결합니다.</h2>
-      <p>기존 ERP/MES를 교체하지 않고 지능형 의사결정 계층을 추가합니다. Semantic · Temporal · Physical · Economic Twin 기반의 운영 월드모델이 최적 대안을 계산합니다.</p>
-    </div>
-    <div class="arch-pipeline-container" aria-label="데이터 분석 파이프라인 시각화">
-      <svg viewBox="0 0 800 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M 80 60 L 220 60 L 360 60 L 500 60 L 640 60 L 740 60" stroke="#cbd5e1" stroke-width="1.5" />
-        <path d="M 80 60 L 500 60" stroke="#503bd7" stroke-width="2" stroke-dasharray="6 4" />
-        <g transform="translate(80, 60)"><rect x="-55" y="-30" width="110" height="60" rx="6" fill="#ffffff" stroke="#503bd7" stroke-width="1.5" /><text x="0" y="-6" text-anchor="middle" font-size="10" font-weight="700" fill="#503bd7">01 · 데이터 연동</text><text x="0" y="10" text-anchor="middle" font-size="12" font-weight="800" fill="#0f172a">ERP / MES</text><text x="0" y="22" text-anchor="middle" font-size="9" fill="#64748b">수집연동</text></g>
-        <g transform="translate(220, 60)"><rect x="-55" y="-30" width="110" height="60" rx="6" fill="#ffffff" stroke="#503bd7" stroke-width="1.5" /><text x="0" y="-6" text-anchor="middle" font-size="10" font-weight="700" fill="#503bd7">02 · 모델링</text><text x="0" y="10" text-anchor="middle" font-size="12" font-weight="800" fill="#0f172a">운영 월드모델</text><text x="0" y="22" text-anchor="middle" font-size="9" fill="#64748b">4대 트윈</text></g>
-        <g transform="translate(360, 60)"><rect x="-55" y="-30" width="110" height="60" rx="6" fill="#ffffff" stroke="#503bd7" stroke-width="1.5" /><text x="0" y="-6" text-anchor="middle" font-size="10" font-weight="700" fill="#503bd7">03 · 대안 계산</text><text x="0" y="10" text-anchor="middle" font-size="12" font-weight="800" fill="#0f172a">최적 대안</text><text x="0" y="22" text-anchor="middle" font-size="9" fill="#64748b">수리 최적화</text></g>
-        <g transform="translate(500, 60)"><rect x="-55" y="-30" width="110" height="60" rx="6" fill="#f5f3ff" stroke="#503bd7" stroke-width="2" /><text x="0" y="-6" text-anchor="middle" font-size="10" font-weight="700" fill="#503bd7">04 · 승인</text><text x="0" y="10" text-anchor="middle" font-size="12" font-weight="800" fill="#0f172a">관리자 승인</text><text x="0" y="22" text-anchor="middle" font-size="9" fill="#503bd7">최종 결정권</text></g>
-        <g transform="translate(640, 60)"><rect x="-55" y="-30" width="110" height="60" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3 3" /><text x="0" y="-6" text-anchor="middle" font-size="10" font-weight="700" fill="#64748b">05 · 현장 반영</text><text x="0" y="10" text-anchor="middle" font-size="12" font-weight="700" fill="#475569">계획 반영</text><text x="0" y="22" text-anchor="middle" font-size="9" fill="#64748b">섀도 모드</text></g>
-      </svg>
-    </div>
-    <div class="workflow-rail">
-      <article class="current"><span>01 · 수집</span><h3>현장 데이터 연결</h3><p>ERP·MES·Excel 등 축적된 데이터를 읽기 전용으로 수집합니다.</p></article>
-      <article class="current"><span>02 · 모델링</span><h3>운영 관계 모델링</h3><p>주문·공정·설비·자재·인력 및 시간 사이의 상관관계를 잇습니다.</p></article>
-      <article class="current"><span>03 · 계산</span><h3>최적 대안 계산</h3><p>병목 및 납기 지연 위험을 계산하고 제약조건을 고려한 대안을 도출합니다.</p></article>
-      <article class="current"><span>04 · 승인</span><h3>관리자 최종 승인</h3><p>생산관리자가 근거를 확인하고 대안을 수정·승인 또는 거절합니다.</p></article>
-      <article class="validating"><span>05 · 반영</span><h3>현장 계획 반영</h3><p>승인된 최적안을 기존 워크플로 및 작업지시에 즉시 반영합니다.</p></article>
-      <article class="validating"><span>06 · 검증</span><h3>실제 성과 검증</h3><p>예상 효과와 실제 생산 지표의 차이를 분석하여 기록으로 남깁니다.</p></article>
-    </div>
-    <div class="architecture-boundary">
-      <span><b>현재 제품 범위</b> 데이터 연결 → 모델링 → 대안 계산 → 관리자 승인 (L1 Recommend)</span>
-      <span><b>다음 단계</b> 현장 계획 반영 → 실제 성과 검증 (섀도 파일럿)</span>
-    </div>
-  </div>
-</section>
-
-<section class="section paper">
-  <div class="shell">
-    <div class="section-head">
-      <div class="sys-tag">현장 문제 정의</div>
-      <h2>생산 데이터는 매일 쌓여도,<br>작업 일정은 왜 매일 수작업으로 바꿀까요?</h2>
-      <p>긴급 주문, 설비 정지, 외주 지연이 수시로 발생하기 때문입니다. 기존 ERP/MES는 사후 결과만 집계할 뿐, 여러 변수가 꼬였을 때 최선의 작업 순서를 즉시 계산하지 못합니다.</p>
-    </div>
-    <div class="grid-3">
-      <article class="card">
-        <span class="num">PROBLEM 01</span>
-        <h3>사건 발생 후에야 지연을 압니다</h3>
-        <p>납기 위험이 주문·공정·설비 데이터 사이에 분산되어 사전 대응이 어렵습니다.</p>
-      </article>
-      <article class="card">
-        <span class="num">PROBLEM 02</span>
-        <h3>병목의 진짜 원인을 놓칩니다</h3>
-        <p>설비 가동률만으로는 특정 주문이 어느 공정에서 막혔는지 추적하기 힘듭니다.</p>
-      </article>
-      <article class="card">
-        <span class="num">PROBLEM 03</span>
-        <h3>변경 이유와 결과 기록이 사라집니다</h3>
-        <p>수작업으로 변경한 생산 계획의 판단 근거가 데이터로 남지 않습니다.</p>
+      <article class="product-card flow-card">
+        <div class="product-index">02 / INDUSTRY</div>
+        <h3>Iruvy Flow</h3>
+        <p class="product-claim">예외가 발생한 순간, 손실이 가장 적은 복구안을 계산합니다.</p>
+        <ul><li>공장장·생산관리·제조 DX</li><li>ERP·MES·Excel 읽기 중심 연결</li><li>처리량·납기·비용 대안 비교</li></ul>
+        <a href="/flow/">Flow 살펴보기 <span>↗</span></a>
       </article>
     </div>
   </div>
 </section>
 
-<section class="section dark" id="demo">
+<section class="section process">
   <div class="shell">
-    <div class="section-head">
-      <div class="sys-tag">실시간 관제 인터페이스</div>
-      <h2>알림만 띄우지 않고,<br>현장에서 승인할 작업 대안을 계산합니다.</h2>
-      <p>아래 탭을 클릭하여 시나리오별 관제 화면과 감사 기록을 확인하세요.</p>
-    </div>
-    <div class="product-console">
-      <div class="console-tabs" role="tablist" aria-label="제품 화면 탭">
-        <button class="console-tab" role="tab" aria-selected="true" aria-controls="panel-risk" data-console-tab>지연 위험 분석</button>
-        <button class="console-tab" role="tab" aria-selected="false" aria-controls="panel-bottleneck" data-console-tab>설비 병목 현황</button>
-        <button class="console-tab" role="tab" aria-selected="false" aria-controls="panel-decisions" data-console-tab>작업순서 추천안</button>
-        <button class="console-tab" role="tab" aria-selected="false" aria-controls="panel-audit" data-console-tab>관리자 승인 기록</button>
-      </div>
-      <div class="console-panel active" id="panel-risk" role="tabpanel" data-console-panel>
-        <table class="console-table">
-          <thead><tr><th>주문 번호</th><th>약속 납기</th><th>예상 영향</th><th>주요 원인</th></tr></thead>
-          <tbody>
-            <tr><td>O-4821</td><td>오늘 18:00</td><td class="risk-text">+4.2h 지연 예상</td><td>M-04 설비 고장 정지</td></tr>
-            <tr><td>O-4824</td><td>내일 11:00</td><td class="risk-text">+3.1h 지연 예상</td><td>외주 입고 일정 지연</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="console-panel" id="panel-bottleneck" role="tabpanel" data-console-panel>
-        <table class="console-table">
-          <thead><tr><th>공정명</th><th>대상 설비</th><th>대기 작업 수</th><th>상류 영향 주문</th></tr></thead>
-          <tbody>
-            <tr><td>밀링 공정</td><td>밀링 4호기</td><td>6건 대기</td><td>O-4821 · O-4824</td></tr>
-            <tr><td>연삭 공정</td><td>연삭 2호기</td><td>3건 대기</td><td>검사 공정 대기 중</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="console-panel" id="panel-decisions" role="tabpanel" data-console-panel>
-        <table class="console-table">
-          <thead><tr><th>대안 구분</th><th>주요 변경 내용</th><th>검토 제약조건</th><th>진행 상태</th></tr></thead>
-          <tbody>
-            <tr><td>A안 (추천)</td><td>O-4821 제약공정 우선 투입</td><td>자재 준비 100% 완료 확인</td><td>검토 및 승인 대기</td></tr>
-            <tr><td>B안</td><td>밀링 2호기 대체 배치</td><td>셋업 교체시간 40분 소요</td><td>비교 검토 중</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="console-panel" id="panel-audit" role="tabpanel" data-console-panel>
-        <table class="console-table">
-          <thead><tr><th>시각</th><th>관리자 행동</th><th>판단 사유</th><th>성과 기록</th></tr></thead>
-          <tbody>
-            <tr><td>09:16</td><td>대안 A안 최종 승인</td><td>필수 자재 입고 완료 확인</td><td>섀도 모드 검증 저장</td></tr>
-            <tr><td>17:40</td><td>실제 생산 완료 기록</td><td>기초 계획 대비 비교 분석</td><td>기록 보존 완료</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- Interactive Capacity Amplification ROI Calculator -->
-    <div class="roi-calculator">
-      <div class="calc-grid">
-        <div class="calc-inputs">
-          <h3>공장 캐파 회수 시뮬레이터</h3>
-          <p style="font-size:14px;color:var(--steel-light);margin:0 0 10px;">우리 공장의 설비 수와 월평균 지연 건수를 설정하면, Flow 적용 시 회수 가능한 생산시간을 시뮬레이션합니다.</p>
-          <div class="calc-field">
-            <label>제약 공정 설비 수: <span class="calc-val" data-val-machines>5대</span></label>
-            <input type="range" min="1" max="30" value="5" data-calc-machines>
-          </div>
-          <div class="calc-field">
-            <label>월평균 납기/일정 지연 사건: <span class="calc-val" data-val-delays>12건</span></label>
-            <input type="range" min="1" max="50" value="12" data-calc-delays>
-          </div>
-        </div>
-        <div class="calc-results">
-          <small>회수 예상 유효 캐파</small>
-          <strong data-calc-hours>주 111시간</strong>
-          <small style="margin-top:14px;">납기 준수율(OTD) 예상 향상</small>
-          <strong style="font-size:24px;color:var(--iruvy-brand)" data-calc-otd>+18%p (목표 88%)</strong>
-          <p>※ 현장 데이터 진단(Capacity Lab)을 통해 정확한 수치를 산정합니다.</p>
-        </div>
-      </div>
-    </div>
+    <div class="section-head light"><p class="eyebrow">HOW IRUVY WORKS</p><h2>복잡한 현장을 네 단계로 명확하게</h2></div>
+    <ol class="process-grid">
+      <li><span>01</span><h3>현장 상태 연결</h3><p>공간·콘텐츠·운영 데이터를 현재 시점의 상태로 연결합니다.</p></li>
+      <li><span>02</span><h3>목표와 제약 모델링</h3><p>시간, 위치, 안전, 운영 규칙과 우선순위를 함께 계산합니다.</p></li>
+      <li><span>03</span><h3>가능한 행동 비교</h3><p>여러 대안의 결과를 비교해 실행 가능한 다음 행동을 제안합니다.</p></li>
+      <li><span>04</span><h3>승인과 결과 기록</h3><p>사람이 검토·수정·승인하고 실제 결과와 근거를 남깁니다.</p></li>
+    </ol>
+    <a class="text-link light" href="/technology/">Iruvy Core와 신뢰 원칙 보기 →</a>
   </div>
 </section>
 
-<section class="section paper">
-  <div class="shell">
-    <div class="section-head">
-      <div class="sys-tag">생산 성과 지표</div>
-      <h2>대시보드 그래픽이 아닌,<br>실제 생산 지표 변화로 측정합니다.</h2>
-      <p>파일럿 사전 단계에서 기준선(Baseline), 측정 방법 및 검증 기간을 고객사와 함께 합의합니다.</p>
-    </div>
-    <div class="metric-grid">
-      <div class="metric"><small>KPI 01</small><strong>납기 준수율 (OTD)</strong></div>
-      <div class="metric"><small>KPI 02</small><strong>지연 위험 감지 시간</strong></div>
-      <div class="metric"><small>KPI 03</small><strong>생산 계획 작성 소요 시간</strong></div>
-      <div class="metric"><small>KPI 04</small><strong>일정 재수립 횟수</strong></div>
-      <div class="metric"><small>KPI 05</small><strong>공정 대기시간</strong></div>
-      <div class="metric"><small>KPI 06</small><strong>돌발 잔업 및 외주 비용</strong></div>
-    </div>
+<section class="section trust-section">
+  <div class="shell two-col">
+    <div><p class="eyebrow dark">TRUST BY DESIGN</p><h2>강한 문장보다<br>정확한 범위를 말합니다</h2><p>검증 전 가설과 측정된 성과를 구분하고, 사람이 최종 결정하며, 제품별 원본 데이터와 학습권을 분리합니다.</p><a class="text-link" href="/evidence/">Evidence 체계 보기 →</a></div>
+    <div class="trust-list"><span>기존 시스템 교체 없음</span><span>읽기 전용 연동 우선</span><span>관리자 최종 승인</span><span>고객별 데이터 격리</span><span>Guide·Flow 원본 데이터 분리</span><span>작업자 감시 목적 제외</span></div>
   </div>
 </section>
 
-<section class="section">
-  <div class="shell scenario">
-    <div>
-      <div class="sys-tag">데이터 수집 방식</div>
-      <h2>기존 ERP/MES 교체 없이,<br>읽기 전용 데이터부터 연결합니다.</h2>
-      <p>기존 DB를 수정하지 않는 안전한 읽기 전용 계정으로 수집합니다. 보안 규정 및 보관 규칙은 사전에 정한 지침을 따릅니다.</p>
-      <div class="actions"><a class="button dark" href="/how-it-works/" data-event="technology_view">작동 방식 기술 보기</a></div>
-    </div>
-    <div class="data-line">
-      <span class="data-chip">ERP 주문 데이터</span>
-      <span class="data-chip">MES 공정 정보</span>
-      <span class="data-chip">Excel / CSV 계획</span>
-      <span class="data-chip">설비 가동 로그</span>
-      <span class="data-chip">작업 완료 실적</span>
-      <span class="data-chip">외주·자재 입고 일정</span>
-      <span class="data-chip">작업자 가용 정보</span>
-    </div>
-  </div>
-</section>
-
-<section class="section dark">
-  <div class="shell">
-    <div class="section-head">
-      <div class="sys-tag">성과 기록 관리</div>
-      <h2>추천에 그치지 않고,<br>실제 실행 결과까지 기록합니다.</h2>
-      <p>기준 지표, 현장 제약, AI 추천안, 관리자 승인 이력, 실제 작업 결과를 Outcome Ledger 단일 테이블로 보존합니다.</p>
-    </div>
-    <div class="ledger">
-      <div><span>기준 지표</span><strong>기준 생산성: 시간당 18.4개</strong></div>
-      <div><span>현장 제약</span><strong>밀링 4호기 셋업 병목 제약</strong></div>
-      <div><span>AI 추천안</span><strong>작업순서 B안 최적화 제시</strong></div>
-      <div><span>관리자 승인</span><strong>생산관리자 검토 후 최종 승인</strong></div>
-      <div><span>실제 결과</span><strong>실제 결과 측정 및 검증 중</strong></div>
-    </div>
-    <div class="actions" style="justify-content:start;"><a class="button" href="/evidence/">성과 검증 방식 자세히 보기</a></div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="shell partner-panel">
-    <div>
-      <div class="sys-tag">적합성 진단 프로그램</div>
-      <h2>현장 데이터로 우리 공장의<br>병목과 캐파를 진단합니다.</h2>
-      <p.lede">최근 납기 지연 사례 1건을 바탕으로 제약 지도 작성, 데이터 준비도 평가, 의사결정 콘솔 시뮬레이션을 진행합니다.</p>
-      <div class="actions"><a class="button primary" href="/capacity-lab/#apply" data-event="design_partner_view">우리 공장 적합성 확인</a></div>
-    </div>
-    <ul class="check-list">
-      <li>제약공정 및 캐파 손실 지도 작성</li>
-      <li>현장 데이터 준비도 (A~D등급) 진단</li>
-      <li>관리자 맞춤 의사결정 콘솔 프로토타입</li>
-      <li>KPI 및 검증 측정 체계 수립</li>
-      <li>섀도 파일럿 진행 적합성 제안</li>
-    </ul>
-  </div>
-</section>
-
-<section class="section paper">
-  <div class="shell scenario">
-    <div>
-      <div class="sys-tag">엔지니어링 원칙</div>
-      <h2>베테랑의 작업 경험과<br>수리 최적화를 하나로 결합합니다.</h2>
-    </div>
-    <div>
-      <p>Iruvy는 주문생산형 이산제조 현장의 주문·공정·설비·자재·시간 관계를 소프트웨어 모델로 풀어냅니다.</p>
-      <div class="grid-3">
-        <article><h3>현장 중심 접근</h3><p>실제 현장의 핵심 병목 문제부터 풀어냅니다.</p></article>
-        <article><h3>명확한 책임 분리</h3><p>AI는 대안과 근거를 제시하고 최종 결정은 사람이 합니다.</p></article>
-        <article><h3>지표 중심 검증</h3><p>화려한 기능보다 실제 수치의 변화를 검증합니다.</p></article>
-      </div>
-      <div class="actions" style="margin-top:24px;"><a class="button dark" href="/company/">회사 소개 및 경영 원칙</a></div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="shell cta-panel">
-    <div class="sys-tag">진단 신청</div>
-    <h2>최근 발생한 지연 사건 1건으로<br>Flow 적합성을 진단해 드립니다.</h2>
-    <p>복잡한 원본 데이터나 길고 긴 제안서 없이 시작할 수 있습니다. 보유한 데이터 항목과 현장 상황을 바탕으로 가능 여부를 안내합니다.</p>
-    <div class="actions">
-      <a class="button primary" href="/capacity-lab/#apply">우리 공장 적합성 확인</a>
-      <a class="button dark" href="mailto:contact@iruvy.com" data-event="email_link_click">이메일 한 줄 문의</a>
-    </div>
-  </div>
+<section class="final-cta">
+  <div class="shell"><p class="eyebrow">START WITH ONE DECISION</p><h2>어떤 현장의 다음 결정을<br>개선하시나요?</h2><div class="actions center"><a class="button pale" href="/contact/?product=guide">전시·공간 도입 상담</a><a class="button outline-light" href="/contact/?product=flow">제조 현장 적합성 진단</a></div></div>
 </section>`;
 
-const pageHero = (eyebrow, title, lede, actions = "") => `<section class="page-hero"><div class="shell"><div class="sys-tag">${eyebrow}</div><h1>${title}</h1><p class="lede">${lede}</p>${actions ? `<div class="actions">${actions}</div>` : ""}</div></section>`;
-const pageLayout = (sections, links = []) => `<section class="page-body"><div class="shell page-grid"><aside class="page-aside" aria-label="페이지 목차">${links.map(([id,label]) => `<a href="#${id}">${label}</a>`).join("")}</aside><div class="prose">${sections}</div></div></section>`;
+const guide = `
+<section class="page-hero guide-hero"><div class="shell page-hero-grid"><div><p class="eyebrow">IRUVY GUIDE</p><h1>관람객마다 다른 최적 동선,<br><span>주최자에게는 실행 가능한 운영 데이터</span></h1><p class="lede">관심사와 남은 시간을 바탕으로 방문 동선을 만들고, 기업·제품 설명과 행사 데이터를 하나의 웹 경험으로 연결합니다.</p><div class="actions"><a class="button" href="/contact/?product=guide">행사 적합성 진단</a><a class="button ghost-light" href="#journey">사용 흐름 보기</a></div></div><div class="phone-scene" aria-label="Iruvy Guide 모바일 서비스 개념 화면"><div class="phone"><div class="phone-bar"></div><small>FOR YOU · 75 MIN</small><h3>지금 볼 만한<br>3개의 부스</h3><div class="mini-route"><i></i><i></i><i></i></div><div class="phone-card"><b>정밀 제조 자동화</b><span>도보 4분 · 관심도 높음</span></div><div class="phone-card"><b>산업용 비전 AI</b><span>도보 7분 · 세션 14:20</span></div></div><div class="orbit-label a">관심사</div><div class="orbit-label b">남은 시간</div><div class="orbit-label c">현재 위치</div></div></div></section>
+<section class="section" id="journey"><div class="shell"><div class="section-head"><p class="eyebrow dark">VISITOR JOURNEY</p><h2>설치 없이 시작해, 다음 방문까지 이어집니다</h2></div><ol class="journey"><li><span>01</span><b>관심사 입력</b></li><li><span>02</span><b>추천 부스·동선</b></li><li><span>03</span><b>근거 있는 설명</b></li><li><span>04</span><b>저장·상담 연결</b></li><li><span>05</span><b>다음 방문지 추천</b></li><li><span>06</span><b>운영 결과 분석</b></li></ol></div></section>
+<section class="section tinted"><div class="shell"><div class="section-head"><p class="eyebrow dark">VALUE BY STAKEHOLDER</p><h2>한 번의 방문 경험이 세 이해관계자의 가치가 됩니다</h2></div><div class="tab-shell" data-tabs><div class="tabs" role="tablist"><button role="tab" aria-selected="true" aria-controls="visitor" id="tab-visitor">방문자</button><button role="tab" aria-selected="false" aria-controls="organizer" id="tab-organizer">주최자</button><button role="tab" aria-selected="false" aria-controls="exhibitor" id="tab-exhibitor">참가기업</button></div><div class="tab-panel" role="tabpanel" id="visitor" aria-labelledby="tab-visitor"><h3>짧은 시간에, 나에게 맞는 경험을</h3><p>관심사·시간·위치에 맞는 부스와 콘텐츠를 발견하고 낯선 공간에서 다음 행동을 쉽게 결정합니다.</p><div class="feature-chips"><span>개인화 동선</span><span>기업·제품 설명</span><span>앱 설치 없는 웹</span><span>접근 가능한 안내</span></div></div><div class="tab-panel" role="tabpanel" id="organizer" aria-labelledby="tab-organizer" hidden><h3>감이 아닌 방문 흐름으로 행사를 개선</h3><p>지도·부스·세션 데이터를 구조화하고 관심·동선·검색 실패를 운영 개선에 연결합니다.</p><div class="feature-chips"><span>콘텐츠 승인</span><span>방문 흐름</span><span>혼잡 신호</span><span>결과 리포트</span></div></div><div class="tab-panel" role="tabpanel" id="exhibitor" aria-labelledby="tab-exhibitor" hidden><h3>관심에서 상담까지 연결되는 기업 경험</h3><p>승인된 기업·제품 자료를 바탕으로 반복 질문을 설명하고 동의 기반 상담과 자료 요청을 연결합니다.</p><div class="feature-chips"><span>AI 부스 안내</span><span>반복 설명 감소</span><span>동의 기반 리드</span><span>관심 콘텐츠 분석</span></div></div></div></div></section>
+<section class="section"><div class="shell two-col"><div><p class="eyebrow dark">PRODUCT SCOPE</p><h2>가치가 검증된 순서로 만듭니다</h2><p>첫 MVP는 QR 웹·지도·검색·근거 기반 콘텐츠·개인화 추천과 운영자 대시보드에 집중합니다.</p></div><div class="scope-list"><div>${statusPill("FIRST WEDGE","current")}<b>QR 웹 · 지도 · 검색</b><p>설치 없이 시작하는 기본 방문 경험</p></div><div>${statusPill("VALIDATING","validating")}<b>추천 · 동선 · 저장 · 상담</b><p>추천이 실제 행동과 전환으로 이어지는지 검증</p></div><div>${statusPill("ROADMAP")}<b>정밀 실시간 위치 · WebAR</b><p>가치가 확인된 구역에 선택적으로 적용</p></div></div></div></section>
+<section class="section process"><div class="shell"><div class="section-head light"><p class="eyebrow">GROUNDED BY DEFAULT</p><h2>설명은 승인된 원문에 고정합니다</h2><p>출처 없는 기업·제품 설명을 공개하지 않습니다. AI 생성 콘텐츠는 담당자 승인 이후 배포하고, 방문자 데이터는 Flow 학습에 사용하지 않습니다.</p></div><div class="boundary-grid"><span>승인 원문·출처 연결</span><span>담당자 공개 승인</span><span>동의 기반 데이터</span><span>제품 간 원본 분리</span></div></div></section>
+<section class="final-cta"><div class="shell"><p class="eyebrow">GUIDE EXHIBITION MVP</p><h2>다음 행사에서 무엇을<br>먼저 검증할까요?</h2><a class="button pale" href="/contact/?product=guide">행사 적합성 진단</a></div></section>`;
 
-// Flow Product Page
-const flow = pageHero("IRUVY FLOW SYSTEM", "제약공정의 멈춰있는 시간을,<br>유효 생산량으로 전환합니다.", "주문·공정·설비·자재 제약을 운영 모델로 다뤄, 돌발 고장이나 긴급 수주에도 납기를 지키는 작업 순서를 계산합니다.", `<a class="button dark" href="/#demo">Flow 관제 보기</a><a class="button primary" href="/capacity-lab/#apply">Capacity Lab 신청</a>`) + pageLayout(`
-<section id="structure">
-  <h2>한 가지 결정을 도출하는 4대 결합 구조</h2>
-  <div class="grid-2">
-    <article class="card">
-      <span class="num">01</span>
-      <h3>Data Connect (읽기 전용 수집)</h3>
-      <p>ERP·MES·Excel의 주문·납기, 공정순서, 작업실적, 설비상태, 외주·자재 입고 일정을 기존 시스템 수정 없이 수집합니다.</p>
-    </article>
-    <article class="card">
-      <span class="num">02</span>
-      <h3>Operational Twin (운영 관계 모델)</h3>
-      <p>주문별 필요 공정과 대상 설비, 자재 수급과 돌발 사건 간의 연관 관계를 다차원 그래프로 구성합니다.</p>
-    </article>
-    <article class="card">
-      <span class="num">03</span>
-      <h3>Decision Engine (최적 대안 계산)</h3>
-      <p>수리 최적화 알고리즘과 시뮬레이터로 현장의 하드 제약을 100% 충족하는 최적 작업 순서를 도출합니다.</p>
-    </article>
-    <article class="card">
-      <span class="num">04</span>
-      <h3>Human Control (관리자 최종 승인)</h3>
-      <p>추천 근거를 확인하고 생산관리자가 직접 승인·수정·거절하며, 판단 이력을 Outcome Ledger에 기록합니다.</p>
-    </article>
-  </div>
-</section>
+const flow = `
+<section class="page-hero flow-hero"><div class="shell page-hero-grid"><div><p class="eyebrow">IRUVY FLOW</p><h1>설비가 멈춘 순간,<br><span>납기를 지키는 복구안을 계산합니다</span></h1><p class="lede">ERP·MES·Excel의 생산 데이터를 읽기 중심으로 연결해 병목과 납기 위험을 찾고, 생산관리자가 검토할 작업순서와 자원배치 대안을 제시합니다.</p><div class="actions"><a class="button" href="/capacity-lab/">Capacity Audit</a><a class="button ghost-light" href="#console">관제 데모 보기</a></div></div><div class="flow-console" id="console"><div class="console-top"><span>PRODUCT DEMO · VIRTUAL SCENARIO</span><i>SHADOW</i></div><div class="alert-row"><small>DISTURBANCE</small><b>밀링 4호기 정지</b><span>납기 위험 주문 3건</span></div><div class="option selected"><span>A · 대체 설비 + 작업순서 조정</span><b>균형안</b></div><div class="option"><span>B · 잔업 2시간 추가</span><b>보수안</b></div><div class="option"><span>C · 외주 공정 전환</span><b>공격안</b></div><div class="console-foot"><span>관리자 승인 전 실행 없음</span><button type="button">검토하기</button></div></div></div></section>
+<section class="section"><div class="shell"><div class="section-head"><p class="eyebrow dark">WHEN PLANS BREAK</p><h2>계획이 깨지는 다섯 순간을 먼저 봅니다</h2></div><div class="incident-grid"><article><span>01</span><h3>설비 고장</h3><p>병목 이동과 대체설비 영향을 비교합니다.</p></article><article><span>02</span><h3>긴급 주문</h3><p>기존 약속 납기와 새 우선순위 충돌을 계산합니다.</p></article><article><span>03</span><h3>자재 지연</h3><p>가능 작업과 대기 손실을 다시 배열합니다.</p></article><article><span>04</span><h3>외주 지연</h3><p>회수일 변경이 후속 공정에 미치는 영향을 봅니다.</p></article><article><span>05</span><h3>인력 부족</h3><p>역할·기술등급 제약 안에서 실행안을 찾습니다.</p></article></div></div></section>
+<section class="section tinted"><div class="shell io-grid"><div><p class="eyebrow dark">INPUT</p><h2>흩어진 운영 상태를 연결</h2><ul class="check-list"><li>작업지시와 생산 실적</li><li>공정·설비·작업 가능 관계</li><li>품질·정비·가용시간</li><li>자재·도구·외주 일정</li></ul></div><div class="arrow-column">→</div><div><p class="eyebrow dark">DECISION OUTPUT</p><h2>실행 가능한 대안을 비교</h2><ul class="check-list"><li>위험 주문과 예상 병목</li><li>보수·균형·공격 대안</li><li>납기·잔업·외주 영향</li><li>승인 기록과 실제 결과</li></ul></div></div></section>
+<section class="section process"><div class="shell"><div class="section-head light"><p class="eyebrow">CURRENT PRODUCT BOUNDARY</p><h2>작게 연결하고, 섀도 모드에서 증명합니다</h2></div><div class="boundary-grid"><span>CSV·Excel·읽기 중심 연동</span><span>관리자 승인 필수</span><span>PLC 직접 제어 없음</span><span>한 사업장·한 제약공정</span><span>의사결정 1~2개</span><span>8~12주 검증 가설</span></div><p class="boundary-note">현재 외부 단계는 L0 Observe → L1 Recommend입니다. 사람 승인 없는 자동제어와 폐루프 자율실행은 현재 제공 범위가 아닙니다.</p></div></section>
+<section class="section"><div class="shell two-col"><div><p class="eyebrow dark">FIT / NO-FIT</p><h2>모든 공장을 위한<br>첫 제품은 아닙니다</h2><p>주문생산·다품종 소량 환경에서 반복되는 예외와 한 제약공정의 경제 KPI부터 검증합니다.</p></div><div class="fit-grid"><article><h3>적합한 현장</h3><ul><li>예외 상황과 재계획이 잦음</li><li>ERP·MES·Excel 데이터 존재</li><li>생산관리자 참여 가능</li><li>기준 KPI 합의 가능</li></ul></article><article class="no-fit"><h3>현재 부적합</h3><ul><li>ERP·MES 전체 교체 목적</li><li>즉시 무인 자동제어 요구</li><li>개인 작업자 감시 목적</li><li>담당자 없는 무료 개발 요청</li></ul></article></div></div></section>
+<section class="final-cta"><div class="shell"><p class="eyebrow">FROM CONSTRAINT TO CAPACITY</p><h2>최근 납기 지연 사건 1건에서<br>진단을 시작합니다</h2><a class="button pale" href="/capacity-lab/">Capacity Audit 신청</a></div></section>`;
 
-<section id="autonomy-spectrum">
-  <h2>자율운영 스펙트럼 (Autonomy Spectrum)</h2>
-  <p>Iruvy Flow는 시스템의 독단적 자동 제어를 하지 않습니다. 현재 L1 Recommend 단계에서 사람의 명확한 판단과 책임을 보장합니다.</p>
-  <div class="status-list">
-    <div class="status-row">
-      <span class="status-badge">현재 적용 범위</span>
-      <div>
-        <h3>L0 Observe → L1 Recommend (Human-in-the-loop)</h3>
-        <p>현장 데이터 연결 및 위험 감지. 생산관리자가 근거를 검토하고 대안을 최종 승인·수정·거절합니다.</p>
-      </div>
-    </div>
-    <div class="status-row">
-      <span class="status-badge pilot">개발 로드맵</span>
-      <div>
-        <h3>L2 Coordinate → L3 Bounded Autonomy (통제된 자율운영)</h3>
-        <p>사전 합의된 제약 조건 내에서 작업 순서 재배치를 안전하게 자동 조율하는 로드맵 단계입니다.</p>
-      </div>
-    </div>
-    <div class="status-row">
-      <span class="status-badge boundary">제외 범위</span>
-      <div>
-        <h3>Direct Robot Control &amp; Worker Surveillance (제외 범위)</h3>
-        <p>설비 직접 제어, 근로자 개인 생산성 평가, CCTV 감시는 제품 범위에 포함되지 않습니다.</p>
-      </div>
-    </div>
-  </div>
-</section>
+const evidence = `
+<section class="simple-hero"><div class="shell"><p class="eyebrow">EVIDENCE &amp; TRUST</p><h1>성과를 크게 말하기 전에,<br><span>검증 단계를 정확히 표시합니다</span></h1><p>측정, 현장 PoC, 고객 데이터 Replay, 유료 검증, 라이브 운영과 경제성과를 서로 다른 증거로 관리합니다.</p></div></section>
+<section class="section"><div class="shell"><div class="evidence-levels"><article>${statusPill("MEASURED","measured")}<h2>실측</h2><p>실제 환경에서 측정된 기술 성과. 적용 범위와 방법, 한계를 함께 기록합니다.</p></article><article>${statusPill("FIELD PoC","current")}<h2>현장 PoC</h2><p>제한된 고객 환경에서 제품 가설을 검증한 단계입니다.</p></article><article>${statusPill("CUSTOMER REPLAY","validating")}<h2>고객 데이터 Replay</h2><p>과거 데이터를 재생한 결과로, 라이브 운영 KPI와 구분합니다.</p></article><article>${statusPill("PAID AUDIT / SPRINT")}<h2>유료 검증</h2><p>대가·데이터·기준 KPI·검수 범위가 합의된 검증입니다.</p></article><article>${statusPill("LIVE")}<h2>라이브 운영</h2><p>실제 업무에 반영된 결과와 외부요인을 함께 기록합니다.</p></article><article>${statusPill("VERIFIED OUTCOME")}<h2>검증된 경제성과</h2><p>합의된 기준선과 Outcome Ledger로 검증한 증분 가치입니다.</p></article></div></div></section>
+<section class="section tinted"><div class="shell two-col"><div><p class="eyebrow dark">PUBLIC EVIDENCE POLICY</p><h2>숫자보다 먼저 공개할 것</h2></div><div class="evidence-fields"><span>지표 정의</span><span>측정 기간·표본</span><span>기준선</span><span>데이터 출처</span><span>측정 방법</span><span>한계</span><span>승인 책임자</span><span>마지막 검토일</span></div></div></section>
+<section class="section"><div class="shell"><div class="empty-evidence"><p class="eyebrow dark">CURRENT PUBLIC REGISTER</p><h2>제품별 외부 공개 성과는 근거 정합성 검토 중입니다</h2><p>Guide와 Flow의 성과 수치를 하나의 숫자판에 섞지 않습니다. 원자료·범위·승인 상태가 확인된 항목만 이 레지스트리에 순차 공개합니다.</p><a class="button dark-button" href="/contact/?product=media">근거·미디어 문의</a></div></div></section>`;
 
-<section id="boundary">
-  <h2>적합한 현장과 적용 대상</h2>
-  <div class="grid-2">
-    <article class="card">
-      <h3>가장 효과적인 현장</h3>
-      <ul>
-        <li>주문생산형 (MTO) 및 다품종 소량생산 제조</li>
-        <li>정밀가공, 금속가공, 기계부품, 금형 공장</li>
-        <li>긴급 주문, 설비 정지, 외주 지연이 자주 발생하는 현장</li>
-        <li>ERP/MES/Excel 데이터를 보유한 사업장</li>
-      </ul>
-    </article>
-    <article class="card">
-      <h3>첫 적용에 적합하지 않은 프로젝트</h3>
-      <ul>
-        <li>ERP·MES 전체를 교체하려는 시스템 구축 건</li>
-        <li>안전 제어 및 무인 로봇 직접 조작 시스템</li>
-        <li>작업자 개별 평가 및 감시 목적</li>
-        <li>현장 데이터와 담당자 참여가 없는 무료 개발 요청</li>
-      </ul>
-    </article>
-  </div>
-</section>
+const technology = `
+<section class="simple-hero"><div class="shell"><p class="eyebrow">IRUVY CORE</p><h1>상태·목표·제약을 연결해<br><span>실행 가능한 대안을 계산합니다</span></h1><p>Spatial Intelligence × Decision Intelligence. Guide와 Flow가 공유할 기술 구조와 각 제품이 분리해야 할 데이터 경계를 함께 설계합니다.</p></div></section>
+<section class="section"><div class="shell"><div class="core-grid"><article><span>01</span><h2>Reality Graph</h2><p>현장의 객체·관계·공간을 공통 언어로 모델링합니다.</p></article><article><span>02</span><h2>Context Engine</h2><p>현재 상태와 변화, 예외 사건과 불확실성을 추적합니다.</p></article><article><span>03</span><h2>Strategy Simulation</h2><p>가능한 행동과 예상 결과를 목표·제약 안에서 비교합니다.</p></article><article><span>04</span><h2>Outcome Loop</h2><p>승인·실행·실제 결과와 외부요인을 기록합니다.</p></article></div></div></section>
+<section class="section process"><div class="shell"><div class="section-head light"><p class="eyebrow">AI BOUNDARY</p><h2>설명하는 AI와 계산하는 계층을 구분합니다</h2></div><div class="ai-boundary"><article><small>LANGUAGE AI</small><h3>문서 구조화·질의·근거 설명</h3><p>승인된 자료를 구조화하고 추천의 가정과 차이를 사람이 이해하도록 설명합니다.</p></article><article><small>VERIFIABLE COMPUTATION</small><h3>제약·작업순서·자원배치</h3><p>하드 제약과 계획은 규칙·통계·수리최적화·시뮬레이션 등 검증 가능한 계산 계층이 담당합니다.</p></article></div></div></section>
+<section class="section"><div class="shell two-col"><div><p class="eyebrow dark">DATA &amp; HUMAN CONTROL</p><h2>공유 코어와<br>제품 데이터의 경계</h2><p>Guide와 Flow는 공간·지식·의사결정 인터페이스의 공통 기술 후보를 공유하지만 고객·원본 데이터·도메인 모델과 학습권은 분리합니다.</p></div><div class="trust-list"><span>고객별 데이터 격리</span><span>Guide 방문자 데이터의 Flow 학습 금지</span><span>최소수집·권한·보관·삭제</span><span>관리자 수정·거절·승인</span><span>데이터 부족 시 판단 기권</span><span>평가·승격·롤백 통제</span></div></div></section>`;
 
-<section id="faq" class="faq">
-  <h2>자주 묻는 질문</h2>
-  <details><summary>ERP나 MES를 바꾸어야 하나요?</summary><p>아닙니다. 기존 시스템에서 필요한 데이터를 읽기 전용으로 연결하여 사용합니다.</p></details>
-  <details><summary>Excel 데이터만 있어도 가능한가요?</summary><p>주문, 납기, 공정순서와 실적 기록이 있다면 준비도 진단부터 시작할 수 있습니다.</p></details>
-  <details><summary>AI가 생산계획을 자동으로 바꾸나요?</summary><p>자동으로 바꾸지 않습니다. 계산된 대안과 사유를 제시하고 관리자가 최종 승인합니다.</p></details>
-  <details><summary>필요한 최소 데이터 기간은 얼마인가요?</summary><p>6~12개월 축적 데이터를 권장하며, 데이터 준비도 진단을 통해 현재 수준을 먼저 평가해 드립니다.</p></details>
-</section>`, [["structure","4대 결합 구조"],["autonomy-spectrum","자율운영 스펙트럼"],["boundary","적합 현장"],["faq","FAQ"]]);
+const company = `
+<section class="simple-hero"><div class="shell"><p class="eyebrow">ABOUT IRUVY</p><h1>공간과 상황을 이해해<br><span>다음 최적 행동을 결정합니다</span></h1><p>주식회사 이루비는 Spatial Decision AI를 개발하는 기업입니다. 방문자의 경험과 이동을 최적화하는 Iruvy Guide와 산업현장의 운영을 최적화하는 Iruvy Flow를 만듭니다.</p></div></section>
+<section class="section"><div class="shell two-col"><div><p class="eyebrow dark">MISSION</p><h2>복잡한 현실을<br>실행 가능한 결정으로</h2></div><div class="manifesto"><p>현장은 정적인 데이터가 아닙니다. 사람과 설비, 공간과 시간이 계속 바뀌고, 좋은 결정은 목표와 제약을 동시에 이해해야 합니다.</p><p>Iruvy는 무엇이 일어났는지를 보여주는 데서 멈추지 않고, 지금 가능한 행동을 비교하고 그 결과를 다음 결정의 근거로 남깁니다.</p></div></div></section>
+<section class="section tinted"><div class="shell"><div class="section-head"><p class="eyebrow dark">ONE COMPANY, TWO FRONTS</p><h2>빠른 상용화와 장기 고부가가치를 함께 설계합니다</h2></div><div class="company-products"><article><small>COMMERCIALIZATION FRONT</small><h3>Iruvy Guide</h3><p>산업 전시회에서 앱 설치 없는 방문자 의사결정 경험을 반복 배포합니다.</p></article><article><small>HIGH-VALUE FRONT</small><h3>Iruvy Flow</h3><p>주문생산형 제조의 한 제약공정에서 유효 생산능력 증폭을 검증합니다.</p></article></div></div></section>
+<section class="section"><div class="shell"><div class="section-head"><p class="eyebrow dark">OUR PRINCIPLES</p><h2>현재와 비전을 분리하고, 결과로 학습합니다</h2></div><div class="principle-grid"><article><span>01</span><h3>증명 전에는 가설</h3><p>목표·가격·성과를 현재 사실처럼 표현하지 않습니다.</p></article><article><span>02</span><h3>사람이 최종 결정</h3><p>현재 제품은 관찰과 추천 단계에서 안전하게 검증합니다.</p></article><article><span>03</span><h3>원본과 학습권 분리</h3><p>제품과 고객을 넘어 데이터를 임의로 전용하지 않습니다.</p></article><article><span>04</span><h3>행동과 결과를 연결</h3><p>승인만이 아니라 실행·결과·외부요인을 함께 기록합니다.</p></article></div></div></section>
+<section class="final-cta"><div class="shell"><p class="eyebrow">LONG-TERM VISION</p><h2>산업현장의 숨은 생산능력을<br>실행으로 깨우는 자율운영 AI</h2><p>현재의 L1 추천형 제품에서 충분한 검증과 통제를 거쳐 단계적으로 확장합니다.</p><a class="button pale" href="/contact/?product=partner">파트너십 문의</a></div></section>`;
 
-// Technology Page
-const technology = pageHero("IDFM ARCHITECTURE", "데이터 연동부터 승인 기록까지,<br>의사결정이 이뤄지는 4단계 구조.", "추상적인 AI 텍스트 생성에 의존하지 않습니다. 수리 최적화 알고리즘과 제약 시뮬레이터가 하드 제약을 100% 검증합니다.", `<a class="button primary" href="/capacity-lab/#apply" data-event="technology_view">우리 데이터로 검토하기</a>`) + pageLayout(`
-<section id="architecture">
-  <h2>Iruvy Decision Foundation Model (IDFM) 4-Layer 구조</h2>
-  <div class="grid-2" style="margin-bottom:30px;">
-    <article class="card">
-      <span class="num">LAYER 01</span>
-      <h3>State Encoder &amp; Language Model</h3>
-      <p>ERP·MES·작업일지의 비정형 데이터와 발생 사건을 규격화된 상태값으로 인코딩합니다.</p>
-    </article>
-    <article class="card">
-      <span class="num">LAYER 02</span>
-      <h3>Operational World Model (4 Twins)</h3>
-      <p>Semantic(객체) · Temporal(시간선) · Physical(설비제약) · Economic(ROI) 4개 트윈으로 현장을 모델링합니다.</p>
-    </article>
-    <article class="card">
-      <span class="num">LAYER 03</span>
-      <h3>Strategy Policy &amp; Solver Engine</h3>
-      <p>하드 제약을 100% 만족하는 최적화 알고리즘으로 최적의 작업 순서와 설비 배치안을 도출합니다.</p>
-    </article>
-    <article class="card">
-      <span class="num">LAYER 04</span>
-      <h3>Outcome &amp; Value Verifier</h3>
-      <p>관리자의 승인/수정 이력과 실제 실행 결과를 Outcome Ledger로 보존하며, 조건 미충족 시 기권합니다.</p>
-    </article>
-  </div>
-</section>
+const resources = `
+<section class="simple-hero"><div class="shell"><p class="eyebrow">INSIGHTS &amp; RESOURCES</p><h1>고객의 문제 언어로<br><span>Spatial Decision AI를 설명합니다</span></h1><p>전시 방문 경험, 제조 병목, 의사결정 AI의 경계와 검증 방법을 실무 관점에서 정리합니다.</p></div></section>
+<section class="section"><div class="shell"><div class="resource-grid"><article><small>DECISION LAYER</small><h2>ERP·MES 위에 의사결정 계층이 필요한 이유</h2><p>기록 시스템과 예외 대응 시스템의 역할을 구분합니다.</p><span>준비 중</span></article><article><small>GUIDE METHOD</small><h2>전시회 방문자가 핵심 부스를 놓치는 이유</h2><p>정보 과다에서 관심·시간·위치 기반 추천이 필요한 이유를 설명합니다.</p><span>준비 중</span></article><article><small>EVIDENCE</small><h2>고객 데이터 Replay와 실제 KPI의 차이</h2><p>데모, 과거 데이터 재생, 섀도, 라이브 성과를 구분하는 법을 다룹니다.</p><span>준비 중</span></article><article><small>CAPACITY</small><h2>최근 납기 지연 사건 1건으로 병목을 진단하는 법</h2><p>Capacity Audit의 첫 질문과 필요한 데이터 범위를 소개합니다.</p><span>준비 중</span></article><article><small>TRUST</small><h2>Human-in-the-loop와 데이터 격리 원칙</h2><p>사람의 결정권과 제품별 원본 데이터 경계를 설명합니다.</p><span>준비 중</span></article><article><small>PRESS KIT</small><h2>Iruvy 브랜드·회사 소개 자료</h2><p>승인된 회사·제품 소개문과 로고 자산을 제공합니다.</p><a href="/contact/?product=media">자료 요청 →</a></article></div></div></section>`;
 
-<section id="roles">
-  <h2>문제별 기술 분리 및 검증 경계</h2>
-  <div class="grid-2">
-    <article class="card">
-      <h3>LLM이 담당하는 영역</h3>
-      <ul>
-        <li>비정형 작업일지 및 현장 텍스트 구조화</li>
-        <li>생산관리자의 자연어 질의 처리</li>
-        <li>대안 A/B안의 선택 사유 및 차이점 설명</li>
-        <li>생산 보고서 보조 작성</li>
-      </ul>
-    </article>
-    <article class="card">
-      <h3>수리 최적화 알고리즘이 담당하는 영역</h3>
-      <ul>
-        <li>납기 및 물리적 제약조건 100% 검증</li>
-        <li>제약공정 최적 작업순서(Sequencing) 계산</li>
-        <li>설비 고장 시 대체 경로 재배치 계산</li>
-        <li>기권 판단 및 최저 regret 산출</li>
-      </ul>
-    </article>
-  </div>
-</section>
+const capacityLab = `
+<section class="simple-hero"><div class="shell"><p class="eyebrow">CAPACITY AUDIT</p><h1>최근 납기 지연 사건 1건으로<br><span>적합성부터 판단합니다</span></h1><p>원본 생산 데이터를 첫 문의에 받지 않습니다. 현장 문제와 데이터 준비도를 먼저 확인한 뒤 유료 진단 범위를 제안합니다.</p></div></section>
+<section class="section"><div class="shell audit-grid"><div><p class="eyebrow dark">WHAT WE REVIEW</p><h2>첫 미팅에서 확인하는 네 가지</h2><ol class="number-list"><li><span>01</span><b>최근 발생한 지연·병목 사건</b></li><li><span>02</span><b>핵심 제약공정과 경제 KPI</b></li><li><span>03</span><b>ERP·MES·Excel 데이터 준비도</b></li><li><span>04</span><b>담당자·검수·구매 조건</b></li></ol></div><div class="audit-card"><small>NEXT STEP</small><h2>진단 신청</h2><p>회사·현장·최근 사건만 간단히 알려주세요. 민감한 원본 파일은 보내지 마세요.</p><a class="button" href="/contact/?product=flow">Flow 상담 작성</a><ul><li>원본 데이터 첨부 없음</li><li>읽기 중심 연결 검토</li><li>무료 PoC가 아닌 유료 검증 우선</li></ul></div></div></section>`;
 
-<section id="learning">
-  <h2>오프라인 안전 배포 통제</h2>
-  <p>Iruvy Flow는 승인 데이터가 즉시 위험하게 오프라인 모델을 변경하지 않으며, 철저한 안전 검증 게이트를 거칩니다.</p>
-  <div class="status-list">
-    <div class="status-row"><span>01</span><div><h3>Decision Episode 기록</h3><p>상태, 제약, 대안, 승인 여부, 실제 결과를 독립 저장합니다.</p></div></div>
-    <div class="status-row"><span>02</span><div><h3>FlowBench 검증</h3><p>시뮬레이션 환경에서 백테스트 및 하드 제약 준수율을 검증합니다.</p></div></div>
-    <div class="status-row"><span>03</span><div><h3>Champion 승격 &amp; Rollback</h3><p>Shadow → Canary → Champion 배포 절차와 롤백 기능을 유지합니다.</p></div></div>
-  </div>
-</section>`, [["architecture","IDFM 4-Layer"],["roles","기술 분리 경계"],["learning","안전 배포 통제"]]);
+const contact = `
+<section class="simple-hero"><div class="shell"><p class="eyebrow">START A CONVERSATION</p><h1>어떤 현장의 다음 결정을<br><span>개선하시나요?</span></h1><p>제품과 목적에 맞는 정보를 선택하면 담당자가 검토할 수 있는 이메일 초안을 만들어 드립니다.</p></div></section>
+<section class="section"><div class="shell contact-layout"><div class="contact-choice"><button type="button" class="choice active" data-choice="guide"><small>EXHIBITION &amp; SPACE</small><b>Iruvy Guide</b><span>행사 적합성·전시장·공간 상담</span></button><button type="button" class="choice" data-choice="flow"><small>MANUFACTURING</small><b>Iruvy Flow</b><span>Capacity Audit·제조 현장 진단</span></button><button type="button" class="choice" data-choice="partner"><small>COMPANY</small><b>미디어·파트너십</b><span>보도·협력·투자·채용 문의</span></button></div><form class="contact-form" data-contact-form><input type="hidden" name="product" value="guide"><label>회사·기관<input name="organization" required autocomplete="organization"></label><label>이름<input name="name" required autocomplete="name"></label><label>이메일<input name="email" type="email" required autocomplete="email"></label><label>문의 내용<textarea name="message" rows="6" required placeholder="행사 일정과 규모, 또는 최근 발생한 납기·병목 사건을 알려주세요."></textarea></label><label class="consent"><input type="checkbox" required> <span><a href="/privacy/">개인정보 처리방침</a>에 동의합니다.</span></label><button class="button" type="submit">이메일 초안 열기</button><p class="form-note" aria-live="polite" data-form-note>원본 생산 데이터와 민감정보는 첫 문의에 첨부하지 마세요.</p></form></div></section>`;
 
-const fitForm = (contact = false) => `
-<form class="fit-form" data-fit-form data-form-type="${contact ? "contact" : "fit"}" novalidate>
-  <input type="hidden" name="inquiry" value="${contact ? "company" : "flow"}">
-  <div class="form-intro"><b>${contact ? "문의 내용을 작성해 주세요." : "약 3분 소요 · 원본 데이터 업로드 없이 시작합니다."}</b><span>${contact ? "민감한 생산 데이터는 첨부하지 않으셔도 됩니다." : "담당자가 확인 후 적용 가능한 범위와 필요한 데이터 항목을 안내해 드립니다."}</span></div>
-  <div class="form-progress" aria-label="진행 단계"><span class="active" data-progress></span><span data-progress></span><span data-progress></span></div>
-  <div class="form-step" data-form-step>
-    <h2>${contact ? "문의 기본정보" : "담당자 및 현장 정보"}</h2>
-    <div class="fields">
-      <div class="field"><label for="${contact ? "c-" : ""}name">이름 *</label><input id="${contact ? "c-" : ""}name" name="name" maxlength="80" required autocomplete="name"><div class="field-error"></div></div>
-      <div class="field"><label for="${contact ? "c-" : ""}organization">회사·기관 *</label><input id="${contact ? "c-" : ""}organization" name="organization" maxlength="120" required autocomplete="organization"><div class="field-error"></div></div>
-      <div class="field"><label for="${contact ? "c-" : ""}role">직책·역할 *</label><input id="${contact ? "c-" : ""}role" name="role" maxlength="120" required autocomplete="organization-title"><div class="field-error"></div></div>
-      <div class="field"><label for="${contact ? "c-" : ""}email">회사 이메일 *</label><input id="${contact ? "c-" : ""}email" name="email" type="email" maxlength="254" required autocomplete="email"><div class="field-error"></div></div>
-      <div class="field"><label for="${contact ? "c-" : ""}phone">연락처 <small>선택</small></label><input id="${contact ? "c-" : ""}phone" name="phone" type="tel" maxlength="40" autocomplete="tel"><div class="field-error"></div></div>
-      <div class="field"><label for="${contact ? "c-" : ""}environment">${contact ? "문의 분야" : "업종 유형"} *</label><select id="${contact ? "c-" : ""}environment" name="environment" required><option value="">선택해 주세요</option>${contact ? '<option>제조 디자인 파트너</option><option>기술·데이터 연동</option><option>산업·공급 파트너십</option><option>투자</option><option>미디어</option><option>기타</option>' : '<option>정밀가공</option><option>금속가공</option><option>금형</option><option>기계·장비</option><option>전기장비</option><option>기타 이산제조</option>'}</select><div class="field-error"></div></div>
-    </div>
-    <div class="form-actions"><span></span><button class="button dark" type="button" data-next>다음 · 현장 범위</button></div>
-  </div>
-  <div class="form-step" data-form-step hidden>
-    <h2>${contact ? "문의 범위" : "검증할 사건과 데이터"}</h2>
-    <div class="fields">
-      <div class="field full"><label for="${contact ? "c-" : ""}scope">${contact ? "논의 범위" : "현재 데이터 준비 상태"} *</label>${contact ? '<textarea id="c-scope" name="scope" maxlength="240" required placeholder="예: ERP 데이터 읽기 전동 연동 검토"></textarea>' : '<select id="scope" name="scope" required><option value="">가장 가까운 상태를 선택해 주세요</option><option>주문·납기·공정실적 데이터 보유</option><option>ERP 주문과 Excel 실적을 함께 사용</option><option>납기와 최종 완료 데이터만 보유</option><option>과거 실적 데이터가 부족함</option><option>현재 상태를 판단하기 어려움</option></select>'}<div class="field-error"></div></div>
-      <div class="field full"><label for="${contact ? "c-" : ""}challenge">${contact ? "문의 내용" : "최근 발생한 지연/병목 사건"} *</label><textarea id="${contact ? "c-" : ""}challenge" name="challenge" minlength="10" maxlength="5000" required placeholder="${contact ? "함께 논의하고 싶은 내용을 적어 주세요." : "최근 발생한 납기 지연, 병목, 설비 정지 사례를 적어 주세요."}"></textarea><div class="field-error"></div></div>
-      <div class="field full"><label for="${contact ? "c-" : ""}constraints">보안 및 연동 제약조건</label><textarea id="${contact ? "c-" : ""}constraints" name="constraints" maxlength="1000" placeholder="예: 원본 데이터 외부 반출 불가, 읽기 전용 계정만 허용"></textarea><div class="field-error"></div></div>
-    </div>
-    <div class="form-actions"><button class="button" type="button" data-prev>이전</button><button class="button dark" type="button" data-next>다음 · 일정 및 동의</button></div>
-  </div>
-  <div class="form-step" data-form-step hidden>
-    <h2>검토 일정 및 개인정보 동의</h2>
-    <div class="fields">
-      <div class="field full"><label for="${contact ? "c-" : ""}timeline">희망 검토 시점 *</label><select id="${contact ? "c-" : ""}timeline" name="timeline" required><option value="">선택해 주세요</option><option>1개월 이내</option><option>3개월 이내</option><option>6개월 이내</option><option>12개월 이내</option><option>정보 수집 중</option></select><div class="field-error"></div></div>
-      <div class="field full"><label class="check-field"><input type="checkbox" name="privacy" value="agreed" required><span><a href="/privacy/" target="_blank">개인정보 처리방침</a>에 동의합니다. *</span></label><div class="field-error"></div></div>
-      <div class="field honeypot" aria-hidden="true"><label for="${contact ? "c-" : ""}website">웹사이트</label><input id="${contact ? "c-" : ""}website" name="website" tabindex="-1" autocomplete="off"></div>
-    </div>
-    <div class="form-actions"><button class="button" type="button" data-prev>이전</button><button class="button primary" type="submit">${contact ? "문의 접수" : "적합성 검토 요청"}</button></div>
-  </div>
-  <div class="form-status" data-form-status role="status" aria-live="polite" aria-atomic="true"></div>
-</form>`;
-
-// Capacity Lab Page
-const partners = pageHero("CAPACITY LAB", "최근 지연 사례 1건으로,<br>캐파 회수 가능성을 진단합니다.", "최근 발생한 지연 사건과 보유 데이터 항목만으로 제약 지도, 데이터 준비도, 작업 대안 시뮬레이션을 정의하는 3분 진단입니다.", `<a class="button primary" href="#apply">우리 공장 적합성 확인</a>`) + pageLayout(`
-<section id="start">
-  <div class="reassurance-grid">
-    <article><b>첫 문의</b><strong>원본 데이터 불필요</strong><p>발생한 사건과 데이터 종류만 알려주세요.</p></article>
-    <article><b>첫 답변</b><strong>적합성부터 판단</strong><p>가능·준비 필요·부적합 여부를 투명하게 판단합니다.</p></article>
-    <article><b>다음 단계</b><strong>사전 합의 후 진행</strong><p>범위와 보안 지침을 문서화한 후 진행합니다.</p></article>
-  </div>
-</section>
-
-<section id="outputs">
-  <h2>4대 핵심 진단 산출물</h2>
-  <div class="grid-2">
-    <article class="card">
-      <span class="num">01</span>
-      <h3>Constraint Map (제약 지도)</h3>
-      <p>주문·공정·설비·자재 간 병목 지점과 시간 손실 원인을 정리합니다.</p>
-    </article>
-    <article class="card">
-      <span class="num">02</span>
-      <h3>Data Readiness Grade (A~D 진단)</h3>
-      <p>보유 중인 ERP/MES/Excel 데이터의 연동 가능성을 4단계 등급으로 평가합니다.</p>
-    </article>
-    <article class="card">
-      <span class="num">03</span>
-      <h3>Decision Prototype (관제 콘솔)</h3>
-      <p>실제 지연 시나리오를 바탕으로 생산관리자가 검토할 작업 대안 화면을 구현합니다.</p>
-    </article>
-    <article class="card">
-      <span class="num">04</span>
-      <h3>KPI &amp; M&amp;V Plan (측정 계획)</h3>
-      <p>기준선(Baseline)과 검증 기간, ROI 측정 기준을 합의합니다.</p>
-    </article>
-  </div>
-</section>
-
-<section id="process">
-  <h2>4단계 진단 진행 절차</h2>
-  <div class="status-list">
-    <div class="status-row"><span class="status-badge">1단계</span><div><h3>Problem Review</h3><p>최근 발생한 납기 지연 및 설비 병목 사건과 핵심 지표를 정리합니다.</p></div></div>
-    <div class="status-row"><span class="status-badge">2단계</span><div><h3>Data Mapping</h3><p>주문, 공정, 설비 데이터의 연결 상태와 결측치를 확인합니다.</p></div></div>
-    <div class="status-row"><span class="status-badge">3단계</span><div><h3>Constraint Workshop</h3><p>제약공정의 작업 순서 변경안과 승인 콘솔 화면을 시뮬레이션합니다.</p></div></div>
-    <div class="status-row"><span class="status-badge pilot">4단계</span><div><h3>Executive Review &amp; Proposal</h3><p>Capacity Audit 및 8~12주 유료 섀도 파일럿 진행 여부를 결정합니다.</p></div></div>
-  </div>
-</section>
-
-<section id="questions" class="faq">
-  <h2>신청 전에 가장 많이 확인하는 것</h2>
-  <details><summary>MES가 설치되어 있어도 필요한가요?</summary><p>MES를 교체하지 않고, 기존 기록 위에서 최적 작업 순서를 계산하는 분석 레이어로 사용합니다.</p></details>
-  <details><summary>Excel 데이터로도 검토가 가능한가요?</summary><p>주문번호, 납기, 공정순서 기록이 있다면 데이터 준비도 진단을 진행할 수 있습니다.</p></details>
-  <details><summary>첫 문의에 원본 생산 데이터를 전달해야 하나요?</summary><p>아닙니다. 최근 발생한 사건과 데이터 항목만 작성해 주시면 됩니다.</p></details>
-</section>
-
-<section id="apply">
-  <div class="sys-tag">진단 신청</div>
-  <h2>최근 문제와 보유 데이터 항목만 알려주세요.</h2>
-  <p>도면이나 민감 생산 수치 등 원본 데이터는 첫 문의에 제출하지 않으셔도 됩니다.</p>
-  ${fitForm(false)}
-  <p class="direct-contact" style="margin-top:20px;">이메일 문의: <a href="mailto:contact@iruvy.com?subject=Capacity%20Lab%20적합성%20문의" data-event="email_link_click">contact@iruvy.com</a> (최근 발생한 지연 사건 1건 제출)</p>
-</section>`, [["start","시작 방식"],["outputs","4대 산출물"],["process","진행 절차"],["questions","FAQ"],["apply","적합성 확인"]]);
-
-// Evidence Page
-const evidence = pageHero("EVIDENCE & TRUST", "과장된 수치 대신,<br>검증 가능한 실증 데이터만 남깁니다.", "Iruvy는 모의 테스트, 진단 단계, 유료 파일럿, 실제 운영 데이터를 명확히 구분하여 공개합니다.", `<a class="button primary" href="/capacity-lab/#apply">검증 시작하기</a>`) + pageLayout(`
-<section id="standard">
-  <h2>증거 인정 5대 기준</h2>
-  <div class="evidence-grid">
-    <article><span>01</span><h3>실제 현장 데이터</h3><p>사전 합의된 현장 범위와 기준 기간의 실제 생산 데이터</p></article>
-    <article><span>02</span><h3>실행 가능 대안</h3><p>현장의 물리적 제약을 100% 충족하는 검증된 작업 대안</p></article>
-    <article><span>03</span><h3>사람의 승인 결정</h3><p>생산관리자의 검토, 수정, 승인 이력 및 결정 사유</p></article>
-    <article><span>04</span><h3>실제 변경 실행</h3><p>실제 현장 생산 계획에 반영된 변경 기록</p></article>
-    <article><span>05</span><h3>측정된 ROI 결과</h3><p>외부 변수를 분리하여 검증한 캐파 회수 지표</p></article>
-  </div>
-</section>
-
-<section id="levels">
-  <h2>증거 단계 (Evidence Classification Scale)</h2>
-  <div class="status-list">
-    <div class="status-row"><span class="status-badge">1단계</span><div><h3>시뮬레이션 시나리오</h3><p>제품 기능과 관제 콘솔 시뮬레이션을 탐색하는 단계입니다.</p></div></div>
-    <div class="status-row"><span class="status-badge pilot">2단계</span><div><h3>데이터 준비도 진단 (Capacity Lab)</h3><p>단일 공정 범위에서 보유 데이터의 정합성과 연결성을 진단합니다.</p></div></div>
-    <div class="status-row"><span class="status-badge pilot">3단계</span><div><h3>유료 섀도 파일럿 (8~12주 Sprint)</h3><p>기준선과 KPI를 정하고 기존 방식과 AI 추천안의 성과를 섀도 모드로 비교합니다.</p></div></div>
-    <div class="status-row"><span class="status-badge">4단계</span><div><h3>실제 운영 환경</h3><p>일상적인 생산 의사결정 워크플로에 포함되어 사용하는 단계입니다.</p></div></div>
-    <div class="status-row"><span class="status-badge">5단계</span><div><h3>검증된 경제 성과 (Outcome Ledger)</h3><p>상호 합의된 측정 기준(M&amp;V)으로 캐파 회수 효과를 입증한 단계입니다.</p></div></div>
-  </div>
-</section>
-
-<section id="ledger">
-  <h2>Outcome Ledger 메커니즘</h2>
-  <div class="architecture">
-    <div>Baseline · 기준 기간과 생산성 KPI</div><i>↓</i>
-    <div>Constraint · 제약 요인 및 외부 사건</div><i>↓</i>
-    <div>Recommendation · IDFM 대안 및 가용성</div><i>↓</i>
-    <div>Human Decision · 생산관리자 최종 승인</div><i>↓</i>
-    <div>Execution · 현장 계획 반영 및 실행</div><i>↓</i>
-    <div>Result &amp; ROI · 회수된 캐파 및 경제 성과</div>
-  </div>
-  <p class="notice">Iruvy Flow는 제조 분야의 실제 성과 수치를 실증 완료 전으로 투명하게 표시합니다.</p>
-</section>
-
-<section id="governance">
-  <h2>데이터 보안 및 운영 지침</h2>
-  <div class="grid-2">
-    <article class="card"><h3>읽기 전용 수집</h3><p>고객사 원본 DB를 직접 변경하지 않는 읽기 전용 계정으로 수집합니다.</p></article>
-    <article class="card"><h3>사람의 승인 권한</h3><p>생산 계획 최종 변경 권한은 생산관리자에게 있으며 자동 변경을 강제하지 않습니다.</p></article>
-    <article class="card"><h3>고객 데이터 격리</h3><p>사전 동의 없이 고객 데이터가 타사 모델 학습에 공유되지 않습니다.</p></article>
-    <article class="card"><h3>작업자 감시 제외</h3><p>작업자 개별 생산성 평가나 인사 처벌 목적의 사용을 차단합니다.</p></article>
-  </div>
-</section>`, [["standard","5대 인정 기준"],["levels","증거 단계 Scale"],["ledger","Outcome Ledger"],["governance","운영 지침"]]);
-
-// Company Page
-const company = pageHero("ABOUT IRUVY", "현장의 숙련된 경험과<br>수리 최적화를 하나로 연결합니다.", "Iruvy는 주문생산형 이산제조 현장의 주문·공정·설비·시간 관계를 고도화된 소프트웨어로 다룹니다.") + pageLayout(`
-<section id="mission">
-  <h2>기업 미션 및 사업 영역</h2>
-  <p>Iruvy의 사업 영역은 <b>산업 자율운영 AI (Industrial Autonomy AI)</b>입니다. 복잡한 산업 현장의 사람·설비·자재·작업·공간·시간 관계를 운영 모델로 잇고, 제약공정의 캐파 손실을 최적화 알고리즘으로 해결합니다.</p>
-</section>
-
-<section id="origin">
-  <h2>공간 데이터 기술에서 제조 자율운영으로의 확장</h2>
-  <p>Iruvy는 복잡한 실내 공간과 이동 데이터를 정밀하게 모델링하던 엔지니어링 기술에서 출발했습니다. 물리적 현장을 소프트웨어가 이해하기 위해서는 단편적인 수치가 아닌 제약, 사건, 목적 간의 상관관계를 다루어야 한다는 점을 배웠습니다.</p>
-  <p>이 모델링 기술을 바탕으로 주문생산형 제조 현장의 병목과 납기 지연을 풀어내는 Iruvy Flow 시스템을 구축하고 있습니다.</p>
-</section>
-
-<section id="principles">
-  <h2>4대 제품 개발 원칙</h2>
-  <div class="grid-2">
-    <article class="card">
-      <span class="num">원칙 01</span>
-      <h3>Field before claim (현장 실증 우선)</h3>
-      <p>현장에서 반복 입증된 실체 있는 문제만을 제품 기능으로 정의합니다.</p>
-    </article>
-    <article class="card">
-      <span class="num">원칙 02</span>
-      <h3>Human accountable (인간 책임 분리)</h3>
-      <p>AI는 최적 대안과 사유를 제공하고, 최종 결정과 책임은 전문가가 갖습니다.</p>
-    </article>
-    <article class="card">
-      <span class="num">원칙 03</span>
-      <h3>Measurable change (지표 중심 검증)</h3>
-      <p>기능의 수식어보다 납기 준수율(OTD) 등 실제 수치의 개선을 우선합니다.</p>
-    </article>
-    <article class="card">
-      <span class="num">원칙 04</span>
-      <h3>Reusable system (표준 모듈 구조)</h3>
-      <p>단발성 custom 개발이 아닌 모듈화된 엔터프라이즈 표준 제품을 구축합니다.</p>
-    </article>
-  </div>
-</section>
-
-<section id="vision">
-  <h2>기술 확장 로드맵</h2>
-  <p>제약공정 캐파 회수 사례를 시작으로 방산·조선 공급망, MRO 정비 분야로 고신뢰 부분 자율운영 기술을 확장해 나갑니다.</p>
-  <div class="vision-steps">
-    <div><small>1단계 (현재)</small><strong>데이터 연결 및 대안 추천 (L1)</strong></div>
-    <div><small>2단계 (다음)</small><strong>승인 및 현장 연동 실행 (L2)</strong></div>
-    <div><small>3단계 (장기)</small><strong>통제된 산업 자율운영 (L3~L4)</strong></div>
-  </div>
-  <div class="actions" style="margin-top:28px;"><a class="button primary" href="/capacity-lab/">Capacity Lab 프로그램 보기</a></div>
-</section>`, [["mission","미션 및 사업 영역"],["origin","기술 기원"],["principles","4대 개발 원칙"],["vision","확장 로드맵"]]);
-
-const contact = pageHero("CONTACT", "현장의 발생 문제부터<br>검토를 시작합니다.", "제조 디자인 파트너, 기술 연동, 산업 파트너십, 투자 및 미디어 문의를 남겨 주세요.") + pageLayout(`<section id="contact-form">${fitForm(true)}</section><section id="email"><h2>이메일 직접 문의</h2><p>일반 문의 · <a href="mailto:contact@iruvy.com" data-event="email_link_click">contact@iruvy.com</a><br>파트너십 · <a href="mailto:partners@iruvy.com" data-event="email_link_click">partners@iruvy.com</a><br>보안 · <a href="mailto:security@iruvy.com" data-event="email_link_click">security@iruvy.com</a></p><p class="notice">도면이나 민감 수치 등 원본 데이터는 첫 문의에 제출하지 않으셔도 됩니다.</p></section>`, [["contact-form","문의 접수"],["email","이메일"]]);
-
-const legalPage = (eyebrow, title, lede, sections) => pageHero(eyebrow, title, lede) + pageLayout(sections);
-const privacy = legalPage("PRIVACY POLICY", "개인정보 처리방침", "문의 처리에 필요한 필수 정보만 수집하며 목적 외 용도로 사용하지 않습니다.", `<section><h2>1. 수집 항목과 목적</h2><p>이름, 회사·기관, 직책·역할, 이메일, 연락처, 문의 내용 및 희망 시점을 수집하며, 적합성 검토 및 후속 문의 응대를 위해 사용합니다.</p></section><section><h2>2. 보관 및 파기</h2><p>목적 달성 후 관련 법령에 명시된 기간 동안 보관하며, 보관 기간이 경과하면 파기합니다.</p></section><section><h2>3. 분석 정보</h2><p>사이트 성능 및 접근성 개선을 위해 익명화된 페이지 이용 이벤트를 수집할 수 있으며, 이메일/전화번호 등 개인 식별 정보는 포함하지 않습니다.</p></section><section><h2>4. 정보주체의 권리</h2><p>개인정보 열람, 정정, 파기 요청은 <a href="mailto:contact@iruvy.com">contact@iruvy.com</a>으로 연락해 주시기 바랍니다.</p><p>시행일 · 2026년 7월 24일</p></section>`);
-const terms = legalPage("TERMS OF SERVICE", "이용약관", "Iruvy 웹사이트 사용 범위와 책임 한계를 안내합니다.", `<section><h2>1. 목적 및 정보 범위</h2><p>본 웹사이트는 Iruvy 제품과 기술 아키텍처, 진단 프로그램의 안내 목적으로 제공됩니다.</p></section><section><h2>2. 실증 및 시뮬레이션 성격</h2><p>웹사이트 상의 모의 데모 및 성과 예시는 특정 공장의 결과치를 보증하지 않으며, 실제 계약 및 조건은 별도 문서로 정합니다.</p></section><section><h2>3. 지적재산권</h2><p>본 사이트의 상표, 문구, 디자인 요소는 지적재산권 관련 법령의 보호를 받습니다.</p></section><section><h2>4. 문의처</h2><p>이용 관련 문의: <a href="mailto:contact@iruvy.com">contact@iruvy.com</a></p><p>시행일 · 2026년 7월 24일</p></section>`);
-const accessibility = legalPage("ACCESSIBILITY", "웹 접근성 지침", "모든 사용자가 명확하게 정보에 접근할 수 있도록 웹 접근성 원칙을 준수합니다.", `<section><h2>접근성 원칙</h2><p>WCAG 2.2 AA 기준을 목표로 명확한 타이포그래피 계층 structure, 키보드 포커스, 텍스트 명암비 및 폼 접근성을 구현했습니다.</p></section><section><h2>주요 구현 사항</h2><ul><li>본문 바로가기 링크 제공</li><li>키보드 탐색 지원 (메뉴, 탭, 폼)</li><li>색상 외 테두리 및 텍스트 상태 정보 제공</li><li>스크린 리더 대안 텍스트 및 접근성 구조화</li></ul></section><section><h2>피드백</h2><p>불편 사항이 있으신 경우 <a href="mailto:contact@iruvy.com">contact@iruvy.com</a>으로 알려주시면 개선하겠습니다.</p></section>`);
+const legal = (kind) => kind === "privacy" ? `
+<section class="simple-hero compact"><div class="shell"><p class="eyebrow">PRIVACY</p><h1>개인정보 처리방침</h1><p>웹 문의 과정에서 제공한 정보를 문의 대응 목적으로 최소한으로 처리합니다.</p></div></section><section class="section"><div class="shell prose"><h2>수집 항목과 목적</h2><p>회사·기관, 이름, 이메일, 문의 내용을 상담 요청 확인과 회신에 사용합니다. 민감한 생산 원본 데이터는 첫 문의에서 수집하지 않습니다.</p><h2>보관과 삭제</h2><p>관계 법령과 합의된 목적에 필요한 기간 동안 보관한 뒤 삭제합니다. 삭제 또는 열람 요청은 contact@iruvy.com으로 접수할 수 있습니다.</p><h2>제품 데이터</h2><p>Guide와 Flow의 고객 원본 데이터와 학습권은 분리하며, 별도 동의 없이 다른 제품 학습에 사용하지 않습니다.</p></div></section>` : kind === "terms" ? `
+<section class="simple-hero compact"><div class="shell"><p class="eyebrow">TERMS</p><h1>이용약관</h1><p>본 웹사이트의 정보 이용 범위와 책임 한계를 안내합니다.</p></div></section><section class="section"><div class="shell prose"><h2>정보의 성격</h2><p>웹사이트는 회사와 제품의 현재 방향을 소개하며, 별도 계약 없이 가격·성과·SLA를 보장하지 않습니다.</p><h2>지식재산권</h2><p>별도 표기가 없는 Iruvy 브랜드와 콘텐츠의 권리는 주식회사 이루비에 있습니다.</p><h2>문의</h2><p>서비스 조건과 계약 범위는 개별 제안과 계약에서 확정합니다.</p></div></section>` : `
+<section class="simple-hero compact"><div class="shell"><p class="eyebrow">ACCESSIBILITY</p><h1>웹 접근성 원칙</h1><p>다양한 사용자가 키보드·화면낭독기·고대비 환경에서 정보를 이용할 수 있도록 개선합니다.</p></div></section><section class="section"><div class="shell prose"><h2>목표</h2><p>WCAG 2.2 AA를 실무 기준으로 삼아 명확한 제목 구조, 키보드 탐색, 포커스 표시, 충분한 대비와 큰 터치 영역을 유지합니다.</p><h2>모션</h2><p>운영 흐름의 모션은 장식이 아니라 관계 이해를 돕는 범위로 제한하며, 동작 줄이기 환경설정을 존중합니다.</p><h2>피드백</h2><p>이용이 어려운 부분은 contact@iruvy.com으로 알려주세요.</p></div></section>`;
 
 const pages = new Map([
-  ["", home], ["flow", flow], ["how-it-works", technology], ["capacity-lab", partners],
-  ["evidence", evidence], ["company", company],
-  ["privacy", privacy], ["terms", terms], ["accessibility", accessibility]
+  ["", ["Iruvy | Spatial Decision AI", "공간과 상황을 이해해 다음 최적 행동을 결정하는 Spatial Decision AI 기업. Iruvy Guide와 Iruvy Flow를 소개합니다.", home]],
+  ["guide", ["Iruvy Guide | 전시회 AI 에이전트", "방문자의 관심과 위치를 이해해 다음 부스·콘텐츠·동선을 추천하는 전시회 AI 에이전트.", guide]],
+  ["flow", ["Iruvy Flow | 산업현장 자율운영 및 유효 생산능력 증폭 AI", "산업현장의 사람·설비·자재·로봇을 최적화하는 고부가가치 제품 Iruvy Flow.", flow]],
+  ["evidence", ["성과와 Evidence | Iruvy", "Iruvy의 실측, 현장 PoC, 고객 데이터 Replay, 유료 검증과 라이브 성과를 투명하게 구분합니다.", evidence]],
+  ["technology", ["Iruvy Core | 기술과 신뢰", "현재 상태, 목표, 제약조건을 연결해 실행 가능한 대안을 계산하는 Spatial Decision AI 기술과 신뢰 원칙.", technology]],
+  ["company", ["회사 소개 | Iruvy", "공간과 상황을 이해해 다음 최적 행동을 결정하는 Spatial Decision AI를 개발하는 기업 Iruvy.", company]],
+  ["resources", ["인사이트와 자료실 | Iruvy", "전시 방문 경험, 제조 병목, 의사결정 AI의 경계와 검증 방법을 설명하는 Iruvy 자료실.", resources]],
+  ["capacity-lab", ["Capacity Audit | Iruvy Flow", "최근 납기 지연 사건 한 건으로 제조 현장의 Iruvy Flow 적합성과 데이터 준비도를 진단합니다.", capacityLab]],
+  ["contact", ["도입 상담 | Iruvy", "Iruvy Guide 행사 적합성 진단, Iruvy Flow Capacity Audit, 미디어와 파트너십 문의.", contact]],
+  ["privacy", ["개인정보 처리방침 | Iruvy", "Iruvy 웹사이트 문의와 제품 데이터의 개인정보 처리 원칙을 안내합니다.", legal("privacy")]],
+  ["terms", ["이용약관 | Iruvy", "Iruvy 웹사이트 정보의 이용 범위와 책임 한계를 안내합니다.", legal("terms")]],
+  ["accessibility", ["웹 접근성 | Iruvy", "Iruvy 웹사이트의 WCAG 2.2 AA 접근성 원칙과 피드백 방법을 안내합니다.", legal("accessibility")]],
 ]);
 
-// 1. Build to dist
-rmSync(out, { recursive: true, force: true });
-mkdirSync(join(out, "assets", "fonts"), { recursive: true });
-writeFileSync(join(out, "assets", "site.css"), readFileSync(join(root, "site-src", "styles.css")));
-writeFileSync(join(out, "assets", "site.js"), readFileSync(join(root, "site-src", "site.js")));
-for (const file of ["Pretendard-Regular.woff2", "Pretendard-SemiBold.woff2", "Pretendard-ExtraBold.woff2"]) {
-  cpSync(join(root, "assets", "fonts-web", file), join(out, "assets", "fonts", file));
-}
-for (const file of ["iruvy-logo.svg"]) cpSync(join(root, "assets", file), join(out, "assets", file));
-for (const file of ["favicon.ico"]) cpSync(join(root, file), join(out, file));
-if (existsSync(join(root, "assets", "og-flow-20260726.png"))) cpSync(join(root, "assets", "og-flow-20260726.png"), join(out, "assets", "og.png"));
-else if (existsSync(join(root, "assets", "og-flow-brand.png"))) cpSync(join(root, "assets", "og-flow-brand.png"), join(out, "assets", "og.png"));
-
-for (const [route, title, description] of routes) {
-  const path = route ? join(out, route, "index.html") : join(out, "index.html");
-  mkdirSync(dirname(path), { recursive: true });
-  const schema = route === "flow" ? `<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Iruvy Flow","applicationCategory":"BusinessApplication","description":"제조 제약공정 캐파 증폭을 위한 산업 자율운영 AI 제품","operatingSystem":"Web"}</script>` : "";
-  writeFileSync(path, document({ route, title, description, content: pages.get(route), schema }));
+for (const [route, [title, description, body]] of pages) {
+  const dir = route ? join(out, route) : out;
+  mkdirSync(dir, { recursive: true });
+  writeFileSync(join(dir, "index.html"), page({ route, title, description, body }));
 }
 
-const notFound = document({
-  route: "404", title: "페이지를 찾을 수 없습니다 | Iruvy",
-  description: "요청한 페이지를 찾을 수 없습니다. Iruvy Flow 제품과 제조 디자인 파트너 정보를 확인하세요.",
-  content: `${pageHero("404", "요청한 페이지를<br>찾을 수 없습니다.", "주소가 바뀌었거나 더 이상 제공하지 않는 페이지입니다.", `<a class="button primary" href="/">홈으로 이동</a><a class="button dark" href="/flow/">Iruvy Flow 보기</a>`)}`
-});
-writeFileSync(join(out, "404.html"), notFound);
+const redirect = (from, to, label) => {
+  const dir = join(out, from);
+  mkdirSync(dir, { recursive: true });
+  writeFileSync(join(dir, "index.html"), `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,follow"><meta http-equiv="refresh" content="0;url=${to}"><link rel="canonical" href="https://iruvy.com${to}"><title>${label} | Iruvy</title><meta name="description" content="새로운 Iruvy 페이지로 이동합니다."></head><body><main><h1>${label}</h1><p><a href="${to}">새 페이지로 이동</a></p></main></body></html>`);
+};
+redirect("go", "/guide/", "Iruvy Guide로 이동");
+redirect("pricing", "/contact/", "도입 범위 상담으로 이동");
 
-writeFileSync(join(out, "robots.txt"), `User-agent: *\nAllow: /\n\nSitemap: https://iruvy.com/sitemap.xml\n`);
-writeFileSync(join(out, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${routes.map(([route]) => `  <url><loc>https://iruvy.com/${route ? `${route}/` : ""}</loc><lastmod>${today}</lastmod></url>`).join("\n")}\n</urlset>\n`);
+const urls = [...pages.keys()].map((route) => `  <url><loc>https://iruvy.com/${route ? `${route}/` : ""}</loc></url>`).join("\n");
+writeFileSync(join(out, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>`);
+writeFileSync(join(out, "robots.txt"), "User-agent: *\nAllow: /\nDisallow: /pricing/\nSitemap: https://iruvy.com/sitemap.xml\n");
+writeFileSync(join(out, "404.html"), page({ route: "404", title: "페이지를 찾을 수 없습니다 | Iruvy", description: "요청한 페이지를 찾을 수 없습니다. Iruvy 홈에서 원하는 정보를 확인해 주세요.", robots: "noindex", body: `<section class="simple-hero compact"><div class="shell"><p class="eyebrow">404</p><h1>페이지를 찾을 수 없습니다</h1><p>주소가 바뀌었거나 더 이상 제공하지 않는 페이지입니다.</p><a class="button" href="/">Iruvy 홈으로</a></div></section>` }));
 
-const worker = `export default { async fetch(request, env) { return env.ASSETS.fetch(request); } };\n`;
-mkdirSync(join(out, "server"), { recursive: true });
-writeFileSync(join(out, "server", "index.js"), worker);
-mkdirSync(join(out, ".openai"), { recursive: true });
-cpSync(join(root, ".openai", "hosting.json"), join(out, ".openai", "hosting.json"));
-
-// 2. Also sync root files so direct root viewing/serving gets updated content
-mkdirSync(join(root, "styles"), { recursive: true });
-writeFileSync(join(root, "index.html"), readFileSync(join(out, "index.html")));
-writeFileSync(join(root, "styles", "sales.css"), readFileSync(join(root, "site-src", "styles.css")));
-writeFileSync(join(root, "scripts", "site.js"), readFileSync(join(root, "site-src", "site.js")));
-
-console.log(`Built Iruvy Flow site cleanly without FLOW CORE tag ${vTag}`);
+console.log(`Built ${pages.size + 3} pages into ${out}`);
