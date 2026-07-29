@@ -67,8 +67,8 @@
     const labels = { guide: "Iruvy Guide 행사 적합성", flow: "Iruvy Flow Capacity Audit", partner: "Iruvy 파트너십", media: "Iruvy 미디어" };
     const subject = encodeURIComponent(`[${labels[values.product] || "Iruvy 문의"}] ${values.organization} · ${values.name}`);
     const body = encodeURIComponent(`회사·기관: ${values.organization}\n이름: ${values.name}\n이메일: ${values.email}\n문의 유형: ${labels[values.product] || values.product}\n\n문의 내용\n${values.message}`);
-    window.location.href = `mailto:contact@iruvy.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:iruvy.official@gmail.com?subject=${subject}&body=${body}`;
     const note = contactForm.querySelector("[data-form-note]");
-    if (note) note.textContent = "이메일 앱을 열었습니다. 열리지 않으면 contact@iruvy.com으로 보내주세요.";
+    if (note) note.textContent = "이메일 앱을 열었습니다. 열리지 않으면 iruvy.official@gmail.com으로 보내주세요.";
   });
 })();

@@ -224,7 +224,7 @@
           </div>`;
         form.querySelector(".form-success")?.focus();
       } catch (error) {
-        if (status) status.textContent = "접수하지 못했습니다. 잠시 후 다시 시도하거나 contact@iruvy.com으로 연락해 주세요.";
+        if (status) status.textContent = "접수하지 못했습니다. 잠시 후 다시 시도하거나 iruvy.official@gmail.com으로 연락해 주세요.";
         submit.disabled = false;
         track("fit_form_error", error.message);
       }

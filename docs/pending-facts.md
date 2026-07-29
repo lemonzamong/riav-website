@@ -5,7 +5,7 @@
 - 실제 시연 가능한 Iruvy Flow 기능과 테스트 근거
 - 전송·저장 암호화, 고객별 격리와 감사로그의 현재 구현 범위
 - 폐쇄망·온프레미스 배포 가능 여부
-- `contact@`, `partners@`, `security@iruvy.com` 메일 생성 및 SPF·DKIM·DMARC 설정
+- 공식 문의 이메일 `iruvy.official@gmail.com`의 운영·접근권한 확인
 - 기존 공개 경로의 외부 링크와 계약·지원 의무
 
 확인 전에는 사이트에서 현재 제공 기능이나 성과로 표현하지 않는다.

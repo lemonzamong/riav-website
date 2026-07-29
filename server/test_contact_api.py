@@ -202,7 +202,7 @@ class ContactApiTests(unittest.TestCase):
             "type": "email.bounced",
             "data": {
                 "email_id": "initial-1",
-                "from": "Iruvy <contact@iruvy.com>",
+                "from": "Iruvy <iruvy.official@gmail.com>",
                 "to": ["buyer@example.com"],
             },
         }

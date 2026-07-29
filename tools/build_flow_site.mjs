@@ -65,7 +65,7 @@ const footer = `
   </div>
   <div class="shell footer-bottom">
     <span>© 2026 IRUVY INC. <time datetime="2026-07-30">사이트 업데이트 2026.07.30</time></span>
-    <span><a href="mailto:contact@iruvy.com">contact@iruvy.com</a> · <a href="/privacy/">개인정보 처리방침</a> · <a href="/terms/">이용약관</a></span>
+    <span><a href="mailto:iruvy.official@gmail.com">iruvy.official@gmail.com</a> · <a href="/privacy/">개인정보 처리방침</a> · <a href="/terms/">이용약관</a></span>
   </div>
 </footer>`;
 
@@ -102,11 +102,11 @@ const organizationSchema = {
   },
   image: imageUrl("og.jpg"),
   description: "공간과 상황을 이해해 다음 최적 행동을 결정하는 Spatial Decision AI를 개발하는 기업",
-  email: "contact@iruvy.com",
+  email: "iruvy.official@gmail.com",
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "sales and customer support",
-    email: "contact@iruvy.com",
+    email: "iruvy.official@gmail.com",
     availableLanguage: "Korean",
   },
   knowsAbout: [
@@ -589,9 +589,9 @@ const contact = `
 <section class="section"><div class="shell contact-layout"><div class="contact-choice"><button type="button" class="choice active" data-choice="guide"><small>EXHIBITION &amp; SPACE</small><b>Iruvy Guide</b><span>행사 적합성·전시장·공간 상담</span></button><button type="button" class="choice" data-choice="flow"><small>MANUFACTURING</small><b>Iruvy Flow</b><span>Capacity Audit·제조 현장 진단</span></button><button type="button" class="choice" data-choice="partner"><small>COMPANY</small><b>미디어·파트너십</b><span>보도·협력·투자·채용 문의</span></button></div><form class="contact-form" data-contact-form><input type="hidden" name="product" value="guide"><label>회사·기관<input name="organization" required autocomplete="organization"></label><label>이름<input name="name" required autocomplete="name"></label><label>이메일<input name="email" type="email" required autocomplete="email"></label><label>문의 내용<textarea name="message" rows="6" required placeholder="행사 일정과 규모, 또는 최근 발생한 납기·병목 사건을 알려주세요."></textarea></label><label class="consent"><input type="checkbox" required> <span><a href="/privacy/">개인정보 처리방침</a>에 동의합니다.</span></label><button class="button" type="submit">이메일 초안 열기</button><p class="form-note" aria-live="polite" data-form-note>원본 생산 데이터와 민감정보는 첫 문의에 첨부하지 마세요.</p></form></div></section>`;
 
 const legal = (kind) => kind === "privacy" ? `
-<section class="simple-hero compact"><div class="shell"><p class="eyebrow">PRIVACY</p><h1>개인정보 처리방침</h1><p>웹 문의 과정에서 제공한 정보를 문의 대응 목적으로 최소한으로 처리합니다.</p></div></section><section class="section"><div class="shell prose"><h2>수집 항목과 목적</h2><p>회사·기관, 이름, 이메일, 문의 내용을 상담 요청 확인과 회신에 사용합니다. 민감한 생산 원본 데이터는 첫 문의에서 수집하지 않습니다.</p><h2>보관과 삭제</h2><p>관계 법령과 합의된 목적에 필요한 기간 동안 보관한 뒤 삭제합니다. 삭제 또는 열람 요청은 contact@iruvy.com으로 접수할 수 있습니다.</p><h2>제품 데이터</h2><p>Guide와 Flow의 고객 원본 데이터와 학습권은 분리하며, 별도 동의 없이 다른 제품 학습에 사용하지 않습니다.</p></div></section>` : kind === "terms" ? `
+<section class="simple-hero compact"><div class="shell"><p class="eyebrow">PRIVACY</p><h1>개인정보 처리방침</h1><p>웹 문의 과정에서 제공한 정보를 문의 대응 목적으로 최소한으로 처리합니다.</p></div></section><section class="section"><div class="shell prose"><h2>수집 항목과 목적</h2><p>회사·기관, 이름, 이메일, 문의 내용을 상담 요청 확인과 회신에 사용합니다. 민감한 생산 원본 데이터는 첫 문의에서 수집하지 않습니다.</p><h2>보관과 삭제</h2><p>관계 법령과 합의된 목적에 필요한 기간 동안 보관한 뒤 삭제합니다. 삭제 또는 열람 요청은 iruvy.official@gmail.com으로 접수할 수 있습니다.</p><h2>제품 데이터</h2><p>Guide와 Flow의 고객 원본 데이터와 학습권은 분리하며, 별도 동의 없이 다른 제품 학습에 사용하지 않습니다.</p></div></section>` : kind === "terms" ? `
 <section class="simple-hero compact"><div class="shell"><p class="eyebrow">TERMS</p><h1>이용약관</h1><p>본 웹사이트의 정보 이용 범위와 책임 한계를 안내합니다.</p></div></section><section class="section"><div class="shell prose"><h2>정보의 성격</h2><p>웹사이트는 회사와 제품의 현재 방향을 소개하며, 별도 계약 없이 가격·성과·SLA를 보장하지 않습니다.</p><h2>지식재산권</h2><p>별도 표기가 없는 Iruvy 브랜드와 콘텐츠의 권리는 주식회사 이루비에 있습니다.</p><h2>문의</h2><p>서비스 조건과 계약 범위는 개별 제안과 계약에서 확정합니다.</p></div></section>` : `
-<section class="simple-hero compact"><div class="shell"><p class="eyebrow">ACCESSIBILITY</p><h1>웹 접근성 원칙</h1><p>다양한 사용자가 키보드·화면낭독기·고대비 환경에서 정보를 이용할 수 있도록 개선합니다.</p></div></section><section class="section"><div class="shell prose"><h2>목표</h2><p>WCAG 2.2 AA를 실무 기준으로 삼아 명확한 제목 구조, 키보드 탐색, 포커스 표시, 충분한 대비와 큰 터치 영역을 유지합니다.</p><h2>모션</h2><p>운영 흐름의 모션은 장식이 아니라 관계 이해를 돕는 범위로 제한하며, 동작 줄이기 환경설정을 존중합니다.</p><h2>피드백</h2><p>이용이 어려운 부분은 contact@iruvy.com으로 알려주세요.</p></div></section>`;
+<section class="simple-hero compact"><div class="shell"><p class="eyebrow">ACCESSIBILITY</p><h1>웹 접근성 원칙</h1><p>다양한 사용자가 키보드·화면낭독기·고대비 환경에서 정보를 이용할 수 있도록 개선합니다.</p></div></section><section class="section"><div class="shell prose"><h2>목표</h2><p>WCAG 2.2 AA를 실무 기준으로 삼아 명확한 제목 구조, 키보드 탐색, 포커스 표시, 충분한 대비와 큰 터치 영역을 유지합니다.</p><h2>모션</h2><p>운영 흐름의 모션은 장식이 아니라 관계 이해를 돕는 범위로 제한하며, 동작 줄이기 환경설정을 존중합니다.</p><h2>피드백</h2><p>이용이 어려운 부분은 iruvy.official@gmail.com으로 알려주세요.</p></div></section>`;
 
 const pages = new Map([
   ["", {
@@ -762,7 +762,7 @@ const llms = `# Iruvy (이루비)
 
 ## Contact
 
-- Email: contact@iruvy.com
+- Email: iruvy.official@gmail.com
 - Canonical domain: https://iruvy.com/
 `;
 writeFileSync(join(out, "llms.txt"), llms);
@@ -821,7 +821,7 @@ Iruvy Flow Capacity Audit은 최근 발생한 납기 지연 또는 병목 사건
 - Terms: https://iruvy.com/terms/
 - Accessibility: https://iruvy.com/accessibility/
 
-공식 문의 이메일은 contact@iruvy.com입니다. 도입 범위, 가격, 성과와 SLA는 개별 제안과 계약에서 확정합니다.
+공식 문의 이메일은 iruvy.official@gmail.com입니다. 도입 범위, 가격, 성과와 SLA는 개별 제안과 계약에서 확정합니다.
 `;
 writeFileSync(join(out, "llms-full.txt"), llmsFull);
 writeFileSync(join(out, "404.html"), page({ route: "404", title: "페이지를 찾을 수 없습니다 | Iruvy", description: "요청한 페이지를 찾을 수 없습니다. Iruvy 홈에서 원하는 정보를 확인해 주세요.", robots: "noindex", body: `<section class="simple-hero compact"><div class="shell"><p class="eyebrow">404</p><h1>페이지를 찾을 수 없습니다</h1><p>주소가 바뀌었거나 더 이상 제공하지 않는 페이지입니다.</p><a class="button" href="/">Iruvy 홈으로</a></div></section>` }));

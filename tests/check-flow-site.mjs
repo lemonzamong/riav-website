@@ -28,6 +28,8 @@ for (const route of routes) {
   if (!existsSync(path)) { errors.push(`${route || "/"}: 파일 누락`); continue; }
   const html = readFileSync(path, "utf8");
   if (!/<html lang="ko">/.test(html)) errors.push(`${route || "/"}: 언어 누락`);
+  if (!html.includes("iruvy.official@gmail.com")) errors.push(`${route || "/"}: 공식 이메일 누락`);
+  if (/contact@iruvy\.com|security@iruvy\.com/.test(html)) errors.push(`${route || "/"}: 이전 이메일 잔존`);
   if ((html.match(/<h1(?:\s|>)/g) || []).length !== 1) errors.push(`${route || "/"}: h1 오류`);
   if (!/<meta name="description" content="[^"]{30,}">/.test(html)) errors.push(`${route || "/"}: 설명 누락`);
   const title = html.match(/<title>([^<]+)<\/title>/)?.[1];
@@ -119,6 +121,10 @@ for (const route of routes) {
 }
 for (const phrase of ["Iruvy (이루비)", "주식회사 이루비", "Spatial Decision AI", "Iruvy Guide", "Iruvy Flow"]) {
   if (!llms.includes(phrase) || !llmsFull.includes(phrase)) errors.push(`AI 문맥 핵심 엔터티 누락: ${phrase}`);
+}
+for (const text of [llms, llmsFull, readFileSync(join(root, "assets", "site.js"), "utf8")]) {
+  if (!text.includes("iruvy.official@gmail.com")) errors.push("공식 이메일이 AI 문맥 또는 문의 스크립트에 누락");
+  if (/contact@iruvy\.com|security@iruvy\.com/.test(text)) errors.push("이전 이메일이 배포 파일에 잔존");
 }
 
 if (errors.length) {
