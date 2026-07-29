@@ -9,6 +9,8 @@ const version = `20260730-${Date.now()}`;
 rmSync(out, { recursive: true, force: true });
 mkdirSync(out, { recursive: true });
 mkdirSync(join(out, "assets"), { recursive: true });
+mkdirSync(join(out, ".openai"), { recursive: true });
+cpSync(join(root, ".openai", "hosting.json"), join(out, ".openai", "hosting.json"));
 cpSync(join(root, "site-src", "styles.css"), join(out, "assets", "site.css"));
 cpSync(join(root, "site-src", "site.js"), join(out, "assets", "site.js"));
 cpSync(join(root, "assets", "iruvy-logo.svg"), join(out, "assets", "iruvy-logo.svg"));

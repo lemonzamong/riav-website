@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 const root = join(dirname(fileURLToPath(import.meta.url)), "..", "dist");
 const routes = ["", "guide", "flow", "evidence", "technology", "resources", "company", "capacity-lab", "contact", "privacy", "terms", "accessibility"];
 const errors = [];
+if (!existsSync(join(root, ".openai", "hosting.json"))) errors.push("Sites 배포 메타파일 누락");
 const banned = ["국내 유일", "세계 최고", "완전 자율 공장", "100% 정확도", "모든 ERP·MES 연동", "검증된 보안", "Iruvy Go", "[TODO]", "Lorem ipsum"];
 const titles = new Set();
 const descriptions = new Set();
