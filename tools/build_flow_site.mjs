@@ -827,6 +827,21 @@ writeFileSync(join(out, "llms-full.txt"), llmsFull);
 writeFileSync(join(out, "404.html"), page({ route: "404", title: "페이지를 찾을 수 없습니다 | Iruvy", description: "요청한 페이지를 찾을 수 없습니다. Iruvy 홈에서 원하는 정보를 확인해 주세요.", robots: "noindex", body: `<section class="simple-hero compact"><div class="shell"><p class="eyebrow">404</p><h1>페이지를 찾을 수 없습니다</h1><p>주소가 바뀌었거나 더 이상 제공하지 않는 페이지입니다.</p><a class="button" href="/">Iruvy 홈으로</a></div></section>` }));
 
 mkdirSync(join(out, "server"), { recursive: true });
-writeFileSync(join(out, "server", "index.js"), "export default { async fetch(request, env) { return env.ASSETS.fetch(request); } };\n");
+writeFileSync(
+  join(out, "server", "index.js"),
+  `export default {
+  async fetch(request, env) {
+    const url = new URL(request.url);
+    if (url.pathname === "/pricing" || url.pathname.startsWith("/pricing/")) {
+      return Response.redirect(new URL("/contact/", url), 301);
+    }
+    if (url.pathname === "/go" || url.pathname.startsWith("/go/")) {
+      return Response.redirect(new URL("/guide/", url), 301);
+    }
+    return env.ASSETS.fetch(request);
+  },
+};
+`,
+);
 
 console.log(`Built ${pages.size + 3} pages into ${out}`);

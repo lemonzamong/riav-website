@@ -89,6 +89,13 @@ if (!home.includes('<p class="lede">공간과 운영 상태를 읽고, 목표와
 }
 const pricing = readFileSync(join(root, "pricing", "index.html"), "utf8");
 if (!pricing.includes("noindex,follow") || !pricing.includes("/contact/")) errors.push("pricing 비공개 전환 누락");
+const edgeWorker = readFileSync(join(root, "server", "index.js"), "utf8");
+if (!edgeWorker.includes('url.pathname.startsWith("/pricing/")') || !edgeWorker.includes('new URL("/contact/", url), 301')) {
+  errors.push("pricing 301 리디렉션 누락");
+}
+if (!edgeWorker.includes('url.pathname.startsWith("/go/")') || !edgeWorker.includes('new URL("/guide/", url), 301')) {
+  errors.push("go 301 리디렉션 누락");
+}
 const go = readFileSync(join(root, "go", "index.html"), "utf8");
 if (!go.includes("noindex,follow") || !go.includes("/guide/")) errors.push("Go 통합 리디렉션 누락");
 const robots = readFileSync(join(root, "robots.txt"), "utf8");
