@@ -13,6 +13,9 @@ cpSync(join(root, "site-src", "styles.css"), join(out, "assets", "site.css"));
 cpSync(join(root, "site-src", "site.js"), join(out, "assets", "site.js"));
 cpSync(join(root, "assets", "iruvy-logo.svg"), join(out, "assets", "iruvy-logo.svg"));
 cpSync(join(root, "assets", "og.png"), join(out, "assets", "og.png"));
+cpSync(join(root, "assets", "hero-spatial-decision.png"), join(out, "assets", "hero-spatial-decision.png"));
+cpSync(join(root, "assets", "guide-exhibition.png"), join(out, "assets", "guide-exhibition.png"));
+cpSync(join(root, "assets", "flow-factory.png"), join(out, "assets", "flow-factory.png"));
 cpSync(join(root, "assets", "fonts-web", "Pretendard-Regular.woff2"), join(out, "assets", "Pretendard-Regular.woff2"));
 cpSync(join(root, "assets", "fonts-web", "Pretendard-SemiBold.woff2"), join(out, "assets", "Pretendard-SemiBold.woff2"));
 cpSync(join(root, "favicon.ico"), join(out, "favicon.ico"));
@@ -81,7 +84,8 @@ const page = ({ route = "", title, description, body, robots = "index,follow" })
   <meta property="og:url" content="https://iruvy.com/${route ? `${route}/` : ""}">
   <meta property="og:image" content="https://iruvy.com/assets/og.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="theme-color" content="#0a1020">
+  <meta name="theme-color" content="#0c0a12">
+  ${route === "" ? '<link rel="preload" as="image" href="/assets/hero-spatial-decision.png">' : route === "guide" ? '<link rel="preload" as="image" href="/assets/guide-exhibition.png">' : route === "flow" ? '<link rel="preload" as="image" href="/assets/flow-factory.png">' : ""}
   <link rel="icon" href="/favicon.ico">
   <link rel="stylesheet" href="/assets/site.css?v=${version}">
   <script src="/assets/site.js?v=${version}" defer></script>
@@ -90,112 +94,264 @@ const page = ({ route = "", title, description, body, robots = "index,follow" })
 <body>${header}<main id="main">${body}</main>${footer}</body>
 </html>`;
 
-const decisionVisual = `
-<div class="decision-visual" aria-label="현재 상태와 목표, 제약조건을 계산해 다음 최적 행동을 선택하는 과정">
-  <div class="visual-head"><span>DECISION FIELD</span><span class="live-dot">LIVE CONTEXT</span></div>
-  <div class="decision-stage">
-    <div class="source-node"><i></i><span>현재 상태</span></div>
-    <div class="branch branch-a"><i></i><span>행동 A</span></div>
-    <div class="branch branch-b"><i></i><span>행동 B</span></div>
-    <div class="branch branch-c"><i></i><span>행동 C</span></div>
-    <div class="constraint-card"><small>GOAL + CONSTRAINTS</small><b>목표·제약조건 계산</b><span>시간 · 공간 · 운영 · 안전</span></div>
-    <div class="selected-node"><i></i><small>NEXT BEST ACTION</small><b>행동 B</b></div>
-    <div class="path p1"></div><div class="path p2"></div><div class="path p3"></div><div class="path p4"></div>
-  </div>
-</div>`;
-
 const statusPill = (label, tone = "") => `<span class="status ${tone}">${label}</span>`;
 
 const home = `
-<section class="hero">
-  <div class="shell hero-grid">
-    <div class="hero-copy">
-      <p class="eyebrow">SPATIAL DECISION AI</p>
-      <h1>현장의 다음<br><span>최적 행동</span>을 계산합니다</h1>
-      <p class="lede">Iruvy는 공간과 운영 데이터를 목표·제약조건과 연결해 방문자의 다음 경험과 산업 현장의 다음 운영 결정을 제안합니다.</p>
-      <div class="actions"><a class="button" href="/guide/">전시·공간 솔루션</a><a class="button ghost" href="/flow/">제조 현장 솔루션</a></div>
-    </div>
-    ${decisionVisual}
-  </div>
-  <div class="shell proof-rail" aria-label="현재 검증 상태">
-    <div><small>GUIDE</small><b>산업 전시회</b><span>첫 상용화 시장</span></div>
-    <div><small>FLOW</small><b>L0 → L1</b><span>관찰·추천 단계</span></div>
-    <div><small>CORE</small><b>State → Action</b><span>공통 의사결정 구조</span></div>
-    <div><small>GOVERNANCE</small><b>Human approved</b><span>사람이 최종 결정</span></div>
+<section class="hero hero-cinematic">
+  <img class="hero-media" src="/assets/hero-spatial-decision.png" alt="산업 전시 공간과 정밀 제조 현장을 하나의 선택 경로로 연결한 장면" width="1586" height="992" fetchpriority="high">
+  <div class="hero-scrim" aria-hidden="true"></div>
+  <div class="shell hero-content" data-reveal>
+    <p class="eyebrow">SPATIAL DECISION AI</p>
+    <h1>현장의 다음<br><em>최적 행동</em>을<span class="mobile-break"><br></span> 계산합니다</h1>
+    <p class="lede">공간과 운영 상태를 읽고, 목표와 제약 안에서 다음 행동을 제안합니다.</p>
+    <div class="actions"><a class="button" href="/guide/">Iruvy Guide</a><a class="button ghost" href="/flow/">Iruvy Flow</a></div>
   </div>
 </section>
 
-<section class="section intro">
-  <div class="shell two-col">
-    <div><p class="eyebrow dark">THE DECISION GAP</p><h2>데이터는 쌓이지만,<br>다음 결정은 여전히<br>처음부터 다시 합니다</h2></div>
-    <div class="comparison">
-      <article><small>기존 시스템</small><p>무엇이 기록됐는가</p><p>현재 상태 조회</p><p>이상 알림</p><p>결과 집계</p></article>
-      <article class="active"><small>IRUVY DECISION LAYER</small><p>지금 무엇을 해야 하는가</p><p>가능한 행동 비교</p><p>실행 대안 제안</p><p>결과와 근거 기록</p></article>
-    </div>
+<section class="signal-band" aria-label="Iruvy의 제품 구조">
+  <div class="shell signal-grid">
+    <div><span>Visitor</span><b>관심과 위치에서<br>다음 경험으로</b></div>
+    <div class="signal-core"><span>Spatial Decision Core</span><b>State + Goal + Constraints<br>Next Best Action</b></div>
+    <div><span>Industry</span><b>제약과 예외에서<br>다음 운영 결정으로</b></div>
   </div>
 </section>
 
-<section class="section products">
-  <div class="shell">
-    <div class="section-head"><p class="eyebrow dark">TWO PRODUCTS, ONE CORE</p><h2>같은 질문을, 서로 다른 현장에서 풉니다</h2><p>공간과 산업이라는 서로 다른 시장에 하나의 Spatial Decision 구조를 적용합니다. 고객과 원본 데이터, 핵심 도메인 모델은 제품별로 분리합니다.</p></div>
-    <div class="product-grid">
-      <article class="product-card guide-card">
-        <div class="product-index">01 / VISITOR</div>
-        <h3>Iruvy Guide</h3>
-        <p class="product-claim">관람객마다 다른 최적 동선과 콘텐츠를 제안합니다.</p>
-        <ul><li>전시 주최사·전시장·행사대행사</li><li>앱 설치 없는 QR 웹</li><li>추천 → 방문 → 상담 연결</li></ul>
-        <a href="/guide/">Guide 살펴보기 <span>↗</span></a>
+<section class="decision-story">
+  <div class="shell story-grid">
+    <div class="story-sticky">
+      <p class="eyebrow">DECISION, NOT ANOTHER DASHBOARD</p>
+      <h2>기록된 상태를<br>실행할 결정으로</h2>
+      <p>기존 시스템 위에서 지금 가능한 선택을 비교하고, 사람이 실행할 한 가지 행동을 분명하게 만듭니다.</p>
+      <a class="text-link" href="/technology/">Iruvy Core 보기</a>
+    </div>
+    <div class="story-steps">
+      <article data-reveal>
+        <span>현재 상태</span>
+        <h3>현실을 한 시점으로 연결합니다</h3>
+        <p>사람, 공간, 설비, 작업과 시간을 현재 상태로 묶습니다.</p>
+        <div class="state-ribbon" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
       </article>
-      <article class="product-card flow-card">
-        <div class="product-index">02 / INDUSTRY</div>
-        <h3>Iruvy Flow</h3>
-        <p class="product-claim">예외가 발생한 순간, 손실이 가장 적은 복구안을 계산합니다.</p>
-        <ul><li>공장장·생산관리·제조 DX</li><li>ERP·MES·Excel 읽기 중심 연결</li><li>처리량·납기·비용 대안 비교</li></ul>
-        <a href="/flow/">Flow 살펴보기 <span>↗</span></a>
+      <article data-reveal>
+        <span>목표와 제약</span>
+        <h3>좋아 보이는 답을 지웁니다</h3>
+        <p>시간, 위치, 안전, 품질과 운영 규칙을 통과한 행동만 남깁니다.</p>
+        <div class="constraint-words" aria-hidden="true"><b>TIME</b><b>SPACE</b><b>SAFETY</b><b>QUALITY</b></div>
+      </article>
+      <article class="story-selected" data-reveal>
+        <span>다음 행동</span>
+        <h3>사람이 결정할 대안을 제시합니다</h3>
+        <p>근거와 예상 결과를 함께 보고 수정, 승인 또는 거절합니다.</p>
+        <div class="choice-line" aria-hidden="true"><i></i><i></i><i class="selected"></i></div>
       </article>
     </div>
   </div>
 </section>
 
-<section class="section process">
+<section class="product-worlds">
   <div class="shell">
-    <div class="section-head light"><p class="eyebrow">HOW IRUVY WORKS</p><h2>복잡한 현장을 네 단계로 명확하게</h2></div>
-    <ol class="process-grid">
-      <li><span>01</span><h3>현장 상태 연결</h3><p>공간·콘텐츠·운영 데이터를 현재 시점의 상태로 연결합니다.</p></li>
-      <li><span>02</span><h3>목표와 제약 모델링</h3><p>시간, 위치, 안전, 운영 규칙과 우선순위를 함께 계산합니다.</p></li>
-      <li><span>03</span><h3>가능한 행동 비교</h3><p>여러 대안의 결과를 비교해 실행 가능한 다음 행동을 제안합니다.</p></li>
-      <li><span>04</span><h3>승인과 결과 기록</h3><p>사람이 검토·수정·승인하고 실제 결과와 근거를 남깁니다.</p></li>
-    </ol>
-    <a class="text-link light" href="/technology/">Iruvy Core와 신뢰 원칙 보기 →</a>
+    <div class="section-head"><h2>하나의 질문.<br>서로 다른 두 현장.</h2><p>공통 기술은 공유하고 고객, 원본 데이터와 학습권은 분리합니다.</p></div>
+    <article class="world world-guide" data-reveal>
+      <div class="world-media"><img src="/assets/guide-exhibition.png" alt="산업 전시회에서 모바일 가이드를 확인하며 이동하는 방문자" width="1448" height="1086" loading="lazy"></div>
+      <div class="world-copy">
+        <span>IRUVY GUIDE</span>
+        <h3>관심에서<br>다음 방문으로</h3>
+        <p>방문자의 관심, 위치와 남은 시간을 읽어 다음 부스와 콘텐츠, 동선을 추천합니다.</p>
+        <a href="/guide/">Guide 살펴보기</a>
+      </div>
+    </article>
+    <article class="world world-flow" data-reveal>
+      <div class="world-copy">
+        <span>IRUVY FLOW</span>
+        <h3>차질에서<br>복구 결정으로</h3>
+        <p>설비, 작업, 자재와 납기 제약을 연결해 생산관리자가 검토할 복구 대안을 계산합니다.</p>
+        <a href="/flow/">Flow 살펴보기</a>
+      </div>
+      <div class="world-media"><img src="/assets/flow-factory.png" alt="정밀 제조 현장에서 생산 일정을 검토하는 관리자와 엔지니어" width="1448" height="1086" loading="lazy"></div>
+    </article>
   </div>
 </section>
 
-<section class="section trust-section">
-  <div class="shell two-col">
-    <div><p class="eyebrow dark">TRUST BY DESIGN</p><h2>강한 문장보다<br>정확한 범위를 말합니다</h2><p>검증 전 가설과 측정된 성과를 구분하고, 사람이 최종 결정하며, 제품별 원본 데이터와 학습권을 분리합니다.</p><a class="text-link" href="/evidence/">Evidence 체계 보기 →</a></div>
-    <div class="trust-list"><span>기존 시스템 교체 없음</span><span>읽기 전용 연동 우선</span><span>관리자 최종 승인</span><span>고객별 데이터 격리</span><span>Guide·Flow 원본 데이터 분리</span><span>작업자 감시 목적 제외</span></div>
+<section class="operating-loop">
+  <div class="shell">
+    <h2>Sense <span>World</span> Decide <span>Act</span> Proof</h2>
+    <div class="loop-copy">
+      <p>현장을 읽고 가능한 행동을 비교합니다.</p>
+      <p>사람의 결정과 실제 결과를 다음 판단의 근거로 남깁니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="trust-manifesto">
+  <div class="shell trust-layout">
+    <div>
+      <h2>자동화보다 먼저,<br>통제 가능한 결정</h2>
+      <p>과장된 자율성보다 현재 검증 가능한 범위를 정확히 말합니다.</p>
+      <a class="text-link" href="/evidence/">Evidence 체계 보기</a>
+    </div>
+    <dl>
+      <div><dt>기존 시스템</dt><dd>교체하지 않음</dd></div>
+      <div><dt>초기 연결</dt><dd>읽기 중심</dd></div>
+      <div><dt>최종 결정</dt><dd>관리자 최종 승인</dd></div>
+      <div><dt>제품 데이터</dt><dd>Guide와 Flow 분리</dd></div>
+      <div><dt>개인 감시</dt><dd>기본 범위에서 제외</dd></div>
+    </dl>
   </div>
 </section>
 
 <section class="final-cta">
-  <div class="shell"><p class="eyebrow">START WITH ONE DECISION</p><h2>어떤 현장의 다음 결정을<br>개선하시나요?</h2><div class="actions center"><a class="button pale" href="/contact/?product=guide">전시·공간 도입 상담</a><a class="button outline-light" href="/contact/?product=flow">제조 현장 적합성 진단</a></div></div>
+  <div class="shell">
+    <h2>어떤 현장의 다음 결정을<br>개선하시나요?</h2>
+    <div class="actions center"><a class="button pale" href="/contact/?product=guide">전시 도입 상담</a><a class="button outline-light" href="/contact/?product=flow">제조 현장 진단</a></div>
+  </div>
 </section>`;
 
 const guide = `
-<section class="page-hero guide-hero"><div class="shell page-hero-grid"><div><p class="eyebrow">IRUVY GUIDE</p><h1>관람객마다 다른 최적 동선,<br><span>주최자에게는 실행 가능한 운영 데이터</span></h1><p class="lede">관심사와 남은 시간을 바탕으로 방문 동선을 만들고, 기업·제품 설명과 행사 데이터를 하나의 웹 경험으로 연결합니다.</p><div class="actions"><a class="button" href="/contact/?product=guide">행사 적합성 진단</a><a class="button ghost-light" href="#journey">사용 흐름 보기</a></div></div><div class="phone-scene" aria-label="Iruvy Guide 모바일 서비스 개념 화면"><div class="phone"><div class="phone-bar"></div><small>FOR YOU · 75 MIN</small><h3>지금 볼 만한<br>3개의 부스</h3><div class="mini-route"><i></i><i></i><i></i></div><div class="phone-card"><b>정밀 제조 자동화</b><span>도보 4분 · 관심도 높음</span></div><div class="phone-card"><b>산업용 비전 AI</b><span>도보 7분 · 세션 14:20</span></div></div><div class="orbit-label a">관심사</div><div class="orbit-label b">남은 시간</div><div class="orbit-label c">현재 위치</div></div></div></section>
-<section class="section" id="journey"><div class="shell"><div class="section-head"><p class="eyebrow dark">VISITOR JOURNEY</p><h2>설치 없이 시작해, 다음 방문까지 이어집니다</h2></div><ol class="journey"><li><span>01</span><b>관심사 입력</b></li><li><span>02</span><b>추천 부스·동선</b></li><li><span>03</span><b>근거 있는 설명</b></li><li><span>04</span><b>저장·상담 연결</b></li><li><span>05</span><b>다음 방문지 추천</b></li><li><span>06</span><b>운영 결과 분석</b></li></ol></div></section>
-<section class="section tinted"><div class="shell"><div class="section-head"><p class="eyebrow dark">VALUE BY STAKEHOLDER</p><h2>한 번의 방문 경험이 세 이해관계자의 가치가 됩니다</h2></div><div class="tab-shell" data-tabs><div class="tabs" role="tablist"><button role="tab" aria-selected="true" aria-controls="visitor" id="tab-visitor">방문자</button><button role="tab" aria-selected="false" aria-controls="organizer" id="tab-organizer">주최자</button><button role="tab" aria-selected="false" aria-controls="exhibitor" id="tab-exhibitor">참가기업</button></div><div class="tab-panel" role="tabpanel" id="visitor" aria-labelledby="tab-visitor"><h3>짧은 시간에, 나에게 맞는 경험을</h3><p>관심사·시간·위치에 맞는 부스와 콘텐츠를 발견하고 낯선 공간에서 다음 행동을 쉽게 결정합니다.</p><div class="feature-chips"><span>개인화 동선</span><span>기업·제품 설명</span><span>앱 설치 없는 웹</span><span>접근 가능한 안내</span></div></div><div class="tab-panel" role="tabpanel" id="organizer" aria-labelledby="tab-organizer" hidden><h3>감이 아닌 방문 흐름으로 행사를 개선</h3><p>지도·부스·세션 데이터를 구조화하고 관심·동선·검색 실패를 운영 개선에 연결합니다.</p><div class="feature-chips"><span>콘텐츠 승인</span><span>방문 흐름</span><span>혼잡 신호</span><span>결과 리포트</span></div></div><div class="tab-panel" role="tabpanel" id="exhibitor" aria-labelledby="tab-exhibitor" hidden><h3>관심에서 상담까지 연결되는 기업 경험</h3><p>승인된 기업·제품 자료를 바탕으로 반복 질문을 설명하고 동의 기반 상담과 자료 요청을 연결합니다.</p><div class="feature-chips"><span>AI 부스 안내</span><span>반복 설명 감소</span><span>동의 기반 리드</span><span>관심 콘텐츠 분석</span></div></div></div></div></section>
-<section class="section"><div class="shell two-col"><div><p class="eyebrow dark">PRODUCT SCOPE</p><h2>가치가 검증된 순서로 만듭니다</h2><p>첫 MVP는 QR 웹·지도·검색·근거 기반 콘텐츠·개인화 추천과 운영자 대시보드에 집중합니다.</p></div><div class="scope-list"><div>${statusPill("FIRST WEDGE","current")}<b>QR 웹 · 지도 · 검색</b><p>설치 없이 시작하는 기본 방문 경험</p></div><div>${statusPill("VALIDATING","validating")}<b>추천 · 동선 · 저장 · 상담</b><p>추천이 실제 행동과 전환으로 이어지는지 검증</p></div><div>${statusPill("ROADMAP")}<b>정밀 실시간 위치 · WebAR</b><p>가치가 확인된 구역에 선택적으로 적용</p></div></div></div></section>
-<section class="section process"><div class="shell"><div class="section-head light"><p class="eyebrow">GROUNDED BY DEFAULT</p><h2>설명은 승인된 원문에 고정합니다</h2><p>출처 없는 기업·제품 설명을 공개하지 않습니다. AI 생성 콘텐츠는 담당자 승인 이후 배포하고, 방문자 데이터는 Flow 학습에 사용하지 않습니다.</p></div><div class="boundary-grid"><span>승인 원문·출처 연결</span><span>담당자 공개 승인</span><span>동의 기반 데이터</span><span>제품 간 원본 분리</span></div></div></section>
-<section class="final-cta"><div class="shell"><p class="eyebrow">GUIDE EXHIBITION MVP</p><h2>다음 행사에서 무엇을<br>먼저 검증할까요?</h2><a class="button pale" href="/contact/?product=guide">행사 적합성 진단</a></div></section>`;
+<section class="product-hero product-hero-guide">
+  <img src="/assets/guide-exhibition.png" alt="산업 전시회에서 모바일 가이드를 확인하며 이동하는 방문자" width="1448" height="1086" fetchpriority="high">
+  <div class="product-hero-scrim"></div>
+  <div class="shell product-hero-content" data-reveal>
+    <p class="eyebrow">IRUVY GUIDE</p>
+    <h1>관심에서<br><em>다음 방문</em>으로</h1>
+    <p>방문자의 관심, 위치와 시간을 읽어 다음 부스와 콘텐츠, 동선을 추천합니다.</p>
+    <a class="button" href="/contact/?product=guide">행사 적합성 진단</a>
+  </div>
+</section>
+
+<section class="guide-route" id="journey">
+  <div class="shell">
+    <h2>설치 없이 시작하고,<br>행동으로 이어집니다</h2>
+    <div class="route-stage" aria-label="Iruvy Guide 방문 흐름">
+      <div class="route-line" aria-hidden="true"></div>
+      <article data-reveal><b>관심을 묻습니다</b><p>보고 싶은 산업, 제품과 남은 시간을 확인합니다.</p></article>
+      <article data-reveal><b>동선을 제안합니다</b><p>현재 위치에서 방문 가치가 높은 부스를 연결합니다.</p></article>
+      <article data-reveal><b>근거를 설명합니다</b><p>승인된 기업과 제품 자료에서 필요한 정보를 보여줍니다.</p></article>
+      <article data-reveal><b>상담으로 연결합니다</b><p>저장, 자료 요청과 동의 기반 상담을 이어갑니다.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="stakeholder-stage">
+  <div class="shell">
+    <div class="section-head"><h2>한 번의 방문.<br>세 개의 다른 가치.</h2></div>
+    <div class="tab-shell editorial-tabs" data-tabs>
+      <div class="tabs" role="tablist">
+        <button role="tab" aria-selected="true" aria-controls="visitor" id="tab-visitor">방문자</button>
+        <button role="tab" aria-selected="false" aria-controls="organizer" id="tab-organizer">주최자</button>
+        <button role="tab" aria-selected="false" aria-controls="exhibitor" id="tab-exhibitor">참가기업</button>
+      </div>
+      <div class="tab-panel" role="tabpanel" id="visitor" aria-labelledby="tab-visitor">
+        <span>VISITOR</span><h3>짧은 시간에<br>놓치지 않는 경험</h3>
+        <p>관심, 시간과 위치에 맞는 부스와 콘텐츠를 발견합니다.</p>
+        <div class="feature-chips"><span>개인화 동선</span><span>근거 있는 설명</span><span>웹 접근</span></div>
+      </div>
+      <div class="tab-panel" role="tabpanel" id="organizer" aria-labelledby="tab-organizer" hidden>
+        <span>ORGANIZER</span><h3>감이 아니라<br>방문 흐름으로 개선</h3>
+        <p>검색 실패, 관심과 동선 신호를 다음 행사 운영에 반영합니다.</p>
+        <div class="feature-chips"><span>콘텐츠 승인</span><span>방문 흐름</span><span>결과 리포트</span></div>
+      </div>
+      <div class="tab-panel" role="tabpanel" id="exhibitor" aria-labelledby="tab-exhibitor" hidden>
+        <span>EXHIBITOR</span><h3>관심을<br>상담으로 연결</h3>
+        <p>승인된 기업 자료를 설명하고 동의 기반 후속 행동을 만듭니다.</p>
+        <div class="feature-chips"><span>기업 안내</span><span>자료 요청</span><span>상담 연결</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="scope-story">
+  <div class="shell scope-layout">
+    <div>
+      <h2>가치가 검증된<br>순서로 만듭니다</h2>
+      <p>첫 제품은 행사 당일 실제로 쓰이는 웹 경험에 집중합니다.</p>
+    </div>
+    <div class="scope-track">
+      <article><span>FIRST WEDGE</span><h3>QR 웹, 지도, 검색</h3><p>앱 설치 없이 시작하는 기본 경험</p></article>
+      <article><span>VALIDATING</span><h3>추천, 동선, 상담</h3><p>추천이 실제 방문과 전환으로 이어지는지 검증</p></article>
+      <article><span>AFTER VALUE</span><h3>정밀 위치, WebAR</h3><p>가치가 확인된 구역에 선택적으로 적용</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="grounded-statement">
+  <div class="shell">
+    <h2>설명은 승인된 원문에 고정합니다</h2>
+    <p>AI 생성 콘텐츠는 담당자 승인 이후 공개합니다. 방문자 원본 데이터는 Flow 학습에 사용하지 않습니다.</p>
+    <div class="grounded-points"><span>출처 연결</span><span>담당자 승인</span><span>동의 기반</span><span>제품 간 분리</span></div>
+  </div>
+</section>
+
+<section class="final-cta"><div class="shell"><h2>다음 행사에서 무엇을<br>먼저 검증할까요?</h2><a class="button pale" href="/contact/?product=guide">행사 적합성 진단</a></div></section>`;
 
 const flow = `
-<section class="page-hero flow-hero"><div class="shell page-hero-grid"><div><p class="eyebrow">IRUVY FLOW</p><h1>설비가 멈춘 순간,<br><span>납기를 지키는 복구안을 계산합니다</span></h1><p class="lede">ERP·MES·Excel의 생산 데이터를 읽기 중심으로 연결해 병목과 납기 위험을 찾고, 생산관리자가 검토할 작업순서와 자원배치 대안을 제시합니다.</p><div class="actions"><a class="button" href="/capacity-lab/">Capacity Audit</a><a class="button ghost-light" href="#console">관제 데모 보기</a></div></div><div class="flow-console" id="console"><div class="console-top"><span>PRODUCT DEMO · VIRTUAL SCENARIO</span><i>SHADOW</i></div><div class="alert-row"><small>DISTURBANCE</small><b>밀링 4호기 정지</b><span>납기 위험 주문 3건</span></div><div class="option selected"><span>A · 대체 설비 + 작업순서 조정</span><b>균형안</b></div><div class="option"><span>B · 잔업 2시간 추가</span><b>보수안</b></div><div class="option"><span>C · 외주 공정 전환</span><b>공격안</b></div><div class="console-foot"><span>관리자 승인 전 실행 없음</span><button type="button">검토하기</button></div></div></div></section>
-<section class="section"><div class="shell"><div class="section-head"><p class="eyebrow dark">WHEN PLANS BREAK</p><h2>계획이 깨지는 다섯 순간을 먼저 봅니다</h2></div><div class="incident-grid"><article><span>01</span><h3>설비 고장</h3><p>병목 이동과 대체설비 영향을 비교합니다.</p></article><article><span>02</span><h3>긴급 주문</h3><p>기존 약속 납기와 새 우선순위 충돌을 계산합니다.</p></article><article><span>03</span><h3>자재 지연</h3><p>가능 작업과 대기 손실을 다시 배열합니다.</p></article><article><span>04</span><h3>외주 지연</h3><p>회수일 변경이 후속 공정에 미치는 영향을 봅니다.</p></article><article><span>05</span><h3>인력 부족</h3><p>역할·기술등급 제약 안에서 실행안을 찾습니다.</p></article></div></div></section>
-<section class="section tinted"><div class="shell io-grid"><div><p class="eyebrow dark">INPUT</p><h2>흩어진 운영 상태를 연결</h2><ul class="check-list"><li>작업지시와 생산 실적</li><li>공정·설비·작업 가능 관계</li><li>품질·정비·가용시간</li><li>자재·도구·외주 일정</li></ul></div><div class="arrow-column">→</div><div><p class="eyebrow dark">DECISION OUTPUT</p><h2>실행 가능한 대안을 비교</h2><ul class="check-list"><li>위험 주문과 예상 병목</li><li>보수·균형·공격 대안</li><li>납기·잔업·외주 영향</li><li>승인 기록과 실제 결과</li></ul></div></div></section>
-<section class="section process"><div class="shell"><div class="section-head light"><p class="eyebrow">CURRENT PRODUCT BOUNDARY</p><h2>작게 연결하고, 섀도 모드에서 증명합니다</h2></div><div class="boundary-grid"><span>CSV·Excel·읽기 중심 연동</span><span>관리자 승인 필수</span><span>PLC 직접 제어 없음</span><span>한 사업장·한 제약공정</span><span>의사결정 1~2개</span><span>8~12주 검증 가설</span></div><p class="boundary-note">현재 외부 단계는 L0 Observe → L1 Recommend입니다. 사람 승인 없는 자동제어와 폐루프 자율실행은 현재 제공 범위가 아닙니다.</p></div></section>
-<section class="section"><div class="shell two-col"><div><p class="eyebrow dark">FIT / NO-FIT</p><h2>모든 공장을 위한<br>첫 제품은 아닙니다</h2><p>주문생산·다품종 소량 환경에서 반복되는 예외와 한 제약공정의 경제 KPI부터 검증합니다.</p></div><div class="fit-grid"><article><h3>적합한 현장</h3><ul><li>예외 상황과 재계획이 잦음</li><li>ERP·MES·Excel 데이터 존재</li><li>생산관리자 참여 가능</li><li>기준 KPI 합의 가능</li></ul></article><article class="no-fit"><h3>현재 부적합</h3><ul><li>ERP·MES 전체 교체 목적</li><li>즉시 무인 자동제어 요구</li><li>개인 작업자 감시 목적</li><li>담당자 없는 무료 개발 요청</li></ul></article></div></div></section>
-<section class="final-cta"><div class="shell"><p class="eyebrow">FROM CONSTRAINT TO CAPACITY</p><h2>최근 납기 지연 사건 1건에서<br>진단을 시작합니다</h2><a class="button pale" href="/capacity-lab/">Capacity Audit 신청</a></div></section>`;
+<section class="product-hero product-hero-flow">
+  <img src="/assets/flow-factory.png" alt="정밀 제조 현장에서 생산 일정을 검토하는 관리자와 엔지니어" width="1448" height="1086" fetchpriority="high">
+  <div class="product-hero-scrim"></div>
+  <div class="shell product-hero-content" data-reveal>
+    <p class="eyebrow">IRUVY FLOW</p>
+    <h1>차질에서<br><em>복구 결정</em>으로</h1>
+    <p>제약과 납기 위험을 읽고 생산관리자가 검토할 작업 대안을 계산합니다.</p>
+    <a class="button" href="/capacity-lab/">Capacity Audit</a>
+  </div>
+</section>
+
+<section class="disturbance-story">
+  <div class="shell disturbance-grid">
+    <div class="disturbance-sticky">
+      <span>WHEN THE PLAN BREAKS</span>
+      <h2>설비가 멈춘 뒤<br>무엇을 바꿀 것인가</h2>
+      <p>하나의 사건이 주문, 공정과 납기에 미치는 영향을 따라갑니다.</p>
+    </div>
+    <div class="disturbance-cases">
+      <article data-reveal><b>설비 고장</b><p>대체 설비와 작업순서 변경의 영향을 비교합니다.</p></article>
+      <article data-reveal><b>긴급 주문</b><p>새 우선순위가 기존 약속 납기와 충돌하는 지점을 찾습니다.</p></article>
+      <article data-reveal><b>자재와 외주 지연</b><p>가능한 작업을 다시 배열하고 다음 병목을 예상합니다.</p></article>
+      <article data-reveal><b>인력 부족</b><p>역할과 기술등급 제약 안에서 실행 가능한 대안을 남깁니다.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="flow-transform">
+  <div class="shell">
+    <div class="transform-input">
+      <span>현장 상태</span>
+      <h2>주문. 공정. 설비.<br>자재. 외주. 시간.</h2>
+    </div>
+    <div class="transform-axis" aria-hidden="true"><i></i></div>
+    <div class="transform-output">
+      <span>결정 대안</span>
+      <h2>위험 주문.<br>병목 이동.<br>복구 선택.</h2>
+      <p>각 대안의 납기, 잔업, 외주와 실행 가능성을 함께 비교합니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="flow-boundary">
+  <div class="shell">
+    <div class="section-head"><h2>작게 연결하고,<br>섀도 모드에서 증명합니다</h2></div>
+    <div class="boundary-editorial">
+      <article><b>읽기 중심</b><p>CSV, Excel과 기존 시스템에서 필요한 데이터만 연결합니다.</p></article>
+      <article><b>관리자 승인</b><p>시스템은 추천하고 생산관리자가 수정, 승인 또는 거절합니다.</p></article>
+      <article><b>한 제약공정</b><p>한 사업장, 한 가치흐름과 1-2개 의사결정부터 시작합니다.</p></article>
+      <article><b>자동제어 제외</b><p>현재 단계에서 PLC와 설비를 직접 제어하지 않습니다.</p></article>
+    </div>
+    <p class="boundary-note">현재 외부 단계는 L0 Observe에서 L1 Recommend입니다.</p>
+  </div>
+</section>
+
+<section class="fit-stage">
+  <div class="shell fit-layout">
+    <div>
+      <h2>모든 공장을 위한<br>첫 제품은 아닙니다</h2>
+      <p>주문생산과 다품종 소량 환경의 반복되는 예외부터 검증합니다.</p>
+    </div>
+    <div class="fit-columns">
+      <article><span>적합한 현장</span><h3>데이터와 결정권자가 함께 있는 곳</h3><p>예외와 재계획이 잦고 ERP, MES 또는 Excel 실적을 연결할 수 있는 현장</p></article>
+      <article><span>현재 부적합</span><h3>즉시 무인 자동화를 원하는 곳</h3><p>전체 시스템 교체, 개인 감시 또는 담당자 없는 무료 개발을 원하는 현장</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta"><div class="shell"><h2>최근 납기 지연 사건 1건에서<br>진단을 시작합니다</h2><a class="button pale" href="/capacity-lab/">Capacity Audit</a></div></section>`;
 
 const evidence = `
 <section class="simple-hero"><div class="shell"><p class="eyebrow">EVIDENCE &amp; TRUST</p><h1>성과를 크게 말하기 전에,<br><span>검증 단계를 정확히 표시합니다</span></h1><p>측정, 현장 PoC, 고객 데이터 Replay, 유료 검증, 라이브 운영과 경제성과를 서로 다른 증거로 관리합니다.</p></div></section>
