@@ -126,7 +126,7 @@ for (const route of routes) {
   const canonical = `https://iruvy.com/${route ? `${route}/` : ""}`;
   if (!sitemap.includes(`<loc>${canonical}</loc>`)) errors.push(`sitemap 누락: ${route || "/"}`);
 }
-if ((sitemap.match(/<lastmod>2026-07-30<\/lastmod>/g) || []).length !== routes.length) errors.push("sitemap lastmod 누락");
+if ((sitemap.match(/<lastmod>2026-07-31<\/lastmod>/g) || []).length !== routes.length) errors.push("sitemap lastmod 누락");
 if (sitemap.includes("/go/") || sitemap.includes("/pricing/")) errors.push("sitemap에 비정규 URL 포함");
 
 for (const file of ["hero-spatial-decision.jpg", "guide-exhibition.jpg", "flow-factory.jpg", "og.jpg"]) {

@@ -67,13 +67,13 @@ const footer = `
     <div><strong>회사</strong><a href="/company/">회사 소개</a><a href="/resources/">인사이트</a><a href="/contact/">도입 상담</a></div>
   </div>
   <div class="shell footer-bottom">
-    <span>© 2026 IRUVY INC. <time datetime="2026-07-30">사이트 업데이트 2026.07.30</time></span>
+    <span>© 2026 주식회사 이루비 · IRUVY INC. <time datetime="2026-07-31">사이트 업데이트 2026.07.31</time></span>
     <span><a href="mailto:iruvy.official@gmail.com">iruvy.official@gmail.com</a> · <a href="/privacy/">개인정보 처리방침</a> · <a href="/terms/">이용약관</a></span>
   </div>
 </footer>`;
 
 const siteOrigin = "https://iruvy.com";
-const lastModified = "2026-07-30";
+const lastModified = "2026-07-31";
 const pageLabels = {
   "": "Iruvy",
   guide: "Iruvy Guide",
@@ -268,14 +268,14 @@ const page = ({
   <meta name="description" content="${description}">
   <meta name="robots" content="${robots}">
   <meta name="author" content="Iruvy">
-  <meta name="application-name" content="Iruvy">
+  <meta name="application-name" content="Iruvy · 이루비">
   <meta name="naver-site-verification" content="df2331ce1a5255e211d4f471851a16af986c19b3">
   <link rel="canonical" href="${canonical}">
   <link rel="alternate" hreflang="ko" href="${canonical}">
   <link rel="alternate" hreflang="x-default" href="${canonical}">
   <link rel="alternate" type="text/plain" href="/llms.txt" title="Iruvy AI context">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Iruvy">
+  <meta property="og:site_name" content="Iruvy · 이루비">
   <meta property="og:locale" content="ko_KR">
   <meta property="og:title" content="${title}">
   <meta property="og:description" content="${description}">
