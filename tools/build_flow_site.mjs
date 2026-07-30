@@ -269,6 +269,7 @@ const page = ({
   <meta name="robots" content="${robots}">
   <meta name="author" content="Iruvy">
   <meta name="application-name" content="Iruvy">
+  <meta name="naver-site-verification" content="df2331ce1a5255e211d4f471851a16af986c19b3">
   <link rel="canonical" href="${canonical}">
   <link rel="alternate" hreflang="ko" href="${canonical}">
   <link rel="alternate" hreflang="x-default" href="${canonical}">
