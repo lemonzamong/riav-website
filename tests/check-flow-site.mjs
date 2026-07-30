@@ -87,6 +87,19 @@ const home = readFileSync(join(root, "index.html"), "utf8");
 for (const phrase of ["SPATIAL DECISION AI", "현장의 다음", "Iruvy Guide", "Iruvy Flow", "관리자 최종 승인"]) {
   if (!home.includes(phrase)) errors.push(`홈 핵심 메시지 누락: ${phrase}`);
 }
+for (const phrase of ["‘좋아 보이는 것’ 대신", "‘확실한 것’만 남깁니다", "생산 장애에서,", "최적의 복구 결정으로"]) {
+  if (!home.includes(phrase)) errors.push(`홈 피드백 문구 누락: ${phrase}`);
+}
+
+const flow = readFileSync(join(root, "flow", "index.html"), "utf8");
+for (const phrase of ["생산 장애에서,", "최적의 복구 결정", "최소한의 연동으로,", "운영 영향 없이 성능을 증명합니다", "변수가 많은 현장에", "가장 먼저 찾아갑니다"]) {
+  if (!flow.includes(phrase)) errors.push(`Flow 피드백 문구 누락: ${phrase}`);
+}
+
+const company = readFileSync(join(root, "company", "index.html"), "utf8");
+for (const phrase of ["가설과 사실을 구분하고,", "결과로 솔루션을 완성합니다", "기대가 아닌 실제 데이터와 결과로 증명합니다", "비전과 현재를 명확히 나누고, 실제 결과로 학습합니다"]) {
+  if (!company.includes(phrase)) errors.push(`회사소개 피드백 문구 누락: ${phrase}`);
+}
 if (!home.includes("<title>이루비(Iruvy) | 공간 의사결정 AI</title>")) errors.push("홈 한영 브랜드 title 누락");
 if (!home.includes("이루비(Iruvy)는 공간과 상황을 이해해")) errors.push("홈 검색 설명 한영 브랜드 연결 누락");
 if (!home.includes('<p class="lede">공간과 운영 상태를 읽고, 목표와 제약 안에서 다음 행동을 제안합니다.</p>')) {

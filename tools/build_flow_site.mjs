@@ -340,7 +340,7 @@ const home = `
       </article>
       <article data-reveal>
         <span>목표와 제약</span>
-        <h3>좋아 보이는 답을 지웁니다</h3>
+        <h3>‘좋아 보이는 것’ 대신<br>‘확실한 것’만 남깁니다</h3>
         <p>시간, 위치, 안전, 품질과 운영 규칙을 통과한 행동만 남깁니다.</p>
         <div class="constraint-words" aria-hidden="true"><b>TIME</b><b>SPACE</b><b>SAFETY</b><b>QUALITY</b></div>
       </article>
@@ -369,7 +369,7 @@ const home = `
     <article class="world world-flow" data-reveal>
       <div class="world-copy">
         <span>IRUVY FLOW</span>
-        <h3>차질에서<br>복구 결정으로</h3>
+        <h3>생산 장애에서,<br>최적의 복구 결정으로</h3>
         <p>설비, 작업, 자재와 납기 제약을 연결해 생산관리자가 검토할 복구 대안을 계산합니다.</p>
         <a href="/flow/">Flow 살펴보기</a>
       </div>
@@ -495,7 +495,7 @@ const flow = `
   <div class="product-hero-scrim"></div>
   <div class="shell product-hero-content" data-reveal>
     <p class="eyebrow">IRUVY FLOW</p>
-    <h1>차질에서<br><em>복구 결정</em>으로</h1>
+    <h1>생산 장애에서,<br><em>최적의 복구 결정</em>으로</h1>
     <p>제약과 납기 위험을 읽고 생산관리자가 검토할 작업 대안을 계산합니다.</p>
     <a class="button" href="/capacity-lab/">Capacity Audit</a>
   </div>
@@ -534,7 +534,7 @@ const flow = `
 
 <section class="flow-boundary">
   <div class="shell">
-    <div class="section-head"><h2>작게 연결하고,<br>섀도 모드에서 증명합니다</h2></div>
+    <div class="section-head"><h2>최소한의 연동으로,<br>운영 영향 없이 성능을 증명합니다</h2></div>
     <div class="boundary-editorial">
       <article><b>읽기 중심</b><p>CSV, Excel과 기존 시스템에서 필요한 데이터만 연결합니다.</p></article>
       <article><b>관리자 승인</b><p>시스템은 추천하고 생산관리자가 수정, 승인 또는 거절합니다.</p></article>
@@ -548,7 +548,7 @@ const flow = `
 <section class="fit-stage">
   <div class="shell fit-layout">
     <div>
-      <h2>모든 공장을 위한<br>첫 제품은 아닙니다</h2>
+      <h2>모든 공장이 아닌,<br>변수가 많은 현장에<br>가장 먼저 찾아갑니다</h2>
       <p>주문생산과 다품종 소량 환경의 반복되는 예외부터 검증합니다.</p>
     </div>
     <div class="fit-columns">
@@ -576,7 +576,7 @@ const company = `
 <section class="simple-hero"><div class="shell"><p class="eyebrow">ABOUT IRUVY</p><h1>공간과 상황을 이해해<br><span>다음 최적 행동을 결정합니다</span></h1><p>주식회사 이루비는 Spatial Decision AI를 개발하는 기업입니다. 방문자의 경험과 이동을 최적화하는 Iruvy Guide와 산업현장의 운영을 최적화하는 Iruvy Flow를 만듭니다.</p></div></section>
 <section class="section"><div class="shell two-col"><div><p class="eyebrow dark">MISSION</p><h2>복잡한 현실을<br>실행 가능한 결정으로</h2></div><div class="manifesto"><p>현장은 정적인 데이터가 아닙니다. 사람과 설비, 공간과 시간이 계속 바뀌고, 좋은 결정은 목표와 제약을 동시에 이해해야 합니다.</p><p>Iruvy는 무엇이 일어났는지를 보여주는 데서 멈추지 않고, 지금 가능한 행동을 비교하고 그 결과를 다음 결정의 근거로 남깁니다.</p></div></div></section>
 <section class="section tinted"><div class="shell"><div class="section-head"><p class="eyebrow dark">ONE COMPANY, TWO FRONTS</p><h2>빠른 상용화와 장기 고부가가치를 함께 설계합니다</h2></div><div class="company-products"><article><small>COMMERCIALIZATION FRONT</small><h3>Iruvy Guide</h3><p>산업 전시회에서 앱 설치 없는 방문자 의사결정 경험을 반복 배포합니다.</p></article><article><small>HIGH-VALUE FRONT</small><h3>Iruvy Flow</h3><p>주문생산형 제조의 한 제약공정에서 유효 생산능력 증폭을 검증합니다.</p></article></div></div></section>
-<section class="section"><div class="shell"><div class="section-head"><p class="eyebrow dark">OUR PRINCIPLES</p><h2>현재와 비전을 분리하고, 결과로 학습합니다</h2></div><div class="principle-grid"><article><span>01</span><h3>증명 전에는 가설</h3><p>목표·가격·성과를 현재 사실처럼 표현하지 않습니다.</p></article><article><span>02</span><h3>사람이 최종 결정</h3><p>현재 제품은 관찰과 추천 단계에서 안전하게 검증합니다.</p></article><article><span>03</span><h3>원본과 학습권 분리</h3><p>제품과 고객을 넘어 데이터를 임의로 전용하지 않습니다.</p></article><article><span>04</span><h3>행동과 결과를 연결</h3><p>승인만이 아니라 실행·결과·외부요인을 함께 기록합니다.</p></article></div></div></section>
+<section class="section"><div class="shell"><div class="section-head principles-head"><p class="eyebrow dark">OUR PRINCIPLES</p><h2>가설과 사실을 구분하고,<br>결과로 솔루션을 완성합니다</h2><p>기대가 아닌 실제 데이터와 결과로 증명합니다. 비전과 현재를 명확히 나누고, 실제 결과로 학습합니다.</p></div><div class="principle-grid"><article><span>01</span><h3>증명 전에는 가설</h3><p>목표·가격·성과를 현재 사실처럼 표현하지 않습니다.</p></article><article><span>02</span><h3>사람이 최종 결정</h3><p>현재 제품은 관찰과 추천 단계에서 안전하게 검증합니다.</p></article><article><span>03</span><h3>원본과 학습권 분리</h3><p>제품과 고객을 넘어 데이터를 임의로 전용하지 않습니다.</p></article><article><span>04</span><h3>행동과 결과를 연결</h3><p>승인만이 아니라 실행·결과·외부요인을 함께 기록합니다.</p></article></div></div></section>
 <section class="final-cta"><div class="shell"><p class="eyebrow">LONG-TERM VISION</p><h2>산업현장의 숨은 생산능력을<br>실행으로 깨우는 자율운영 AI</h2><p>현재의 L1 추천형 제품에서 충분한 검증과 통제를 거쳐 단계적으로 확장합니다.</p><a class="button pale" href="/contact/?product=partner">파트너십 문의</a></div></section>`;
 
 const resources = `
