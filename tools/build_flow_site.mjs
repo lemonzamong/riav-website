@@ -14,6 +14,7 @@ cpSync(join(root, ".openai", "hosting.json"), join(out, ".openai", "hosting.json
 cpSync(join(root, "site-src", "styles.css"), join(out, "assets", "site.css"));
 cpSync(join(root, "site-src", "site.js"), join(out, "assets", "site.js"));
 cpSync(join(root, "assets", "iruvy-logo.svg"), join(out, "assets", "iruvy-logo.svg"));
+cpSync(join(root, "assets", "iruvy-logo-white.svg"), join(out, "assets", "iruvy-logo-white.svg"));
 cpSync(join(root, "assets", "og.jpg"), join(out, "assets", "og.jpg"));
 cpSync(join(root, "assets", "hero-spatial-decision.jpg"), join(out, "assets", "hero-spatial-decision.jpg"));
 cpSync(join(root, "assets", "guide-exhibition.jpg"), join(out, "assets", "guide-exhibition.jpg"));
@@ -49,7 +50,7 @@ const header = `
 <a class="skip-link" href="#main">본문으로 이동</a>
 <header class="site-header" data-header>
   <div class="shell header-inner">
-    <a class="brand" href="/" aria-label="이루비 Iruvy 홈"><img src="/assets/iruvy-logo.svg" alt="이루비 Iruvy" width="113" height="34"></a>
+    <a class="brand" href="/" aria-label="이루비 Iruvy 홈"><img src="/assets/iruvy-logo-white.svg" alt="이루비 Iruvy" width="132" height="54"></a>
     ${nav}
   </div>
 </header>`;
@@ -58,7 +59,7 @@ const footer = `
 <footer class="site-footer">
   <div class="shell footer-grid">
     <div class="footer-lead">
-      <a class="brand invert" href="/" aria-label="이루비 Iruvy 홈"><img src="/assets/iruvy-logo.svg" alt="이루비 Iruvy" width="113" height="34"></a>
+      <a class="brand invert" href="/" aria-label="이루비 Iruvy 홈"><img src="/assets/iruvy-logo-white.svg" alt="이루비 Iruvy" width="116" height="48"></a>
       <p>공간과 상황을 이해해 다음 최적 행동을 결정하는 Spatial Decision AI를 개발합니다.</p>
     </div>
     <div><strong>솔루션</strong><a href="/guide/">Iruvy Guide</a><a href="/flow/">Iruvy Flow</a></div>

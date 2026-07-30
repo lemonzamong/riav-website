@@ -6,6 +6,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..", "dist");
 const routes = ["", "guide", "flow", "evidence", "technology", "resources", "company", "capacity-lab", "contact", "privacy", "terms", "accessibility"];
 const errors = [];
 if (!existsSync(join(root, ".openai", "hosting.json"))) errors.push("Sites 배포 메타파일 누락");
+if (!existsSync(join(root, "assets", "iruvy-logo-white.svg"))) errors.push("흰글씨 헤더 로고 누락");
 const banned = ["국내 유일", "세계 최고", "완전 자율 공장", "100% 정확도", "모든 ERP·MES 연동", "검증된 보안", "Iruvy Go", "[TODO]", "Lorem ipsum"];
 const titles = new Set();
 const descriptions = new Set();
@@ -29,6 +30,9 @@ for (const route of routes) {
   if (!existsSync(path)) { errors.push(`${route || "/"}: 파일 누락`); continue; }
   const html = readFileSync(path, "utf8");
   if (!/<html lang="ko">/.test(html)) errors.push(`${route || "/"}: 언어 누락`);
+  if (!html.includes('class="brand"') || !html.includes('src="/assets/iruvy-logo-white.svg"')) {
+    errors.push(`${route || "/"}: 흰글씨 브랜드 로고 적용 누락`);
+  }
   if (!html.includes("iruvy.official@gmail.com")) errors.push(`${route || "/"}: 공식 이메일 누락`);
   if (/contact@iruvy\.com|security@iruvy\.com/.test(html)) errors.push(`${route || "/"}: 이전 이메일 잔존`);
   if ((html.match(/<h1(?:\s|>)/g) || []).length !== 1) errors.push(`${route || "/"}: h1 오류`);
