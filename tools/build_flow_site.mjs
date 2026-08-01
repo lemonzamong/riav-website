@@ -317,7 +317,7 @@ const homeKo = `
       <div class="world-copy">
         <span>IRUVY FLOW</span>
         <h3>갑작스러운 생산 장애에도<br>최적의 복구 순서를 제시합니다</h3>
-        <p>설비, 작업순서, 자재 및 납기 제약을 종합적으로 계산하여 생산관리자가 검토할 복구 대안을 계산합니다.</p>
+        <p>설비, 작업순서, 자재 및 납기 제약을 종합적으로 분석하여 생산관리자가 검토할 최적의 복구 대안을 도출합니다.</p>
         <a href="/flow/">Flow 살펴보기</a>
       </div>
       <div class="world-media"><img src="/assets/flow-factory.jpg" alt="정밀 제조 현장에서 생산 일정을 검토하는 관리자와 엔지니어" width="1448" height="1086" loading="lazy"></div>
@@ -365,7 +365,7 @@ const homeEn = `
   <div class="hero-scrim" aria-hidden="true"></div>
   <div class="shell hero-content" data-reveal>
     <p class="eyebrow">SPATIAL DECISION AI</p>
-    <h1>Calculating the<br><em>Next Best Action</em><span class="mobile-break"><br></span> for your operations</h1>
+    <h1>Determining the<br><em>Next Best Action</em><span class="mobile-break"><br></span> for your operations</h1>
     <p class="lede">Reading spatial context and operational state to recommend verifiable decisions within goals and constraints.</p>
     <div class="actions"><a class="button" href="/en/guide/">Iruvy Guide</a><a class="button ghost" href="/en/flow/">Iruvy Flow</a></div>
   </div>
@@ -631,7 +631,7 @@ const flowKo = `
   <div class="shell product-hero-content" data-reveal>
     <p class="eyebrow">IRUVY FLOW</p>
     <h1>갑작스러운 생산 장애에도<br><em>최적의 복구 순서</em>를 제안합니다</h1>
-    <p>설비 고장, 긴급 주문, 자재 지연 등의 제약 조건을 실시간 계산하여 생산관리자가 즉시 적용할 복구 대안을 조율합니다.</p>
+    <p>설비 고장, 긴급 주문, 자재 지연 등의 제약 조건을 실시간으로 분석하여 생산관리자가 즉시 적용할 최적의 복구 대안을 도출합니다.</p>
     <a class="button" href="/capacity-lab/">Capacity Audit 진단</a>
   </div>
 </section>
@@ -702,7 +702,7 @@ const flowEn = `
   <div class="shell product-hero-content" data-reveal>
     <p class="eyebrow">IRUVY FLOW</p>
     <h1>From production disruption<br><em>to optimal recovery decisions</em></h1>
-    <p>Calculating machine constraints, task sequences, and material bottlenecks to recommend actionable recovery options for plant managers.</p>
+    <p>Analyzing machine constraints, task sequences, and material bottlenecks to recommend actionable recovery options for plant managers.</p>
     <a class="button" href="/en/capacity-lab/">Capacity Audit</a>
   </div>
 </section>
@@ -731,7 +731,7 @@ const flowEn = `
     </div>
     <div class="transform-axis" aria-hidden="true"><i></i></div>
     <div class="transform-output">
-      <span>Calculated Options</span>
+      <span>Optimized Options</span>
       <h2>At-risk order alert.<br>Bottleneck shift.<br>Optimal recovery plan.</h2>
       <p>Comparing delivery compliance, overtime cost, outsourcing fees, and execution feasibility.</p>
     </div>
@@ -781,13 +781,13 @@ const evidenceEn = `
 
 // --- TECHNOLOGY ---
 const techKo = `
-<section class="simple-hero"><div class="shell"><p class="eyebrow">IRUVY CORE</p><h1>현장 상태·목표·제약을 연결해<br><span>실행 가능한 최적 조치를 계산합니다</span></h1><p>Spatial Intelligence와 Decision Intelligence의 결합. Iruvy Guide와 Flow가 공유하는 핵심 AI 엔진과 제품별 데이터 보안 경계를 설계합니다.</p></div></section>
+<section class="simple-hero"><div class="shell"><p class="eyebrow">IRUVY CORE</p><h1>현장 상태·목표·제약을 연결해<br><span>실행 가능한 최적 조치를 도출합니다</span></h1><p>Spatial Intelligence와 Decision Intelligence의 결합. Iruvy Guide와 Flow가 공유하는 핵심 AI 엔진과 제품별 데이터 보안 경계를 설계합니다.</p></div></section>
 <section class="section"><div class="shell"><div class="core-grid"><article><span>01</span><h2>Reality Graph</h2><p>현장의 인력, 공간, 설비, 작업 관계를 표준 데이터 모델로 통합합니다.</p></article><article><span>02</span><h2>Context Engine</h2><p>현재 작업 상태, 돌발 돌발 장애 및 운영 불확실성을 실시간 추적합니다.</p></article><article><span>03</span><h2>Strategy Simulation</h2><p>실행 가능한 조치들과 예상 파급 결과를 목표와 제약 조건 안에서 정밀 시뮬레이션합니다.</p></article><article><span>04</span><h2>Outcome Loop</h2><p>관리자의 최종 승인, 조치 실행, 실제 결과 및 외부 요인을 축적하여 개선합니다.</p></article></div></div></section>
-<section class="section process"><div class="shell"><div class="section-head light"><p class="eyebrow">AI BOUNDARY</p><h2>설명하는 언어 AI와 검증하는 계산 계층의 구분</h2></div><div class="ai-boundary"><article><small>LANGUAGE AI (LLM)</small><h3>문서 구조화 및 추천 근거 설명</h3><p>승인된 자료를 구조화하고, AI 추천 대안의 이유와 차이점을 관리자가 이해할 수 있는 언어로 설명합니다.</p></article><article><small>VERIFIABLE COMPUTATION</small><h3>제약 조건 계산 및 수리 최적화</h3><p>하드 제약 조건, 작업 순서 및 자원 배치는 최적화 알고리즘과 검증 가능한 계산 엔진이 구동합니다.</p></article></div></div></section>
+<section class="section process"><div class="shell"><div class="section-head light"><p class="eyebrow">AI BOUNDARY</p><h2>설명하는 언어 AI와 검증하는 계산 계층의 구분</h2></div><div class="ai-boundary"><article><small>LANGUAGE AI (LLM)</small><h3>문서 구조화 및 추천 근거 설명</h3><p>승인된 자료를 구조화하고, AI 추천 대안의 이유와 차이점을 관리자가 이해할 수 있는 언어로 설명합니다.</p></article><article><small>VERIFIABLE COMPUTATION</small><h3>제약 조건 모델링 및 수리 최적화</h3><p>하드 제약 조건, 작업 순서 및 자원 배치는 수리 최적화 알고리즘과 검증 가능한 연산 엔진이 구동합니다.</p></article></div></div></section>
 <section class="section"><div class="shell two-col"><div><p class="eyebrow dark">DATA &amp; HUMAN CONTROL</p><h2>기술 코어 공유와<br>고객 데이터의 철저한 격리</h2><p>Guide와 Flow는 의사결정 시뮬레이션의 공통 모듈을 공유하지만, 고객사의 원본 생산 데이터와 도메인 모델, 학습 권한은 철저하게 분리됩니다.</p></div><div class="trust-list"><span>고객사별 데이터 완벽 격리</span><span>Guide 데이터를 Flow 학습에 전용 금지</span><span>최소 수집·권한 제어·보관 및 파기</span><span>생산관리자의 수정·거절·승인 통제</span><span>데이터 부족 시 무리한 추정 배제</span><span>모델 평가 및 안전한 롤백 시스템</span></div></div></section>`;
 
 const techEn = `
-<section class="simple-hero"><div class="shell"><p class="eyebrow">IRUVY CORE</p><h1>Connecting state, goals &amp; constraints<br><span>to compute actionable decisions</span></h1><p>Fusing Spatial Intelligence and Decision Intelligence. Architecting shared core modules while enforcing strict product-level data boundaries.</p></div></section>
+<section class="simple-hero"><div class="shell"><p class="eyebrow">IRUVY CORE</p><h1>Connecting state, goals &amp; constraints<br><span>to derive actionable decisions</span></h1><p>Fusing Spatial Intelligence and Decision Intelligence. Architecting shared core modules while enforcing strict product-level data boundaries.</p></div></section>
 <section class="section"><div class="shell"><div class="core-grid"><article><span>01</span><h2>Reality Graph</h2><p>Modeling people, space, equipment, and task relationships into a unified schema.</p></article><article><span>02</span><h2>Context Engine</h2><p>Tracking real-world state, disruption events, and operational uncertainty in real time.</p></article><article><span>03</span><h2>Strategy Simulation</h2><p>Comparing viable operational choices and forecasted impacts within hard constraints.</p></article><article><span>04</span><h2>Outcome Loop</h2><p>Logging approvals, executions, actual outcomes, and external factors for continuous refinement.</p></article></div></div></section>
 <section class="section process"><div class="shell"><div class="section-head light"><p class="eyebrow">AI BOUNDARY</p><h2>Separating explanatory LLMs from verifiable computation</h2></div><div class="ai-boundary"><article><small>LANGUAGE AI (LLM)</small><h3>Document Structuring &amp; Rationale Explanation</h3><p>Structuring approved content and explaining recommendation trade-offs in plain natural language.</p></article><article><small>VERIFIABLE COMPUTATION</small><h3>Constraint Optimization &amp; Scheduling Engine</h3><p>Hard constraints, task sequences, and resource allocation are executed by mathematical optimization layers.</p></article></div></div></section>
 <section class="section"><div class="shell two-col"><div><p class="eyebrow dark">DATA &amp; HUMAN CONTROL</p><h2>Shared tech engine with<br>strict customer data isolation</h2><p>Guide and Flow share core simulation candidate modules, but customer source data, domain models, and training rights remain strictly isolated.</p></div><div class="trust-list"><span>Tenant Data Isolation</span><span>Zero Cross-Product Data Training</span><span>Least-Privilege Collection &amp; Retention</span><span>Human Manager Override &amp; Approval</span><span>Confidence-based Decision Abstention</span><span>Version Evaluation &amp; Rollback Controls</span></div></div></section>`;
@@ -801,8 +801,8 @@ const companyKo = `
 <section class="final-cta"><div class="shell"><p class="eyebrow">LONG-TERM VISION</p><h2>제조 현장의 숨은 생산능력을<br>실행 가능한 결정으로 깨우는 자율운영 AI</h2><p>현재의 L1 추천형 제품에서 충분한 검증을 거쳐 단계별로 안전하게 확장합니다.</p><a class="button pale" href="/contact/?product=partner">파트너십 문의</a></div></section>`;
 
 const companyEn = `
-<section class="simple-hero"><div class="shell"><p class="eyebrow">ABOUT IRUVY</p><h1>Calculating the Next Best Action<br><span>for spatial &amp; industrial operations</span></h1><p>Iruvy Inc. develops Spatial Decision AI, building Iruvy Guide for visitor mobility optimization and Iruvy Flow for manufacturing capacity amplification.</p></div></section>
-<section class="section"><div class="shell two-col"><div><p class="eyebrow dark">MISSION</p><h2>Turning complex reality<br>into actionable decisions</h2></div><div class="manifesto"><p>Industrial environments are not static databases. People, equipment, space, and time shift continuously. Effective decisions require evaluating goals and hard constraints simultaneously.</p><p>Iruvy goes beyond showing 'what happened' on another dashboard. We compute and compare viable actions right now, logging outcomes to refine future choices.</p></div></div></section>
+<section class="simple-hero"><div class="shell"><p class="eyebrow">ABOUT IRUVY</p><h1>Determining the Next Best Action<br><span>for spatial &amp; industrial operations</span></h1><p>Iruvy Inc. develops Spatial Decision AI, building Iruvy Guide for visitor mobility optimization and Iruvy Flow for manufacturing capacity amplification.</p></div></section>
+<section class="section"><div class="shell two-col"><div><p class="eyebrow dark">MISSION</p><h2>Turning complex reality<br>into actionable decisions</h2></div><div class="manifesto"><p>Industrial environments are not static databases. People, equipment, space, and time shift continuously. Effective decisions require evaluating goals and hard constraints simultaneously.</p><p>Iruvy goes beyond showing 'what happened' on another dashboard. We derive and compare viable actions right now, logging outcomes to refine future choices.</p></div></div></section>
 <section class="section tinted"><div class="shell"><div class="section-head"><p class="eyebrow dark">ONE COMPANY, TWO FRONTS</p><h2>Combining rapid commercialization with high-value technical depth</h2></div><div class="company-products"><article><small>COMMERCIALIZATION FRONT</small><h3>Iruvy Guide</h3><p>Deploying web-based visitor decision experiences at major industrial expos with zero app downloads.</p></article><article><small>HIGH-VALUE FRONT</small><h3>Iruvy Flow</h3><p>Validating capacity amplification across critical bottleneck processes in make-to-order manufacturing.</p></article></div></div></section>
 <section class="section"><div class="shell principles-head"><p class="eyebrow dark">OUR PRINCIPLES</p><h2>Separating hypotheses from facts,<br>refining software through verified outcomes</h2><p>Relying on empirical evidence over marketing hype.</p></div><div class="principle-grid"><article><span>01</span><h3>Hypothesis Until Proven</h3><p>We never present unverified targets or metrics as established facts.</p></article><article><span>02</span><h3>Human Control Mandatory</h3><p>Products operate strictly in Observe and Recommend stages under supervisor control.</p></article><article><span>03</span><h3>Isolated Source Data</h3><p>Customer data is never repurposed across accounts or products without explicit consent.</p></article><article><span>04</span><h3>Log Actions &amp; Outcomes</h3><p>Recording approvals, actual execution, and environmental factors to measure true impact.</p></article></div></div></section>
 <section class="final-cta"><div class="shell"><p class="eyebrow">LONG-TERM VISION</p><h2>Unlocking hidden industrial capacity<br>through autonomous decision intelligence</h2><p>Expanding safely from Level 1 recommendations through rigorous empirical verification.</p><a class="button pale" href="/en/contact/?product=partner">Partnership Inquiry</a></div></section>`;
