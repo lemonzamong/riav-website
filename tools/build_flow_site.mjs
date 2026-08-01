@@ -71,6 +71,8 @@ const makeNav = (route, lang) => {
         <a href="${flowHref}"><b>Iruvy Flow</b><span>${flowDesc}</span></a>
       </div>
     </div>
+    <a class="mobile-nav-link" href="${guideHref}">Iruvy Guide</a>
+    <a class="mobile-nav-link" href="${flowHref}">Iruvy Flow</a>
     <a href="${evidenceHref}">${evidenceText}</a>
     <a href="${techHref}">${techText}</a>
     <a href="${resourcesHref}">${insightsText}</a>
