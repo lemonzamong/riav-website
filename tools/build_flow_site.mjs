@@ -426,7 +426,7 @@ const homeEn = `
       <div class="world-copy">
         <span>IRUVY FLOW</span>
         <h3>From production disruption<br>to optimal recovery decisions</h3>
-        <p>Connecting machine outages, order priority, and capacity bottlenecks to compute recovery schedules.</p>
+        <p>Analyzing machine constraints, task sequences, and material bottlenecks to derive actionable recovery options for plant managers.</p>
         <a href="/en/flow/">Explore Flow</a>
       </div>
       <div class="world-media"><img src="/assets/flow-factory.jpg" alt="Manufacturing managers inspecting production schedule" width="1448" height="1086" loading="lazy"></div>
@@ -463,7 +463,7 @@ const homeEn = `
 
 <section class="final-cta">
   <div class="shell">
-    <h2>Which operational decisions<br>are you looking to optimize?</h2>
+    <h2>Which operational decisions &amp; productivity<br>are you looking to optimize?</h2>
     <div class="actions center"><a class="button pale" href="/en/contact/?product=guide">Exhibition Consultation</a><a class="button outline-light" href="/en/contact/?product=flow">Manufacturing Capacity Audit</a></div>
   </div>
 </section>`;
@@ -831,7 +831,7 @@ const contactKo = `
 <section class="section"><div class="shell contact-layout"><div class="contact-choice"><button type="button" class="choice active" data-choice="guide"><small>EXHIBITION &amp; SPACE</small><b>Iruvy Guide</b><span>전시회·행사 동선 적합성 진단</span></button><button type="button" class="choice" data-choice="flow"><small>MANUFACTURING</small><b>Iruvy Flow</b><span>Capacity Audit·제조 현장 진단</span></button><button type="button" class="choice" data-choice="partner"><small>COMPANY</small><b>미디어·파트너십</b><span>보도·기술협력·투자 문의</span></button></div><form class="contact-form" data-contact-form><input type="hidden" name="product" value="guide"><label>회사·기관명<input name="organization" required autocomplete="organization"></label><label>담당자 성함<input name="name" required autocomplete="name"></label><label>회신 이메일<input name="email" type="email" required autocomplete="email"></label><label>문의 및 현장 내용<textarea name="message" rows="6" required placeholder="행사 일정 및 규모, 또는 최근 발생한 제조 납기·병목 지연 사건을 간략히 적어주세요."></textarea></label><label class="consent"><input type="checkbox" required> <span><a href="/privacy/">개인정보 처리방침</a>에 동의합니다.</span></label><button class="button" type="submit">이메일 초안 생성하기</button><p class="form-note" aria-live="polite" data-form-note>민감한 원본 생산 데이터는 첫 문의에 첨부하지 마세요.</p></form></div></section>`;
 
 const contactEn = `
-<section class="simple-hero"><div class="shell"><p class="eyebrow">START A CONVERSATION</p><h1>Which operational decisions<br><span>are you looking to optimize?</span></h1><p>Select your inquiry type below to draft a structured email for our team to review.</p></div></section>
+<section class="simple-hero"><div class="shell"><p class="eyebrow">START A CONVERSATION</p><h1>Which operational decisions &amp; productivity<br><span>are you looking to optimize?</span></h1><p>Select your inquiry type below to draft a structured email for our team to review.</p></div></section>
 <section class="section"><div class="shell contact-layout"><div class="contact-choice"><button type="button" class="choice active" data-choice="guide"><small>EXHIBITION &amp; SPACE</small><b>Iruvy Guide</b><span>Exhibition Visitor Decision Platform</span></button><button type="button" class="choice" data-choice="flow"><small>MANUFACTURING</small><b>Iruvy Flow</b><span>Capacity Audit &amp; Bottleneck Review</span></button><button type="button" class="choice" data-choice="partner"><small>COMPANY</small><b>Media &amp; Partnership</b><span>Press, tech partnership, or investor inquiry</span></button></div><form class="contact-form" data-contact-form><input type="hidden" name="product" value="guide"><label>Organization / Company<input name="organization" required autocomplete="organization"></label><label>Your Name<input name="name" required autocomplete="name"></label><label>Work Email<input name="email" type="email" required autocomplete="email"></label><label>Operational Context / Inquiry<textarea name="message" rows="6" required placeholder="Describe your upcoming event scale, or summarize one recent delivery delay event in your plant."></textarea></label><label class="consent"><input type="checkbox" required> <span>I agree to the <a href="/en/privacy/">Privacy Policy</a>.</span></label><button class="button" type="submit">Draft Email Inquiry</button><p class="form-note" aria-live="polite" data-form-note>Please do not attach sensitive raw production datasets on initial contact.</p></form></div></section>`;
 
 // --- LEGAL ---
