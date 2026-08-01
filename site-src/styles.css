@@ -39,6 +39,10 @@ img{display:block;max-width:100%}
 .nav>a:not(.button),.nav-product-trigger{color:#d1cadc;transition:color .25s ease}
 .nav>a:not(.button):hover,.nav-product-trigger:hover{color:var(--text)}
 .nav-toggle{display:none}
+.lang-switch{display:inline-flex;align-items:center;background:rgba(255,255,255,.07);border:1px solid var(--line-strong);border-radius:20px;padding:3px;font-size:12px;font-weight:700;margin-left:4px}
+.lang-switch a{padding:4px 10px;border-radius:16px;color:var(--muted);transition:all .2s ease;text-decoration:none}
+.lang-switch a:hover{color:var(--text)}
+.lang-switch a.active{background:var(--violet);color:#0c0914}
 .nav-products{position:relative}
 .nav-product-trigger{border:0;background:none;padding:22px 0}
 .nav-product-menu{position:absolute;top:58px;left:-26px;width:360px;padding:10px;background:rgba(25,21,38,.97);border:1px solid var(--line-strong);border-radius:var(--radius);box-shadow:0 22px 70px rgba(22,13,45,.45);opacity:0;visibility:hidden;transform:translateY(-8px);transition:.25s ease}
