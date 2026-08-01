@@ -257,7 +257,7 @@ const homeKo = `
   <div class="shell hero-content" data-reveal>
     <p class="eyebrow">SPATIAL DECISION AI</p>
     <h1>현장에 필요한<br><em>최적의 다음 조치</em>를 제시합니다</h1>
-    <p class="lede">공간과 현장 상황을 실시간으로 읽고,<br>목표와 제약 조건에 맞는 가장 확실한 행동을 제안합니다.</p>
+    <p class="lede">공간과 현장 상황을 실시간으로 읽고, 목표와 제약 조건에 맞는 가장 확실한 행동을 제안합니다.</p>
     <div class="actions"><a class="button" href="/guide/">Iruvy Guide</a><a class="button ghost" href="/flow/">Iruvy Flow</a></div>
   </div>
 </section>
