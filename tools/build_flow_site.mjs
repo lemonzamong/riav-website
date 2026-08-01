@@ -354,7 +354,7 @@ const homeKo = `
 
 <section class="final-cta">
   <div class="shell">
-    <h2>어떤 현장의 업무 조치를<br>개선하고자 하시나요?</h2>
+    <h2>어떤 현장의 의사결정과 생산성을<br>개선하고자 하시나요?</h2>
     <div class="actions center"><a class="button pale" href="/contact/?product=guide">전시 도입 상담</a><a class="button outline-light" href="/contact/?product=flow">제조 현장 진단</a></div>
   </div>
 </section>`;
@@ -827,7 +827,7 @@ const capacityLabEn = `
 
 // --- CONTACT ---
 const contactKo = `
-<section class="simple-hero"><div class="shell"><p class="eyebrow">START A CONVERSATION</p><h1>어떤 현장의 업무 조치를<br><span>개선하고자 하시나요?</span></h1><p>목적에 맞는 세부 유형을 선택해주시면, 담당자가 검토 가능한 이메일 문의 초안을 생성해드립니다.</p></div></section>
+<section class="simple-hero"><div class="shell"><p class="eyebrow">START A CONVERSATION</p><h1>어떤 현장의 의사결정과 생산성을<br><span>개선하고자 하시나요?</span></h1><p>목적에 맞는 세부 유형을 선택해주시면, 담당자가 검토 가능한 이메일 문의 초안을 생성해드립니다.</p></div></section>
 <section class="section"><div class="shell contact-layout"><div class="contact-choice"><button type="button" class="choice active" data-choice="guide"><small>EXHIBITION &amp; SPACE</small><b>Iruvy Guide</b><span>전시회·행사 동선 적합성 진단</span></button><button type="button" class="choice" data-choice="flow"><small>MANUFACTURING</small><b>Iruvy Flow</b><span>Capacity Audit·제조 현장 진단</span></button><button type="button" class="choice" data-choice="partner"><small>COMPANY</small><b>미디어·파트너십</b><span>보도·기술협력·투자 문의</span></button></div><form class="contact-form" data-contact-form><input type="hidden" name="product" value="guide"><label>회사·기관명<input name="organization" required autocomplete="organization"></label><label>담당자 성함<input name="name" required autocomplete="name"></label><label>회신 이메일<input name="email" type="email" required autocomplete="email"></label><label>문의 및 현장 내용<textarea name="message" rows="6" required placeholder="행사 일정 및 규모, 또는 최근 발생한 제조 납기·병목 지연 사건을 간략히 적어주세요."></textarea></label><label class="consent"><input type="checkbox" required> <span><a href="/privacy/">개인정보 처리방침</a>에 동의합니다.</span></label><button class="button" type="submit">이메일 초안 생성하기</button><p class="form-note" aria-live="polite" data-form-note>민감한 원본 생산 데이터는 첫 문의에 첨부하지 마세요.</p></form></div></section>`;
 
 const contactEn = `
