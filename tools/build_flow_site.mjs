@@ -327,7 +327,7 @@ const homeKo = `
 
 <section class="operating-loop">
   <div class="shell">
-    <h2>Sense World, Decide Act</h2>
+    <h2>Sense <span>World</span>, Decide <span>Act</span></h2>
     <div class="loop-copy">
       <p>현장 상황을 실시간으로 읽고 실행 가능한 조치를 비교합니다.</p>
       <p>관리자의 승인과 실제 조치 결과를 다음 판단의 검증 근거로 축적합니다.</p>
@@ -436,7 +436,7 @@ const homeEn = `
 
 <section class="operating-loop">
   <div class="shell">
-    <h2>Sense World, Decide Act</h2>
+    <h2>Sense <span>World</span>, Decide <span>Act</span></h2>
     <div class="loop-copy">
       <p>Sensing real-world state and comparing feasible operational actions.</p>
       <p>Logging human decisions and actual outcomes as verifiable evidence for future models.</p>
