@@ -197,8 +197,8 @@ const renderPage = ({
 
   const socialImage = route === "guide" ? "guide-exhibition.jpg" : route === "flow" ? "flow-factory.jpg" : "og.jpg";
   const socialImageAlt = lang === "en"
-    ? "Iruvy Spatial Decision AI calculating Next Best Actions"
-    : "현장의 다음 최적 조치를 계산하는 Iruvy Spatial Decision AI";
+    ? "Iruvy Spatial Decision AI determining Next Best Actions"
+    : "현장의 다음 최적 조치를 도출하는 Iruvy Spatial Decision AI";
 
   const schema = makeSchema({ route, title, description, pageType, lang });
 
@@ -782,7 +782,7 @@ const evidenceEn = `
 // --- TECHNOLOGY ---
 const techKo = `
 <section class="simple-hero"><div class="shell"><p class="eyebrow">IRUVY CORE</p><h1>현장 상태·목표·제약을 연결해<br><span>실행 가능한 최적 조치를 도출합니다</span></h1><p>Spatial Intelligence와 Decision Intelligence의 결합. Iruvy Guide와 Flow가 공유하는 핵심 AI 엔진과 제품별 데이터 보안 경계를 설계합니다.</p></div></section>
-<section class="section"><div class="shell"><div class="core-grid"><article><span>01</span><h2>Reality Graph</h2><p>현장의 인력, 공간, 설비, 작업 관계를 표준 데이터 모델로 통합합니다.</p></article><article><span>02</span><h2>Context Engine</h2><p>현재 작업 상태, 돌발 돌발 장애 및 운영 불확실성을 실시간 추적합니다.</p></article><article><span>03</span><h2>Strategy Simulation</h2><p>실행 가능한 조치들과 예상 파급 결과를 목표와 제약 조건 안에서 정밀 시뮬레이션합니다.</p></article><article><span>04</span><h2>Outcome Loop</h2><p>관리자의 최종 승인, 조치 실행, 실제 결과 및 외부 요인을 축적하여 개선합니다.</p></article></div></div></section>
+<section class="section"><div class="shell"><div class="core-grid"><article><span>01</span><h2>Reality Graph</h2><p>현장의 인력, 공간, 설비, 작업 관계를 표준 데이터 모델로 통합합니다.</p></article><article><span>02</span><h2>Context Engine</h2><p>현재 작업 상태, 돌발 장애 및 운영 불확실성을 실시간 추적합니다.</p></article><article><span>03</span><h2>Strategy Simulation</h2><p>실행 가능한 조치들과 예상 파급 결과를 목표와 제약 조건 안에서 정밀 시뮬레이션합니다.</p></article><article><span>04</span><h2>Outcome Loop</h2><p>관리자의 최종 승인, 조치 실행, 실제 결과 및 외부 요인을 축적하여 개선합니다.</p></article></div></div></section>
 <section class="section process"><div class="shell"><div class="section-head light"><p class="eyebrow">AI BOUNDARY</p><h2>설명하는 언어 AI와 검증하는 계산 계층의 구분</h2></div><div class="ai-boundary"><article><small>LANGUAGE AI (LLM)</small><h3>문서 구조화 및 추천 근거 설명</h3><p>승인된 자료를 구조화하고, AI 추천 대안의 이유와 차이점을 관리자가 이해할 수 있는 언어로 설명합니다.</p></article><article><small>VERIFIABLE COMPUTATION</small><h3>제약 조건 모델링 및 수리 최적화</h3><p>하드 제약 조건, 작업 순서 및 자원 배치는 수리 최적화 알고리즘과 검증 가능한 연산 엔진이 구동합니다.</p></article></div></div></section>
 <section class="section"><div class="shell two-col"><div><p class="eyebrow dark">DATA &amp; HUMAN CONTROL</p><h2>기술 코어 공유와<br>고객 데이터의 철저한 격리</h2><p>Guide와 Flow는 의사결정 시뮬레이션의 공통 모듈을 공유하지만, 고객사의 원본 생산 데이터와 도메인 모델, 학습 권한은 철저하게 분리됩니다.</p></div><div class="trust-list"><span>고객사별 데이터 완벽 격리</span><span>Guide 데이터를 Flow 학습에 전용 금지</span><span>최소 수집·권한 제어·보관 및 파기</span><span>생산관리자의 수정·거절·승인 통제</span><span>데이터 부족 시 무리한 추정 배제</span><span>모델 평가 및 안전한 롤백 시스템</span></div></div></section>`;
 
@@ -860,8 +860,8 @@ const pageContent = {
     guide: { title: "전시회 AI 에이전트 | Iruvy Guide · 이루비", description: "이루비의 Iruvy Guide는 전시회 방문자의 관심사와 위치를 분석하여 최적의 부스 탐색 동선을 추천하는 Visitor Decision Platform입니다.", body: guideKo, pageType: "WebPage" },
     flow: { title: "제조 생산계획·제약공정 최적화 AI | Iruvy Flow", description: "이루비 Iruvy Flow는 제조 현장의 돌발 정체와 납기 위험을 추적하여 최적의 작업 순서와 복구 대안을 제안하는 산업 자율운영 AI 시스템입니다.", body: flowKo, pageType: "WebPage" },
     evidence: { title: "AI 성과 검증과 Evidence 기준 | 이루비 Iruvy", description: "주식회사 이루비는 기술 실측, 현장 PoC, 과거 데이터 Replay, 유료 검증 및 실제 라이브 운영 성과를 명확히 구분하여 공개합니다.", body: evidenceKo, pageType: "CollectionPage" },
-    technology: { title: "공간 의사결정 AI 기술과 신뢰 | 이루비 Iruvy Core", description: "이루비 Iruvy Core는 현장 상태, 목표, 제약 조건을 연결하여 실행 가능한 최적 대안을 계산합니다. Spatial Intelligence와 Decision Intelligence의 구조를 설명합니다.", body: techKo, pageType: "WebPage" },
-    company: { title: "Spatial Decision AI 기업 | 이루비(Iruvy) 소개", description: "주식회사 이루비(Iruvy)는 공간과 상황을 이해해 최적의 다음 조치를 계산하는 Spatial Decision AI 개발 기업입니다.", body: companyKo, pageType: "AboutPage" },
+    technology: { title: "공간 의사결정 AI 기술과 신뢰 | 이루비 Iruvy Core", description: "이루비 Iruvy Core는 현장 상태, 목표, 제약 조건을 연결하여 실행 가능한 최적 대안을 도출합니다. Spatial Intelligence와 Decision Intelligence의 구조를 설명합니다.", body: techKo, pageType: "WebPage" },
+    company: { title: "Spatial Decision AI 기업 | 이루비(Iruvy) 소개", description: "주식회사 이루비(Iruvy)는 공간과 상황을 이해해 최적의 다음 조치를 도출하는 Spatial Decision AI 개발 기업입니다.", body: companyKo, pageType: "AboutPage" },
     resources: { title: "공간·제조 의사결정 AI 인사이트 | 이루비", description: "전시회 방문 경험, 제조 병목 현장, 공간 의사결정 AI의 경계와 성과 검증법을 실무 관점에서 풀어낸 이루비 인사이트 자료실입니다.", body: resourcesKo, pageType: "CollectionPage" },
     "capacity-lab": { title: "제조 납기·병목 진단 | Iruvy Flow Capacity Audit", description: "최근 발생한 납기 지연 사건 1건을 기준으로 제조 현장의 핵심 제약 공정, 경제 KPI 및 실적 데이터 준비도를 진단합니다.", body: capacityLabKo, pageType: "WebPage" },
     contact: { title: "이루비 Iruvy 도입 상담 | Guide·Flow", description: "전시회 방문자 동선 최적화 Iruvy Guide 및 제조 현장 병목 진단 Iruvy Flow 도입 상담 안내입니다.", body: contactKo, pageType: "ContactPage" },
@@ -870,11 +870,11 @@ const pageContent = {
     accessibility: { title: "웹 접근성 원칙 | 이루비 Iruvy", description: "주식회사 이루비의 웹 접근성 준수 원칙 안내입니다.", body: accessibilityKo, pageType: "WebPage" }
   },
   en: {
-    "": { title: "Iruvy | Spatial Decision AI", description: "Iruvy Inc. develops Spatial Decision AI calculating Next Best Actions for visitor experience and manufacturing operations. Introducing Iruvy Guide & Iruvy Flow.", body: homeEn, pageType: "WebPage" },
+    "": { title: "Iruvy | Spatial Decision AI", description: "Iruvy Inc. develops Spatial Decision AI determining Next Best Actions for visitor experience and manufacturing operations. Introducing Iruvy Guide & Iruvy Flow.", body: homeEn, pageType: "WebPage" },
     guide: { title: "Exhibition AI Agent | Iruvy Guide", description: "Iruvy Guide is a Visitor Decision Platform optimizing exhibition booth recommendations and visitor navigation without app downloads.", body: guideEn, pageType: "WebPage" },
     flow: { title: "Industrial Decision AI | Iruvy Flow", description: "Iruvy Flow optimizes manufacturing scheduling and capacity bottlenecks, presenting supervisor-approved recovery options.", body: flowEn, pageType: "WebPage" },
     evidence: { title: "Evidence Framework & Verification | Iruvy", description: "Iruvy transparently categorizes lab measurements, field PoCs, data replays, paid audits, and audited economic outcomes.", body: evidenceEn, pageType: "CollectionPage" },
-    technology: { title: "Spatial Decision Core & AI Trust | Iruvy", description: "Iruvy Core connects real-time state, goals, and hard constraints to calculate actionable decision alternatives.", body: techEn, pageType: "WebPage" },
+    technology: { title: "Spatial Decision Core & AI Trust | Iruvy", description: "Iruvy Core connects real-time state, goals, and hard constraints to derive actionable decision alternatives.", body: techEn, pageType: "WebPage" },
     company: { title: "About Iruvy | Spatial Decision AI Company", description: "Iruvy Inc. builds Spatial Decision AI, pioneering visitor experience optimization and manufacturing capacity amplification.", body: companyEn, pageType: "AboutPage" },
     resources: { title: "Spatial & Industrial Decision Insights | Iruvy", description: "Practitioner insights on visitor mobility, manufacturing capacity bottlenecks, AI boundaries, and empirical verification.", body: resourcesEn, pageType: "CollectionPage" },
     "capacity-lab": { title: "Manufacturing Capacity Audit | Iruvy Flow", description: "Diagnose plant capacity bottlenecks starting from one recent delivery delay event.", body: capacityLabEn, pageType: "WebPage" },
