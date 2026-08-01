@@ -910,16 +910,26 @@ for (const lang of ["ko", "en"]) {
 }
 
 // Write llms.txt & llms-full.txt
-const llmsKo = `Iruvy (이루비) — Spatial Decision AI
-공통 도메인: https://iruvy.com/
-법인명: 주식회사 이루비 (IRUVY INC.)
-주요 이메일: iruvy.official@gmail.com
+const llmsTxt = `# Iruvy (이루비) — Spatial Decision AI
+Domain: https://iruvy.com/
+English Root: https://iruvy.com/en/
+Legal Entity: 주식회사 이루비 (IRUVY INC.)
+Contact Email: iruvy.official@gmail.com
 
-제품 목록:
-- Iruvy Guide: 전시회 방문자 최적 동선 및 부스 맞춤 추천 AI 에이전트 (https://iruvy.com/guide/)
-- Iruvy Flow: 제조 현장 돌발 정체 및 납기 위험 최적 복구 순서 계산 AI (https://iruvy.com/flow/)
+## Products / 제품 목록:
+- Iruvy Guide (KO): https://iruvy.com/guide/ — 전시회 방문자 최적 동선 및 부스 맞춤 추천 Visitor Decision Platform
+- Iruvy Guide (EN): https://iruvy.com/en/guide/ — Exhibition Visitor Decision Platform optimizing booth itineraries without app downloads
+- Iruvy Flow (KO): https://iruvy.com/flow/ — 제조 현장 돌발 정체 및 납기 위험 최적 복구 순서 도출 AI
+- Iruvy Flow (EN): https://iruvy.com/en/flow/ — Industrial Decision AI optimizing manufacturing scheduling and capacity bottlenecks
+
+## Core Pages / 주요 페이지:
+- Evidence & Trust: https://iruvy.com/evidence/ | EN: https://iruvy.com/en/evidence/
+- Technology (Iruvy Core): https://iruvy.com/technology/ | EN: https://iruvy.com/en/technology/
+- Company: https://iruvy.com/company/ | EN: https://iruvy.com/en/company/
+- Capacity Audit: https://iruvy.com/capacity-lab/ | EN: https://iruvy.com/en/capacity-lab/
+- Contact / Audit Consultation: https://iruvy.com/contact/ | EN: https://iruvy.com/en/contact/
 `;
-writeFileSync(join(out, "llms.txt"), llmsKo, "utf8");
-writeFileSync(join(out, "llms-full.txt"), llmsKo, "utf8");
+writeFileSync(join(out, "llms.txt"), llmsTxt, "utf8");
+writeFileSync(join(out, "llms-full.txt"), llmsTxt, "utf8");
 
 console.log("Successfully generated dual-language site (KO & EN) into dist/");
